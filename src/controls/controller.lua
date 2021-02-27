@@ -1,5 +1,5 @@
 controller = {}
-controller.requireRegistration = true
+controller.requireRegistration = false
 controller.unregistered = {}
 controller.newlyRegistered = {}
 
