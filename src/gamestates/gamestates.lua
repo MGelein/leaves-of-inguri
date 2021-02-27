@@ -30,6 +30,9 @@ end
 
 function gamestates.drawOverlay(overlay)
     if overlay.alpha < 0.01 then return end
+    love.graphics.setColor(0, 0, 0, overlay.alpha)
+    love.graphics.rectangle('fill', 0, 0, config.width, config.height)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function gamestates.updateOverlay(overlay)

@@ -2,7 +2,8 @@ config = {
     window = {
         title = 'RPG Project',
         width = 1280,
-        height = 720
+        height = 720,
+        fullscreen = false,
     },
     debug = true,
     width = 1280,
