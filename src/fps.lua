@@ -1,5 +1,5 @@
 fps = {
-    visible = config.showFPS,
+    visible = config.debug,
     average = 60,
     draw = function()
         love.graphics.setFont(fonts.default)
