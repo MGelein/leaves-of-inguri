@@ -4,6 +4,7 @@ require("fonts")
 require("fps")
 require("util")
 require("controller")
+require("key")
 
 require("gamestates.gamestates")
 require("gamestates.game")
