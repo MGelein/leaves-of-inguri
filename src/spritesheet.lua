@@ -11,7 +11,7 @@ function spritesheet.create(url, tileWidth, tileHeight)
         for col = 0, cols do
             local x = col * tileWidth
             local y = row * tileHeight
-            tiles[row * cols + col] = love.graphics.newQuad(x, y, tileWidth, tileHeight, w, h)
+            tiles[row * cols + col + 1] = love.graphics.newQuad(x, y, tileWidth, tileHeight, w, h)
         end
     end
 

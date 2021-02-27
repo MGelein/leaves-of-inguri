@@ -48,7 +48,7 @@ return {
       width = 32,
       height = 18,
       id = 1,
-      name = "Tilelaag 1",
+      name = "tiles",
       visible = true,
       opacity = 1,
       offsetx = 0,

@@ -5,6 +5,7 @@ require("fps")
 require("util")
 require("spritesheet")
 require("tilemap")
+require("assets")
 
 require("controls.controller")
 require("controls.key")
