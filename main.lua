@@ -17,5 +17,5 @@ end
 function love.update(dt)
     gamestates.update(dt)
     fps.update(dt)
-    if input.isDown('left') then print(dt) end
+    if input.isDown('block') then print(dt) end
 end
