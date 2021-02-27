@@ -77,6 +77,7 @@ function controller.register(js)
             return (dp == 'd' or dp == 'ld' or dp=='rd') 
         end
     }
+    input.mapController()
 end
 
 function love.joystickpressed(joystick, button)

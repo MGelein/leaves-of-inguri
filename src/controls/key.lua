@@ -2,7 +2,7 @@ key = {
     states = {}
 }
 
-function key.isdown(char)
+function key.isDown(char)
     return key.states[char] ~= nil and key.states[char]
 end
 
