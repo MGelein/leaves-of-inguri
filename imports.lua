@@ -3,6 +3,8 @@ require("screen")
 require("fonts")
 require("fps")
 require("util")
+require("spritesheet")
+require("tilemap")
 
 require("controls.controller")
 require("controls.key")

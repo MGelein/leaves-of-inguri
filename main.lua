@@ -1,6 +1,7 @@
 require 'imports'
 
 function love.load()
+    love.graphics.setDefaultFilter('nearest', 'nearest', 0)
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)
     gamestates.setNext(game)
     input.load()
