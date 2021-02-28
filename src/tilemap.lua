@@ -3,9 +3,11 @@ tilemap = {
     y = 0,
     r = 0,
     scale = 4,
+    colliders = {}
 }
 
 function tilemap.load(name)
+    tilemap.unload()
     tilemap.data = require('maps.' .. name)
 
     tilemap.cols = tilemap.data.width
@@ -37,9 +39,46 @@ function tilemap.renderCanvas(tiles)
 end
 
 function tilemap.createCollisionShapes(shapes)
+    for i, shape in ipairs(shapes) do
+        local collider = tilemap.createCollider(shape)
+        collider.class = 'tile'
+        table.insert(tilemap.colliders, collider)
+    end
+end
 
+function tilemap.createCollider(object)
+    local scale = tilemap.scale
+    if object.shape == 'rectangle' then 
+        return hc.rectangle(object.x * scale, object.y * scale, object.width * scale, object.height * scale)
+    end
+end
+
+function tilemap.moveTo(x, y)
+    local dx = x - tilemap.x
+    local dy = y - tilemap.y
+    tilemap.x = tilemap.x + dx
+    tilemap.y = tilemap.y + dy
+    for i, collider in ipairs(tilemap.colliders) do
+        collider:move(dx, dy)
+    end
 end
 
 function tilemap.draw()
     love.graphics.draw(tilemap.canvas, tilemap.x, tilemap.y, tilemap.r, tilemap.scale, tilemap.scale)
+    
+    if config.debug then 
+        for i, collider in ipairs(tilemap.colliders) do collider:draw('line') end
+    end
+end
+
+function tilemap.unload()
+    if not tilemap.colliders then return end
+    for i, collider in ipairs(tilemap.colliders) do
+        hc.remove(collider)
+    end
+    tilemap.data = nil
+    tilemap.x = 0
+    tilemap.y = 0
+    tilemap.r = 0
+    tilemap.colliders = {}
 end

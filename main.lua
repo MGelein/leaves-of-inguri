@@ -19,5 +19,6 @@ end
 
 function love.update(dt)
     gamestates.update(dt)
+    tilemap.moveTo(love.mouse.getX(), love.mouse.getY())
     fps.update(dt)
 end
