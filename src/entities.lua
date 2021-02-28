@@ -10,6 +10,9 @@ function entities.create(spriteNumber, xPos, yPos)
         scale = 4,
         collider = hc.rectangle(xPos, yPos, 32, 32)
     }
+    entity.collider.class = 'entity'
+    entity.collider.parent = entity
+
     entities.list:add(entity)
     return entity
 end

@@ -8,6 +8,7 @@ require("spritesheet")
 require("tilemap")
 require("assets")
 require("entities")
+require("collisions")
 
 require("controls.controller")
 require("controls.key")

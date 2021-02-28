@@ -18,6 +18,7 @@ function game.draw()
 end
 
 function game.update(dt)
+    tilemap.update()
     entities.update(dt)
 end
 

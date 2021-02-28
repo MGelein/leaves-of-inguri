@@ -61,6 +61,12 @@ function tilemap.draw()
     end
 end
 
+function tilemap.update()
+    for i, collider in ipairs(tilemap.colliders) do
+        collisions.handleTile(collider)
+    end
+end
+
 function tilemap.unload()
     if not tilemap.colliders then return end
     for i, collider in ipairs(tilemap.colliders) do
