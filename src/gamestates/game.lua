@@ -1,11 +1,7 @@
 game = {}
 
 function game.load()
-    local hero = entities.create(5, 100, 100)
-    hero.update = function(self)
-        self.x = self.x + 1
-        self.collider:moveTo(self.x + 16, self.y + 16)
-    end
+    hero.create(100, 100)
 end
 
 function game.start()
@@ -18,8 +14,8 @@ function game.draw()
 end
 
 function game.update(dt)
-    tilemap.update()
     entities.update(dt)
+    tilemap.update()
 end
 
 function game.stop()

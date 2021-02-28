@@ -7,8 +7,10 @@ require("managedlist")
 require("spritesheet")
 require("tilemap")
 require("assets")
-require("entities")
 require("collisions")
+
+require("entities.entities")
+require("entities.hero")
 
 require("controls.controller")
 require("controls.key")

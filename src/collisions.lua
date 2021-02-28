@@ -5,8 +5,7 @@ function collisions.handleTile(collider)
         if shape.class == 'tile' or shape.class == 'trigger' then
             -- do nothing
         else
-            shape.parent.x = shape.parent.x - delta.x
-            shape.parent.y = shape.parent.y - delta.y
+            if shape.parent.move then shape.parent:move(-delta.x, -delta.y) end
         end
     end
 end

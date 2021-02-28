@@ -8,7 +8,19 @@ function entities.create(spriteNumber, xPos, yPos)
         y = yPos,
         r = 0,
         scale = 4,
-        collider = hc.rectangle(xPos, yPos, 32, 32)
+        collider = hc.rectangle(xPos, yPos, 32, 32),
+
+        moveTo = function(self, x, y)
+            self.x = x
+            self.y = y,
+            self.collider:moveTo(x + 16, y + 16)
+        end,
+
+        move = function(self, dx, dy)
+            self.x = self.x + dx
+            self.y = self.y + dy
+            self.collider:move(dx, dy)
+        end
     }
     entity.collider.class = 'entity'
     entity.collider.parent = entity
