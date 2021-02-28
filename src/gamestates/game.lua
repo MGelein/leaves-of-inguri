@@ -1,6 +1,7 @@
 game = {}
 
 function game.load()
+    tilemap.load('testmap4')
     hero.create(100, 100)
 end
 

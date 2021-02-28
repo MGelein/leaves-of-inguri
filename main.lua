@@ -5,8 +5,6 @@ function love.load()
     input.load()
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)
     gamestates.setNext(game)
-
-    tilemap.load('testmap4')
 end
 
 function love.draw()
