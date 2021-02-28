@@ -15,6 +15,7 @@ function gamestates.setNext(state)
         gamestates.next.load()
     else
         gamestates.active = state
+        gamestates.active.load()
     end
 end
 
