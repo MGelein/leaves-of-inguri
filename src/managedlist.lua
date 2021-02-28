@@ -2,7 +2,7 @@ managedlist = {}
 
 function managedlist.create()
     return {
-        list = {},
+        all = {},
         toRem = {},
 
         update = managedlist.update,
@@ -15,13 +15,13 @@ function managedlist.update(self)
     if #self.toRem < 1 then return end
     for i, obj in ipairs(self.toRem) do
         local foundIndex = -1
-        for j, object in ipairs(self.list) do
+        for j, object in ipairs(self.all) do
             if object == obj then 
                 foundIndex = j
                 break
             end
         end
-        if foundIndex > -1 then table.remove(self.list, j) end
+        if foundIndex > -1 then table.remove(self.all, j) end
     end
     self.toRem = {}
 end
@@ -31,5 +31,5 @@ function managedlist.remove(self, obj)
 end
 
 function managedlist.add(self, obj)
-    table.insert(self.list, obj)
+    table.insert(self.all, obj)
 end
