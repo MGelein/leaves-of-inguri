@@ -53,16 +53,6 @@ function tilemap.createCollider(object)
     end
 end
 
-function tilemap.moveTo(x, y)
-    local dx = x - tilemap.x
-    local dy = y - tilemap.y
-    tilemap.x = tilemap.x + dx
-    tilemap.y = tilemap.y + dy
-    for i, collider in ipairs(tilemap.colliders) do
-        collider:move(dx, dy)
-    end
-end
-
 function tilemap.draw()
     love.graphics.draw(tilemap.canvas, tilemap.x, tilemap.y, tilemap.r, tilemap.scale, tilemap.scale)
     

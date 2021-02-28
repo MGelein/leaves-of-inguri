@@ -13,12 +13,11 @@ function love.draw()
     screen.beginDraw()
     gamestates.draw()
     tilemap.draw()
-    fps.draw()
     screen.endDraw()
 end
 
 function love.update(dt)
     gamestates.update(dt)
-    tilemap.moveTo(love.mouse.getX(), love.mouse.getY())
+    screen.follow(love.mouse.getX(), love.mouse.getY(), dt)
     fps.update(dt)
 end
