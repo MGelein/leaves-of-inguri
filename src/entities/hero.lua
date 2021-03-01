@@ -1,25 +1,13 @@
 hero = {}
 
 function hero.create(xPos, yPos)
-    local entity = entities.create(5, xPos, yPos)
-    entity.vx = 0
-    entity.vy = 0
-    entity.ax = 0
-    entity.ay = 0
-    entity.friction = 0.9
+    local entity = entities.createForce(5, xPos, yPos)
     entity.force = 0.3
     entity.update = hero.update
-
     hero.entity = entity
 end
 
 function hero.update(self)
-    self:move(self.vx, self.vy)
-    self.vx = (self.vx + self.ax) * self.friction
-    self.vy = (self.vy + self.ay) * self.friction
-    self.ax = 0
-    self.ay = 0
-
     hero.handleInput(self)
 end
 
