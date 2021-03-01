@@ -45,7 +45,7 @@ function entities.createWalk(spriteNumber, xPos, yPos)
     entity.walkAngle = 0
     entity.walkAngleSpeed = 0.3
     entity.speed = 0
-    entity.sway = 0.3
+    entity.sway = 0.2
     entity.updateWalk = entities.updateWalk
     return entity
 end
