@@ -11,6 +11,7 @@ require("collisions")
 
 require("entities.entities")
 require("entities.hero")
+require("entities.monsters")
 
 require("controls.controller")
 require("controls.key")
