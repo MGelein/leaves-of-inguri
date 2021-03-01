@@ -2,7 +2,7 @@ game = {}
 
 function game.load()
     tilemap.load('testmap4')
-    monsters.create(12, 300, 300)
+    monsters.create(12, 300, 300, 200)
     hero.create(500, 500)
 end
 

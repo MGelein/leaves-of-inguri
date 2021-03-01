@@ -1,6 +1,6 @@
 monsters = {}
 
-function monsters.create(spriteNumber, xPos, yPos)
+function monsters.create(spriteNumber, xPos, yPos, detectRadius)
     local monster = entities.createWalk(spriteNumber, xPos, yPos)
     monster.collider.class = 'monster'
     monster.home = {x = xPos, y = yPos}
@@ -8,18 +8,33 @@ function monsters.create(spriteNumber, xPos, yPos)
     monster.wanderFrames = 0
     monster.wanderDir = {x = 0, y = 0}
     monster.wanderRadius = 100
+    monster.detectCollider = hc.circle(xPos, yPos, detectRadius)
+    monster.detectCollider.class = 'detect'
+    monster.detectCollider.parent = monster
     monster.activity = 'wandering'
     
     monster.seekForce = 0.3
-    monster.seekTarget = {x = 0, y = 0} 
+    monster.seekTarget = {x = 0, y = 0}
+    monster.seekCooldown = 0 
     monster.updateBehaviour = monsters.updateBehaviour
     return monster
 end
 
 function monsters.updateBehaviour(self)
     if self.activity == 'wandering' then monsters.wander(self)
-    elseif self.activity == 'seeking' then monsters.seek(self, self.seekTarget.x, self.seekTarget.y) 
-    end
+    elseif self.activity == 'seeking' then monsters.seek(self, self.seekTarget.x, self.seekTarget.y) end
+    
+    self.seekCooldown = decrease(self.seekCooldown)
+    if self.seekCooldown == 0 then self.activity = 'wandering' end
+
+    collisions.handleDetect(self.detectCollider)
+end
+
+function monsters.updateSeekTarget(self, x, y)
+    self.seekCooldown = 10
+    self.seekTarget.x = x
+    self.seekTarget.y = y
+    self.activity = 'seeking'
 end
 
 function monsters.seek(self, x, y)

@@ -83,7 +83,10 @@ end
 function entities.draw()
     for i, ent in ipairs(entities.list.all) do
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
-        if config.debug then ent.collider:draw('line') end
+        if config.debug then 
+            ent.collider:draw('line') 
+            if ent.detectCollider then ent.detectCollider:draw('line') end
+        end
     end
 end
 
@@ -96,17 +99,23 @@ function entities.update(dt)
         if entity.updateBehaviour then entity:updateBehaviour() end
 
         if entity.health ~= 0 then
-            entity.collider:moveTo(entity.x, entity.y)
-            if entity.colliderR ~= entity.r then
-                entity.collider:rotate(-entity.colliderR)
-                entity.collider:rotate(entity.r)
-                entity.colliderR = entity.r
-            end
-            collisions.handleEntity(entity.collider)
+            entities.updateColliders(entity)
         else
-            -- entities.remove(entity)
+            entities.remove(entity)
         end
     end
+end
+
+function entities.updateColliders(entity)
+    entity.collider:moveTo(entity.x, entity.y)
+    if entity.colliderR ~= entity.r then
+        entity.collider:rotate(-entity.colliderR)
+        entity.collider:rotate(entity.r)
+        entity.colliderR = entity.r
+
+        if entity.detectCollider then entity.detectCollider:moveTo(entity.x, entity.y) end
+    end
+    collisions.handleEntity(entity.collider)
 end
 
 function entities.remove(entity)
