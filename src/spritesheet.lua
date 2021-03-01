@@ -16,8 +16,8 @@ function spritesheet.create(url, tileWidth, tileHeight)
     end
 
     return {
-        drawSprite = function(index, x, y, r, sx, sy)
-            love.graphics.draw(image, tiles[index], x, y, r, sx, sy)
+        drawSprite = function(index, x, y, r, sx, sy, ox, oy)
+            love.graphics.draw(image, tiles[index], x, y, r, sx, sy, ox, oy)
         end
     }
 end

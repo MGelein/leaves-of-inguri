@@ -13,7 +13,7 @@ function entities.create(spriteNumber, xPos, yPos)
         moveTo = function(self, x, y)
             self.x = x
             self.y = y,
-            self.collider:moveTo(x + 16, y + 16)
+            self.collider:moveTo(x, y)
         end,
 
         move = function(self, dx, dy)
@@ -40,6 +40,16 @@ function entities.createForce(spriteNumber, xPos, yPos)
     return entity
 end
 
+function entities.createWalk(spriteNumber, xPos, yPos)
+    local entity = entities.createForce(spriteNumber, xPos, yPos)
+    entity.walkAngle = 0
+    entity.walkAngleSpeed = 0.3
+    entity.speed = 0
+    entity.sway = 0.3
+    entity.updateWalk = entities.updateWalk
+    return entity
+end
+
 function entities.updateForce(self)
     self:move(self.vx, self.vy)
     self.vx = (self.vx + self.ax) * self.friction
@@ -48,9 +58,20 @@ function entities.updateForce(self)
     self.ay = 0
 end
 
+function entities.updateWalk(self)
+    self.collider:rotate(-self.r)
+    self.speed = math.sqrt(self.vx * self.vx + self.vy * self.vy)
+    if self.speed > 0 then self.walkAngle = self.walkAngle + self.walkAngleSpeed end
+    self.y = self.y - (math.sin(self.walkAngle) * self.speed / 4)
+    self.r = math.sin(self.walkAngle) * self.sway
+    if self.speed < 1 then self.r = self.r * self.speed end
+    self.collider:moveTo(self.x, self.y)
+    self.collider:rotate(self.r)
+end
+
 function entities.draw()
     for i, entity in ipairs(entities.list.all) do
-        assets.entities.drawSprite(entity.sprite, entity.x, entity.y, entity.r, entity.scale, entity.scale)
+        assets.entities.drawSprite(entity.sprite, entity.x, entity.y, entity.r, entity.scale, entity.scale, 4, 4)
         if config.debug then entity.collider:draw('line') end
     end
 end
@@ -60,5 +81,6 @@ function entities.update(dt)
     for i, entity in ipairs(entities.list.all) do
         if entity.update then entity:update() end
         if entity.updateForce then entity:updateForce() end
+        if entity.updateWalk then entity:updateWalk() end
     end
 end
