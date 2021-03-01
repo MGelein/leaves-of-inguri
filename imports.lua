@@ -8,6 +8,7 @@ require("spritesheet")
 require("tilemap")
 require("assets")
 require("collisions")
+require("pxparticles")
 
 require("entities.entities")
 require("entities.hero")

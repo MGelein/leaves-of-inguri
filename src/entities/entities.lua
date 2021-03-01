@@ -29,6 +29,7 @@ function entities.create(spriteNumber, xPos, yPos)
             if self.health <= 0 then
                 self.health = 0
                 entities.remove(self)
+                pxparticles.fromSprite(self.sprite, self.x, self.y)
             end
         end
     }
@@ -121,4 +122,8 @@ end
 function entities.remove(entity)
     entities.list:remove(entity)
     hc.remove(entity.collider)
+end
+
+function entities.removeAll()
+    for i, entity in ipairs(entities.list.all) do entities.remove(entity) end
 end
