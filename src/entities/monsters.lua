@@ -7,14 +7,18 @@ function monsters.create(spriteNumber, xPos, yPos)
     monster.wanderFrames = 0
     monster.wanderDir = {x = 0, y = 0}
     monster.wanderRadius = 100
+    monster.activity = 'wandering'
     
-    monster.seekForce = 0
+    monster.seekForce = 0.3
+    monster.seekTarget = {x = 0, y = 0} 
     monster.updateBehaviour = monsters.updateBehaviour
     return monster
 end
 
 function monsters.updateBehaviour(self)
-    monsters.wander(self)
+    if self.activity == 'wandering' then monsters.wander(self)
+    elseif self.activity == 'seeking' then monsters.seek(self, self.seekTarget.x, self.seekTarget.y) 
+    end
 end
 
 function monsters.seek(self, x, y)

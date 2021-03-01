@@ -1,9 +1,10 @@
 hero = {}
 
 function hero.create(xPos, yPos)
-    local entity = entities.createWalk(5, xPos, yPos)
+    local entity = entities.createWalk(7, xPos, yPos)
     entity.force = 0.3
     entity.update = hero.update
+    entity.collider.class = 'hero'
     hero.entity = entity
 end
 
