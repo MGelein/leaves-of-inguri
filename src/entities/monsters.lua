@@ -2,6 +2,7 @@ monsters = {}
 
 function monsters.create(spriteNumber, xPos, yPos)
     local monster = entities.createWalk(spriteNumber, xPos, yPos)
+    monster.collider.class = 'monster'
     monster.home = {x = xPos, y = yPos}
     monster.wanderForce = 0.1
     monster.wanderFrames = 0

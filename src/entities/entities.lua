@@ -12,6 +12,7 @@ function entities.create(spriteNumber, xPos, yPos)
         sy = 1,
         health = 1,
         collider = hc.rectangle(xPos, yPos, 32, 32),
+        colliderR = 0,
 
         moveTo = function(self, x, y)
             self.x = x
@@ -69,14 +70,11 @@ function entities.updateForce(self)
 end
 
 function entities.updateWalk(self, dt)
-    if self.health == 0 then return end
-    self.collider:rotate(-self.r)
     self.speed = math.sqrt(self.vx * self.vx + self.vy * self.vy)
     if self.speed > 0 then self.walkAngle = self.walkAngle + self.walkAngleSpeed end
     self.y = self.y - (math.sin(self.walkAngle) * self.speed / 4)
     self.r = math.sin(self.walkAngle) * self.sway
     if self.speed < 1 then self.r = self.r * self.speed end
-    self.collider:rotate(self.r)
     if self.vx < 0 then self.tsx = -1
     else self.tsx = 1 end
     self.sx = (self.tsx - self.sx) * (dt * 10) + self.sx
@@ -99,13 +97,19 @@ function entities.update(dt)
 
         if entity.health ~= 0 then
             entity.collider:moveTo(entity.x, entity.y)
+            if entity.colliderR ~= entity.r then
+                entity.collider:rotate(-entity.colliderR)
+                entity.collider:rotate(entity.r)
+                entity.colliderR = entity.r
+            end
             collisions.handleEntity(entity.collider)
+        else
+            -- entities.remove(entity)
         end
     end
 end
 
 function entities.remove(entity)
-    print(entity)
     entities.list:remove(entity)
     hc.remove(entity.collider)
 end

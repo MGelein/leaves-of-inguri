@@ -21,7 +21,7 @@ function managedlist.update(self)
                 break
             end
         end
-        if foundIndex > -1 then table.remove(self.all, j) end
+        if foundIndex > -1 then table.remove(self.all, foundIndex) end
     end
     self.toRem = {}
 end
