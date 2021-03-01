@@ -42,10 +42,10 @@ end
 
 function entities.createWalk(spriteNumber, xPos, yPos)
     local entity = entities.createForce(spriteNumber, xPos, yPos)
-    entity.walkAngle = 0
-    entity.walkAngleSpeed = 0.3
+    entity.walkAngle = love.math.random(0, math.pi * 2)
+    entity.walkAngleSpeed = 0.3 + love.math.random() / 20
     entity.speed = 0
-    entity.sway = 0.2
+    entity.sway = love.math.random(0.15, 0.25)
     entity.updateWalk = entities.updateWalk
     return entity
 end
@@ -82,5 +82,7 @@ function entities.update(dt)
         if entity.update then entity:update() end
         if entity.updateForce then entity:updateForce() end
         if entity.updateWalk then entity:updateWalk() end
+
+        collisions.handleEntity(entity.collider)
     end
 end
