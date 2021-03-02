@@ -24,11 +24,10 @@ function pxparticles.new(particleQuad, xPos, yPos, floorLevel)
         y = yPos,
         vx = 0,
         vy = 0,
-        vr = 0,
         s = 4,
-        r = 0,
         floor = floorLevel,
-        alpha = 1
+        alpha = 1,
+        tint = {r = 1, g = .5, b = .5}
     }
     local angle = love.math.random() * math.pi * 2
     p.vx = math.cos(angle) * pxparticles.force
@@ -47,10 +46,8 @@ end
 function pxparticles.updateParticle(self)
     self.x = self.vx + self.x
     self.y = self.vy + self.y
-    self.r = self.vr + self.r
     self.vx = self.vx * 0.95
     self.vy = self.vy * 0.95 + pxparticles.gravity
-    self.vr = self.vr * 0.95
 
     if self.y > self.floor then
         self.y = self.floor
@@ -64,8 +61,8 @@ end
 
 function pxparticles.draw()
     for i, p in ipairs(pxparticles.list.all) do
-        love.graphics.setColor(1, 1, 1, p.alpha)
-        assets.entities.drawQuad(p.quad, p.x, p.y, p.r, p.s, p.s)
+        love.graphics.setColor(p.tint.r, p.tint.g, p.tint.b, p.alpha)
+        assets.entities.drawQuad(p.quad, p.x, p.y, 0, p.s, p.s)
         love.graphics.setColor(1, 1, 1, 1)
     end 
 end
