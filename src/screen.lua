@@ -14,7 +14,7 @@ screen = {
     offY = 0,
     shakeTime = 0,
     shakeForce = 4,
-    bounds = {x = config.width, y = config.height}
+    bounds = {x2 = config.width, y2 = config.height}
 }
 
 function screen.setResolution(width, height, fullscreen)
@@ -31,9 +31,21 @@ function screen.setResolution(width, height, fullscreen)
 end
 
 function screen.setBounds(x, y)
-    print('set bounds', x , y)
-    screen.bounds.x = x
-    screen.bounds.y = y
+    if x > 0 then 
+        screen.bounds.x1 = x / 2
+        screen.bounds.x2 = x / 2
+    else
+        screen.bounds.x1 = 0
+        screen.bounds.x2 = x
+    end
+
+    if y > 0 then
+        screen.bounds.y1 = y / 2
+        screen.bounds.y2 = y / 2
+    else
+        screen.bounds.y1 = 0
+        screen.bounds.y2 = y
+    end
 end
 
 function screen.follow(x, y, dt)
@@ -45,10 +57,10 @@ function screen.follow(x, y, dt)
     screen.offY = screen.offY + dy
 
     local bounds = screen.bounds
-    if screen.offX < bounds.x then screen.offX = bounds.x
-    elseif screen.offX > 0 then screen.offX = 0 end
-    if screen.offY < bounds.y then screen.offY = bounds.y
-    elseif screen.offY > 0 then screen.offY = 0 end
+    if screen.offX < bounds.x2 then screen.offX = bounds.x2
+    elseif screen.offX > bounds.x1 then screen.offX = bounds.x2 end
+    if screen.offY < bounds.y2 then screen.offY = bounds.y2
+    elseif screen.offY > bounds.y1 then screen.offY = bounds.y1 end
 end
 
 function screen.update(dt)
