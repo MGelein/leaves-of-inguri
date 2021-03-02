@@ -1,4 +1,7 @@
-entities = {}
+entities = {
+    shield = 95,
+    hero = 5,
+}
 entities.list = managedlist.create()
 
 function entities.create(spriteNumber, xPos, yPos)
@@ -13,6 +16,7 @@ function entities.create(spriteNumber, xPos, yPos)
         health = 1,
         collider = hc.rectangle(xPos, yPos, 32, 32),
         colliderR = 0,
+        blocking = false,
 
         moveTo = function(self, x, y)
             self.x = x
@@ -25,6 +29,8 @@ function entities.create(spriteNumber, xPos, yPos)
         end,
 
         damage = function(self, amt)
+            if self.blocking then amt = amt / 2 end
+            
             self.health = self.health - amt
             if self.health <= 0 then
                 self.health = 0
@@ -68,6 +74,11 @@ function entities.updateForce(self)
     self.vy = (self.vy + self.ay) * self.friction
     self.ax = 0
     self.ay = 0
+
+    if self.blocking then
+        self.vx = self.vx * 0.8
+        self.vy = self.vy * 0.8
+    end
 end
 
 function entities.updateWalk(self, dt)
@@ -84,6 +95,9 @@ end
 function entities.draw()
     for i, ent in ipairs(entities.list.all) do
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
+        if ent.blocking then
+            assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
+        end
         if config.debug then 
             ent.collider:draw('line') 
             if ent.detectCollider then ent.detectCollider:draw('line') end

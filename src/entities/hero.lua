@@ -20,4 +20,7 @@ function hero.handleInput(self)
     if input.isDown('right') then self.ax = self.ax + self.force end
     if input.isDown('up') then self.ay = self.ay - self.force end
     if input.isDown('down') then self.ay = self.ay + self.force end
+    
+    if input.isDown('block') then self.blocking = true
+    else self.blocking = false end
 end
