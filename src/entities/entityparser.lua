@@ -2,7 +2,8 @@ entityparser = {}
 
 function entityparser.parse(tile, x, y)
     if tile == hero.symbolTile then hero.create(x, y)
-    elseif entityparser.isMonsterTile(tile) then monsters.create(tile, x, y, 100) end
+    elseif entityparser.isMonsterTile(tile) then monsters.create(tile, x, y, 100) 
+    end
 end
 
 function entityparser.isMonsterTile(tile)

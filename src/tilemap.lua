@@ -27,7 +27,7 @@ function tilemap.load(name)
 
     local paddingX = config.width - tilemap.width * tilemap.scale
     local paddingY = config.height - tilemap.height * tilemap.scale
-    screen.setBounds(paddingX / 2, paddingY / 2, -paddingX / 2, -paddingY / 2)
+    screen.setBounds(paddingX, paddingY)
 end
 
 function tilemap.createEntities(tiles)
