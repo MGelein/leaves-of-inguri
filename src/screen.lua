@@ -58,7 +58,7 @@ function screen.follow(x, y, dt)
 
     local bounds = screen.bounds
     if screen.offX < bounds.x2 then screen.offX = bounds.x2
-    elseif screen.offX > bounds.x1 then screen.offX = bounds.x2 end
+    elseif screen.offX > bounds.x1 then screen.offX = bounds.x1 end
     if screen.offY < bounds.y2 then screen.offY = bounds.y2
     elseif screen.offY > bounds.y1 then screen.offY = bounds.y1 end
 end
