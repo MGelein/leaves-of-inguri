@@ -13,6 +13,7 @@ require("pxparticles")
 require("entities.entities")
 require("entities.hero")
 require("entities.monsters")
+require("entities.entityparser")
 
 require("controls.controller")
 require("controls.key")

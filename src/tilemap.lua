@@ -21,12 +21,23 @@ function tilemap.load(name)
     for i, layer in ipairs(tilemap.data.layers) do
         if layer.name == 'tiles' then tilemap.renderCanvas(layer.data)
         elseif layer.name == 'collision' then tilemap.createCollisionShapes(layer.objects)
+        elseif layer.name == 'entities' then tilemap.createEntities(layer.data)
         end
     end
 
     local paddingX = config.width - tilemap.width * tilemap.scale
     local paddingY = config.height - tilemap.height * tilemap.scale
     screen.setBounds(paddingX / 2, paddingY / 2, -paddingX / 2, -paddingY / 2)
+end
+
+function tilemap.createEntities(tiles)
+    for i, tile in ipairs(tiles) do
+        if tile > 0 then
+            local x = (i - 1) % tilemap.cols
+            local y = math.floor((i - 1) / tilemap.cols)
+            entityparser.parse(tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
+        end
+    end
 end
 
 function tilemap.renderCanvas(tiles)
@@ -45,8 +56,10 @@ end
 function tilemap.createCollisionShapes(shapes)
     for i, shape in ipairs(shapes) do
         local collider = tilemap.createCollider(shape)
-        collider.class = 'tile'
-        table.insert(tilemap.colliders, collider)
+        if collider then
+            collider.class = 'tile'
+            table.insert(tilemap.colliders, collider)
+        end
     end
 end
 
@@ -54,6 +67,14 @@ function tilemap.createCollider(object)
     local scale = tilemap.scale
     if object.shape == 'rectangle' then 
         return hc.rectangle(object.x * scale, object.y * scale, object.width * scale, object.height * scale)
+    elseif object.shape == 'polygon' then
+        local points = {}
+        local off = {x = object.x * scale, y = object.y * scale}
+        for i, coord in ipairs(object.polygon) do
+            table.insert(points, coord.x * scale + off.x)
+            table.insert(points, coord.y * scale + off.y)
+        end
+        return hc.polygon(unpack(points))
     end
 end
 

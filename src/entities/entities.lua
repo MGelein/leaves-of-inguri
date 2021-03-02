@@ -76,8 +76,8 @@ function entities.updateWalk(self, dt)
     self.y = self.y - (math.sin(self.walkAngle) * self.speed / 4)
     self.r = math.sin(self.walkAngle) * self.sway
     if self.speed < 1 then self.r = self.r * self.speed end
-    if self.vx < 0 then self.tsx = -1
-    else self.tsx = 1 end
+    if self.vx < 0 then self.tsx = 1
+    else self.tsx = -1 end
     self.sx = (self.tsx - self.sx) * (dt * 10) + self.sx
 end
 
