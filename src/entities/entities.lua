@@ -30,7 +30,7 @@ function entities.create(spriteNumber, xPos, yPos)
 
         damage = function(self, amt)
             if self.blocking then amt = amt / 2 end
-            
+
             self.health = self.health - amt
             if self.health <= 0 then
                 self.health = 0
@@ -83,10 +83,16 @@ end
 
 function entities.updateWalk(self, dt)
     self.speed = math.sqrt(self.vx * self.vx + self.vy * self.vy)
-    if self.speed > 0 then self.walkAngle = self.walkAngle + self.walkAngleSpeed end
+
+    if self.speed > 0 then 
+        self.walkAngle = self.walkAngle + self.walkAngleSpeed 
+        if self.walkAngle > math.pi * 2 then self.walkAngle = self.walkAngle - math.pi * 2 end
+    end
+
     self.y = self.y - (math.sin(self.walkAngle) * self.speed / 4)
     self.r = math.sin(self.walkAngle) * self.sway
     if self.speed < 1 then self.r = self.r * self.speed end
+    
     if self.vx < 0 then self.tsx = 1
     else self.tsx = -1 end
     self.sx = (self.tsx - self.sx) * (dt * 10) + self.sx
