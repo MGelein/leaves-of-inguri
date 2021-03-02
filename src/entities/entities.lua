@@ -1,6 +1,7 @@
 entities = {
     shield = 95,
     hero = 5,
+    campfire = 122,
 }
 entities.list = managedlist.create()
 
@@ -13,9 +14,10 @@ function entities.create(spriteNumber, xPos, yPos)
         scale = 4,
         sx = 1,
         sy = 1,
-        health = 1,
+        health = -100,
         collider = hc.rectangle(xPos, yPos, 32, 32),
         colliderR = 0,
+        mass = 0,
         blocking = false,
 
         moveTo = function(self, x, y)
@@ -29,6 +31,7 @@ function entities.create(spriteNumber, xPos, yPos)
         end,
 
         damage = function(self, amt)
+            if self.health == -100 then return end
             if self.blocking then amt = amt / 2 end
 
             self.health = self.health - amt
@@ -48,6 +51,7 @@ end
 
 function entities.createForce(spriteNumber, xPos, yPos)
     local entity = entities.create(spriteNumber, xPos, yPos)
+    entity.mass = 0.1
     entity.vx = 0
     entity.vy = 0
     entity.ax = 0
@@ -59,6 +63,7 @@ end
 
 function entities.createWalk(spriteNumber, xPos, yPos)
     local entity = entities.createForce(spriteNumber, xPos, yPos)
+    entity.mass = 1
     entity.walkAngle = love.math.random(0, math.pi * 2)
     entity.walkAngleSpeed = 0.3 + love.math.random() / 20
     entity.speed = 0

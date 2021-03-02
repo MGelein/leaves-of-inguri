@@ -19,12 +19,24 @@ function collisions.handleTile(collider)
 end
 
 function collisions.handleEntity(collider)
+    local entity = collider.parent
     for shape, delta in pairs(hc.collisions(collider)) do
         local class = shape.class
         if class == 'entity' or class == 'hero' or class == 'monster' then
-            shape.parent:move(-delta.x / 2, -delta.y / 2)
-            collider.parent:move(delta.x / 2, delta.y / 2)
-            shape.parent:damage(1)
+            local other = shape.parent
+            local totalMass = shape.parent.mass + collider.parent.mass
+            if totalMass > 0 then
+                if other.mass == 0 then
+                    entity:move(delta.x, delta.y)
+                elseif entity.mass == 0 then
+                    other:move(-delta.x, -delta.y)
+                else
+                    local otherRatio = other.mass / totalMass
+                    local entityRatio = entity.mass / totalMass
+                    entity:move(delta.x * otherRatio, delta.y * otherRatio)
+                    other:move(-delta.x * entityRatio, -delta.y * entityRatio)
+                end
+            end
         end
     end
 end

@@ -1,7 +1,6 @@
 pxparticles = {}
 pxparticles.scale = 4
 pxparticles.force = 3
-pxparticles.gravity = 0.3
 pxparticles.list = managedlist.create()
 
 function pxparticles.fromSprite(spriteNumber, xPos, yPos)
@@ -28,7 +27,8 @@ function pxparticles.new(particleQuad, xPos, yPos, floorLevel)
         s = 4,
         floor = floorLevel,
         alpha = 1,
-        tint = {r = 1, g = .5, b = .5}
+        tint = {r = 1, g = .5, b = .5},
+        gravity = 0.3
     }
     local angle = love.math.random() * math.pi * 2
     p.vx = math.cos(angle) * pxparticles.force
@@ -48,7 +48,7 @@ function pxparticles.updateParticle(self)
     self.x = self.vx + self.x
     self.y = self.vy + self.y
     self.vx = self.vx * 0.95
-    self.vy = self.vy * 0.95 + pxparticles.gravity
+    self.vy = self.vy * 0.95 + self.gravity
 
     if self.y > self.floor then
         self.y = self.floor
