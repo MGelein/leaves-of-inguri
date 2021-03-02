@@ -5,11 +5,15 @@ screen = {
 
     x = 0,
     y = 0,
+    vx = 0,
+    vy = 0,
     r = 0,
     sx = 1,
     sy = 1,
     offX = 0,
     offY = 0,
+    shakeTime = 0,
+    shakeForce = 4,
 }
 
 function screen.setResolution(width, height, fullscreen)
@@ -26,10 +30,28 @@ function screen.setResolution(width, height, fullscreen)
 end
 
 function screen.follow(x, y, dt)
-    local dx = (screen.w2 - x) * dt
-    local dy = (screen.h2 - y) * dt
+    x = x - screen.w2
+    y = y - screen.h2
+    local dx = (-x - screen.offX) * dt
+    local dy = (-y - screen.offY) * dt
     screen.offX = screen.offX + dx
     screen.offY = screen.offY + dy
+end
+
+function screen.update(dt)
+    if screen.shakeTime > 0 then 
+        screen.shakeTime = screen.shakeTime - dt
+        screen.vx = screen.vx + love.math.random() * screen.shakeForce - screen.shakeForce / 2
+        screen.vy = screen.vx + love.math.random() * screen.shakeForce - screen.shakeForce / 2
+    end
+    screen.vx = screen.vx * 0.95
+    screen.vy = screen.vy * 0.95
+    screen.x = (screen.vx + screen.x) * 0.95
+    screen.y = (screen.vy + screen.y) * 0.95
+end
+
+function screen.shake(time)
+    if time > screen.shakeTime then screen.shakeTime = time end
 end
 
 function screen.endDraw()

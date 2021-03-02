@@ -94,7 +94,7 @@ end
 function entities.update(dt)
     entities.list:update()
     for i, entity in ipairs(entities.list.all) do
-        if entity.update then entity:update() end
+        if entity.update then entity:update(dt) end
         if entity.updateForce then entity:updateForce() end
         if entity.updateWalk then entity:updateWalk(dt) end
         if entity.updateBehaviour then entity:updateBehaviour() end

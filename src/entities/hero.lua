@@ -8,8 +8,9 @@ function hero.create(xPos, yPos)
     hero.entity = entity
 end
 
-function hero.update(self)
+function hero.update(self, dt)
     hero.handleInput(self)
+    screen.follow(self.x, self.y, dt)
 end
 
 function hero.handleInput(self)

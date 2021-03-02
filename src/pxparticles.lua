@@ -5,6 +5,7 @@ pxparticles.gravity = 0.3
 pxparticles.list = managedlist.create()
 
 function pxparticles.fromSprite(spriteNumber, xPos, yPos)
+    screen.shakeTime = 0.5
     local quad = assets.entities.getQuad(spriteNumber)
     local qx, qy, qw, qh = quad:getViewport()
     local s = pxparticles.scale
