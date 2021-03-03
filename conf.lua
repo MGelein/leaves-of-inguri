@@ -8,6 +8,10 @@ config = {
     debug = true,
     width = 1280,
     height = 720,
+
+    combat = {
+        invulnerableFrames = 20
+    }
 }
 
 function love.conf(t)

@@ -27,6 +27,7 @@ function collisions.handleEntity(collider)
         local class = shape.class
         if class == 'entity' or class == 'hero' or class == 'monster' then
             local other = shape.parent
+            other:damage(20)
             local totalMass = shape.parent.mass + collider.parent.mass
             if totalMass > 0 then
                 if other.mass == 0 then

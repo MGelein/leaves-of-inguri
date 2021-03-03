@@ -3,7 +3,9 @@ monsters = {}
 function monsters.create(xPos, yPos, template)
     local monster = entities.createWalk(template.tile, xPos, yPos)
     monster.health = template.health
-    monster.damage = template.damage
+    monster.attack = template.attack
+    monster.defence = template.defence
+    monster.particleTint = template.bloodTint
     monster.collider.class = 'monster'
     
     monster.home = {x = xPos, y = yPos}

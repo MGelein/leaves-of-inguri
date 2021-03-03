@@ -8,6 +8,7 @@ entities.list = managedlist.create()
 function entities.create(spriteNumber, xPos, yPos)
     local entity = {
         sprite = spriteNumber,
+        particleTint = {r = 1, g = 1, b = 1},
         x = xPos,
         y = yPos,
         r = 0,
@@ -34,12 +35,16 @@ function entities.create(spriteNumber, xPos, yPos)
         damage = function(self, amt)
             if self.health == -100 or self.invulnerableFrames > 0 then return end
             if self.blocking then amt = amt / 2 end
+            amt = amt - self.defence
+            if amt == 0 then return end
+
+            self.invulnerableFrames = config.combat.invulnerableFrames
 
             self.health = self.health - amt
             if self.health <= 0 then
                 self.health = 0
                 entities.remove(self)
-                pxparticles.fromSprite(self.sprite, self.x, self.y)
+                pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint)
             end
         end
     }
@@ -106,6 +111,9 @@ end
 
 function entities.draw()
     for i, ent in ipairs(entities.list.all) do
+        if ent.invulnerableFrames > 0 then love.graphics.setColor(1, 0.5, 0.5)
+        else love.graphics.setColor(1, 1, 1, 1) end
+
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
         if ent.blocking then
             assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
@@ -115,6 +123,7 @@ function entities.draw()
             if ent.detectCollider then ent.detectCollider:draw('line') end
         end
     end
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function entities.update(dt)

@@ -3,7 +3,7 @@ pxparticles.scale = 4
 pxparticles.force = 3
 pxparticles.list = managedlist.create()
 
-function pxparticles.fromSprite(spriteNumber, xPos, yPos)
+function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint)
     screen.shakeTime = 0.5
     local quad = assets.entities.getQuad(spriteNumber)
     local qx, qy, qw, qh = quad:getViewport()
@@ -12,12 +12,12 @@ function pxparticles.fromSprite(spriteNumber, xPos, yPos)
         for y = 0, qh do
             local newQuad = love.graphics.newQuad(x + qx, y + qy, 1, 1, assets.entities.width, assets.entities.height)
             local floor = yPos + love.math.random() * qh
-            pxparticles.new(newQuad, x * s + xPos - (qw / 2) * s, y * s + yPos - (qh / 2) * s, floor)
+            pxparticles.new(newQuad, x * s + xPos - (qw / 2) * s, y * s + yPos - (qh / 2) * s, floor, particleTint)
         end
     end
 end
 
-function pxparticles.new(particleQuad, xPos, yPos, floorLevel)
+function pxparticles.new(particleQuad, xPos, yPos, floorLevel, particleTint)
     local p = {
         quad = particleQuad,
         x = xPos,
@@ -27,9 +27,10 @@ function pxparticles.new(particleQuad, xPos, yPos, floorLevel)
         s = 4,
         floor = floorLevel,
         alpha = 1,
-        tint = {r = 1, g = .5, b = .5},
+        tint = particleTint,
         gravity = 0.3
     }
+
     local angle = love.math.random() * math.pi * 2
     p.vx = math.cos(angle) * pxparticles.force
     p.vy = math.sin(angle) * pxparticles.force
