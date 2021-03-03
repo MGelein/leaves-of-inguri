@@ -56,13 +56,37 @@ entityparser.monsterTemplates = {
     },
 }
 
+entityparser.weaponTemplates = {
+    club = {
+        tile = 53,
+    },
+    sword = {
+        tile = 63,
+    },
+    axe = {
+        tile = 64,
+    },
+    bow = {
+        tile = 65,
+    },
+    arrow = {
+        tile = 66,
+    },
+    trident = {
+        tile = 67
+    },
+    firebolt = {
+        tile = 118
+    }
+}
+
 function entityparser.parse(tile, x, y)
     if tile == hero.symbolTile then 
         hero.create(x, y)
     elseif entityparser.isMonsterTile(tile) then 
         local template = entityparser.getMonsterTemplate(tile)
         monsters.create(x, y, template)
-    else 
+    else
         entities.create(tile, x, y) 
     end
 end

@@ -21,26 +21,38 @@ function collisions.handleTile(collider)
     end
 end
 
-function collisions.handleEntity(collider)
-    local entity = collider.parent
+function collisions.handleEntity(entA, collider)
+    local classA = collider.class
     for shape, delta in pairs(hc.collisions(collider)) do
-        local class = shape.class
-        if class == 'entity' or class == 'hero' or class == 'monster' then
-            local other = shape.parent
-            other:damage(20)
-            local totalMass = shape.parent.mass + collider.parent.mass
+        local classB = shape.class
+        local entB = shape.parent
+        if entB == nil then goto continue end
+
+        if classA ~= 'weapon' and classB ~= 'weapon' then
+            local totalMass = entA.mass + entB.mass
             if totalMass > 0 then
-                if other.mass == 0 then
-                    entity:move(delta.x, delta.y)
-                elseif entity.mass == 0 then
-                    other:move(-delta.x, -delta.y)
+                if entB.mass == 0 then
+                    entA:move(delta.x, delta.y)
+                elseif entA.mass == 0 then
+                    entB:move(-delta.x, -delta.y)
                 else
-                    local otherRatio = other.mass / totalMass
-                    local entityRatio = entity.mass / totalMass
-                    entity:move(delta.x * otherRatio, delta.y * otherRatio)
-                    other:move(-delta.x * entityRatio, -delta.y * entityRatio)
+                    local ratioB = entB.mass / totalMass
+                    local ratioA = entA.mass / totalMass
+                    entA:move(delta.x * ratioB, delta.y * ratioB)
+                    entB:move(-delta.x * ratioA, -delta.y * ratioA)
                 end
             end
+        else
+            local weapon = entA
+            local target = entB
+            if classB == 'weapon' then
+                weapon = entB
+                target = entA
+            end
+            if weapon.owner == target then goto continue end
+            target:damage(weapon.owner.attack)
         end
+
+        ::continue::
     end
 end

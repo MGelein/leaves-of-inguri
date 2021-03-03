@@ -7,6 +7,9 @@ function hero.create(xPos, yPos)
     entity.force = 0.3
     entity.update = hero.update
     entity.collider.class = 'hero'
+    entity.releasedAttack = true
+    entity.attack = 2
+    entity.defence = 0
     hero.entity = entity
 end
 
@@ -23,4 +26,11 @@ function hero.handleInput(self)
     
     if input.isDown('block') then self.blocking = true
     else self.blocking = false end
+
+    if input.isDown('attack') and self.releasedAttack then
+        self.releasedAttack = false
+        weapons.create(self.x, self.y, 0, 0, self, 'sword')
+    elseif not input.isDown('attack') then
+        self.releasedAttack = true
+    end
 end

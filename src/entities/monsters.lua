@@ -16,7 +16,6 @@ function monsters.create(xPos, yPos, template)
     
     monster.detectCollider = hc.circle(xPos, yPos, template.detectRadius)
     monster.detectCollider.class = 'detect'
-    monster.detectCollider.parent = monster
     monster.activity = 'wandering'
     
     monster.seekForce = 0.3
