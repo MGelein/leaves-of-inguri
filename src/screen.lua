@@ -69,10 +69,10 @@ function screen.update(dt)
         screen.vx = screen.vx + love.math.random() * screen.shakeForce - screen.shakeForce / 2
         screen.vy = screen.vx + love.math.random() * screen.shakeForce - screen.shakeForce / 2
     end
-    screen.vx = screen.vx * 0.95
-    screen.vy = screen.vy * 0.95
-    screen.x = (screen.vx + screen.x) * 0.95
-    screen.y = (screen.vy + screen.y) * 0.95
+    screen.vx = screen.vx * 0.9
+    screen.vy = screen.vy * 0.9
+    screen.x = (screen.vx + screen.x) * 0.9
+    screen.y = (screen.vy + screen.y) * 0.9
 end
 
 function screen.shake(time)

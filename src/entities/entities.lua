@@ -45,7 +45,9 @@ function entities.create(spriteNumber, xPos, yPos)
             if self.health <= 0 then
                 self.health = 0
                 entities.remove(self)
-                pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, 0.5)
+                local shakeTime = 0.2
+                if self.collider.class == 'hero' then shakeTime = 0.5 end
+                pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, shakeTime)
             end
         end
     }
@@ -124,6 +126,7 @@ function entities.draw()
             if ent.detectCollider then ent.detectCollider:draw('line') end
         end
     end
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function entities.update(dt)
