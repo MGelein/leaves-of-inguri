@@ -21,6 +21,7 @@ function entities.create(spriteNumber, xPos, yPos)
         mass = 0,
         blocking = false,
         invulnerableFrames = 0,
+        removed = false,
 
         moveTo = function(self, x, y)
             self.x = x
@@ -143,6 +144,7 @@ function entities.update(dt)
 end
 
 function entities.updateColliders(entity)
+    if entity.removed then return end
     entity.collider:moveTo(entity.x, entity.y)
     if entity.colliderR ~= entity.r then
         entity.collider:rotate(-entity.colliderR)
@@ -155,8 +157,10 @@ function entities.updateColliders(entity)
 end
 
 function entities.remove(entity)
+    if entity.removed then return end
     entities.list:remove(entity)
     hc.remove(entity.collider)
+    entity.removed = true
 end
 
 function entities.removeAll()

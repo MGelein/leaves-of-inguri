@@ -29,7 +29,7 @@ function hero.handleInput(self)
 
     if input.isDown('attack') and self.releasedAttack then
         self.releasedAttack = false
-        weapons.create(self.x, self.y, 0, 0, self, 'sword')
+        weapons.attackAt(0, 0, self.x, self.y, self, 'sword')
     elseif not input.isDown('attack') then
         self.releasedAttack = true
     end

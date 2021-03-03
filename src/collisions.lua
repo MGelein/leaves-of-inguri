@@ -13,7 +13,8 @@ end
 
 function collisions.handleTile(collider)
     for shape, delta in pairs(hc.collisions(collider)) do
-        if shape.class == 'tile' or shape.class == 'trigger' or shape.class == 'detect' then
+        local class = shape.class
+        if class == 'tile' or class == 'trigger' or class == 'detect' then
             -- do nothing
         else
             if shape.parent.move then shape.parent:move(-delta.x, -delta.y) end

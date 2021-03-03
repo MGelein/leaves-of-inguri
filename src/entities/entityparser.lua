@@ -59,9 +59,13 @@ entityparser.monsterTemplates = {
 entityparser.weaponTemplates = {
     club = {
         tile = 53,
+        speed = 5,
     },
     sword = {
         tile = 63,
+        speed = 5,
+        range = 20,
+        age = 10
     },
     axe = {
         tile = 64,
