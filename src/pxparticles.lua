@@ -3,8 +3,8 @@ pxparticles.scale = 4
 pxparticles.force = 3
 pxparticles.list = managedlist.create()
 
-function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint)
-    screen.shakeTime = 0.5
+function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint, shakeTime)
+    if shakeTime > 0 then screen.shakeTime = shakeTime end
     local quad = assets.entities.getQuad(spriteNumber)
     local qx, qy, qw, qh = quad:getViewport()
     local s = pxparticles.scale

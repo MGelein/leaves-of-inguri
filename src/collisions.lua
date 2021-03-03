@@ -1,14 +1,18 @@
 collisions = {}
 
 function collisions.handleDetect(entity)
-    local foundHero = false
+    local foundTarget = false
+    local classA = entity.collider.class
     for shape, delta in pairs(hc.collisions(entity.detectCollider)) do
-        if shape.class == 'hero' then
-            foundHero = true
+        if classA == 'monster' and shape.class == 'hero' then
+            foundTarget = true
             entity.target = shape.parent
+        elseif classA == 'hero' and shape.class == 'monster' then
+            foundTarget = true
+            hero.setTarget(entity, shape.parent)
         end
     end
-    if not foundHero then entity.target = nil end
+    if not foundTarget then entity.target = nil end
 end
 
 function collisions.handleTile(collider)
@@ -16,6 +20,8 @@ function collisions.handleTile(collider)
         local class = shape.class
         if class == 'tile' or class == 'trigger' or class == 'detect' then
             -- do nothing
+        elseif class == 'weapon' then
+            weapons.stop(shape.parent)
         else
             if shape.parent.move then shape.parent:move(-delta.x, -delta.y) end
         end
@@ -52,8 +58,8 @@ function collisions.handleEntity(entA, collider)
             end
             if weapon.owner == target then goto continue end
             target:damage(weapon.owner.attack)
+            weapons.stop(weapon)
         end
-
         ::continue::
     end
 end

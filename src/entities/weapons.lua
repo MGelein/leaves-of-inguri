@@ -18,6 +18,15 @@ function weapons.create(x, y, dirX, dirY, owner, template)
     weapon.update = weapons.update
 end
 
+function weapons.stop(weapon)
+    weapon.vx = 0
+    weapon.vy = 0
+    if weapon.projectile then
+        pxparticles.fromSprite(weapon.sprite, weapon.x, weapon.y, {r = 1, g = 1, b = 1}, 0)
+        entities.remove(weapon)
+    end
+end
+
 function weapons.attackAt(x, y, fromX, fromY, owner, name)
     local template = entityparser.weaponTemplates[name]
     if template == nil then return end

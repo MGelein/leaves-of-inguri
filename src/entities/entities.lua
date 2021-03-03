@@ -45,7 +45,7 @@ function entities.create(spriteNumber, xPos, yPos)
             if self.health <= 0 then
                 self.health = 0
                 entities.remove(self)
-                pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint)
+                pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, 0.5)
             end
         end
     }
@@ -77,6 +77,7 @@ function entities.createWalk(spriteNumber, xPos, yPos)
     entity.sway = love.math.random(0.15, 0.2)
     entity.tsx = 1
     entity.updateWalk = entities.updateWalk
+    entity.attackCooldown = 0
     return entity
 end
 

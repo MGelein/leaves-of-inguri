@@ -1,5 +1,6 @@
 hero = {
-    symbolTile = 5
+    symbolTile = 5,
+    weapon = 'sword'
 }
 
 function hero.create(xPos, yPos)
@@ -10,10 +11,14 @@ function hero.create(xPos, yPos)
     entity.releasedAttack = true
     entity.attack = 2
     entity.defence = 0
+    entity.target = 0
+    entity.detectCollider = hc.circle(xPos, yPos, 100)
+    entity.detectCollider.class = 'detect'
     hero.entity = entity
 end
 
 function hero.update(self, dt)
+    self.attackCooldown = decrease(self.attackCooldown)
     hero.handleInput(self)
     screen.follow(self.x, self.y, dt)
 end
@@ -27,10 +32,25 @@ function hero.handleInput(self)
     if input.isDown('block') then self.blocking = true
     else self.blocking = false end
 
-    if input.isDown('attack') and self.releasedAttack then
+    if input.isDown('attack') and self.releasedAttack and self.attackCooldown == 0 then
         self.releasedAttack = false
-        weapons.attackAt(0, 0, self.x, self.y, self, 'sword')
+        if self.target == nil then 
+            weapons.attackAt(self.x + self.vx, self.y + self.vy, self.x, self.y, self, hero.weapon)
+        else
+            weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, hero.weapon)
+        end
+        self.attackCooldown = entityparser.weaponTemplates[hero.weapon].cooldown
     elseif not input.isDown('attack') then
         self.releasedAttack = true
+    end
+end
+
+function hero.setTarget(self, monster)
+    if self.target == nil then 
+        self.target = monster
+    else
+        local monsterDist = dist(monster.x, monster.y, self.x, self.y)
+        local targetDist = dist(self.x, self.y, self.target.x, self.target.y)
+        if monsterDist < targetDist then self.target = monster end
     end
 end

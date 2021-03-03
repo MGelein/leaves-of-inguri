@@ -59,22 +59,38 @@ entityparser.monsterTemplates = {
 entityparser.weaponTemplates = {
     club = {
         tile = 53,
+        speed = 3,
+        range = 20,
+        age = 10,
+        cooldown = 40,
+        projectile = false,
     },
     sword = {
         tile = 63,
         speed = 5,
         range = 20,
         age = 10,
+        cooldown = 20,
         projectile = false,
     },
     axe = {
         tile = 64,
+        speed = 4,
+        range = 30,
+        age = 10,
+        cooldown = 30,
+        projectile = false,
     },
     bow = {
         tile = 65,
     },
     arrow = {
         tile = 66,
+        speed = 5,
+        range = 300,
+        age = 100,
+        cooldown = 30,
+        projectile = true,
     },
     trident = {
         tile = 67
