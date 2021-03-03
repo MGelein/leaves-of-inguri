@@ -19,6 +19,7 @@ function entities.create(spriteNumber, xPos, yPos)
         colliderR = 0,
         mass = 0,
         blocking = false,
+        invulnerableFrames = 0,
 
         moveTo = function(self, x, y)
             self.x = x
@@ -31,7 +32,7 @@ function entities.create(spriteNumber, xPos, yPos)
         end,
 
         damage = function(self, amt)
-            if self.health == -100 then return end
+            if self.health == -100 or self.invulnerableFrames > 0 then return end
             if self.blocking then amt = amt / 2 end
 
             self.health = self.health - amt
@@ -119,6 +120,7 @@ end
 function entities.update(dt)
     entities.list:update()
     for i, entity in ipairs(entities.list.all) do
+        entity.invulnerableFrames = decrease(entity.invulnerableFrames)
         if entity.update then entity:update(dt) end
         if entity.updateForce then entity:updateForce() end
         if entity.updateWalk then entity:updateWalk(dt) end

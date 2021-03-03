@@ -1,15 +1,18 @@
 monsters = {}
 
-function monsters.create(spriteNumber, xPos, yPos, detectRadius)
-    local monster = entities.createWalk(spriteNumber, xPos, yPos)
-    monster.health = 1
+function monsters.create(xPos, yPos, template)
+    local monster = entities.createWalk(template.tile, xPos, yPos)
+    monster.health = template.health
+    monster.damage = template.damage
     monster.collider.class = 'monster'
+    
     monster.home = {x = xPos, y = yPos}
     monster.wanderForce = 0.1
     monster.wanderFrames = 0
     monster.wanderDir = {x = 0, y = 0}
     monster.wanderRadius = 100
-    monster.detectCollider = hc.circle(xPos, yPos, detectRadius)
+    
+    monster.detectCollider = hc.circle(xPos, yPos, template.detectRadius)
     monster.detectCollider.class = 'detect'
     monster.detectCollider.parent = monster
     monster.activity = 'wandering'
