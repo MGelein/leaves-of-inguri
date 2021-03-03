@@ -1,11 +1,14 @@
 collisions = {}
 
-function collisions.handleDetect(collider)
-    for shape, delta in pairs(hc.collisions(collider)) do
+function collisions.handleDetect(entity)
+    local foundHero = false
+    for shape, delta in pairs(hc.collisions(entity.detectCollider)) do
         if shape.class == 'hero' then
-            monsters.updateSeekTarget(collider.parent, shape.parent.x, shape.parent.y)
+            foundHero = true
+            entity.target = shape.parent
         end
     end
+    if not foundHero then entity.target = nil end
 end
 
 function collisions.handleTile(collider)

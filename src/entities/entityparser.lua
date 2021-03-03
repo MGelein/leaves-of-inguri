@@ -5,36 +5,42 @@ entityparser.monsterTemplates = {
         health = 5,
         damage = 4,
         detectRadius = 200,
+        behaviour = monsters.zombieBehaviour,
     },
     skeleton = {
         tile = 11,
         health = 3,
         damage = 2,
         detectRadius = 150,
+        behaviour = monsters.zombieBehaviour,
     },
     zombie = {
         tile = 12,
         health = 4,
         damage = 1,
         detectRadius = 100,
+        behaviour = monsters.zombieBehaviour,
     },
     snake = {
         tile = 19,
         health = 2,
         damage = 2,
         detectRadius = 80,
+        behaviour = monsters.zombieBehaviour,
     },
     dog = {
         tile = 20,
         health = 2,
         damage = 1,
         detectRadius = 120,
+        behaviour = monsters.zombieBehaviour,
     },
     rat = {
         tile = 21,
         health = 1,
         damage = 1,
         detectRadius = 50,
+        behaviour = monsters.zombieBehaviour,
     },
 }
 

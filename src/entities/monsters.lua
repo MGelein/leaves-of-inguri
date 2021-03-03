@@ -18,27 +18,16 @@ function monsters.create(xPos, yPos, template)
     monster.activity = 'wandering'
     
     monster.seekForce = 0.3
-    monster.seekTarget = {x = 0, y = 0}
-    monster.seekCooldown = 0 
-    monster.updateBehaviour = monsters.updateBehaviour
+    monster.updateBehaviour = template.behaviour
     return monster
 end
 
-function monsters.updateBehaviour(self)
+function monsters.zombieBehaviour(self)
+    if self.target ~= nil then self.activity = 'seeking'
+    else self.activity = 'wandering' end
+
     if self.activity == 'wandering' then monsters.wander(self)
-    elseif self.activity == 'seeking' then monsters.seek(self, self.seekTarget.x, self.seekTarget.y) end
-    
-    self.seekCooldown = decrease(self.seekCooldown)
-    if self.seekCooldown == 0 then self.activity = 'wandering' end
-
-    collisions.handleDetect(self.detectCollider)
-end
-
-function monsters.updateSeekTarget(self, x, y)
-    self.seekCooldown = 10
-    self.seekTarget.x = x
-    self.seekTarget.y = y
-    self.activity = 'seeking'
+    elseif self.activity == 'seeking' then monsters.seek(self, self.target.x, self.target.y) end
 end
 
 function monsters.seek(self, x, y)

@@ -125,6 +125,7 @@ function entities.update(dt)
         if entity.updateForce then entity:updateForce() end
         if entity.updateWalk then entity:updateWalk(dt) end
         if entity.updateBehaviour then entity:updateBehaviour() end
+        if entity.detectCollider then collisions.handleDetect(entity) end
 
         if entity.health ~= 0 then
             entities.updateColliders(entity)
