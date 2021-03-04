@@ -5,6 +5,7 @@ function monsters.create(xPos, yPos, template)
     monster.health = template.health
     monster.attack = template.attack
     monster.defence = template.defence
+    monster.weapon = template.weapon
     monster.particleTint = template.bloodTint
     monster.collider.class = 'monster'
     
@@ -31,6 +32,25 @@ function monsters.zombieBehaviour(self)
     elseif self.activity == 'seeking' then monsters.seek(self, self.target.x, self.target.y) end
 end
 
+function monsters.rangedBehaviour(self)
+    self.attackCooldown = decrease(self.attackCooldown)
+    if self.target ~= nil then self.activity = 'shooting'
+    else self.activity = 'wandering' end
+
+    if self.activity == 'wandering' then monsters.wander(self)
+    elseif self.activity == 'shooting' then 
+
+        local targetDist = dist(self.target.x, self.target.y, self.x, self.y)
+        if targetDist < 100 then 
+            monsters.avoid(self, self.target.x, self.target.y)
+        end
+        if self.attackCooldown == 0 then
+            weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, self.weapon)
+            self.attackCooldown = entityparser.weaponTemplates[self.weapon].cooldown
+        end
+    end
+end
+
 function monsters.seek(self, x, y)
     local dx = x - self.x
     local dy = y - self.y
@@ -39,6 +59,16 @@ function monsters.seek(self, x, y)
     dy = dy / length
     self.ax = self.ax + dx * self.seekForce
     self.ay = self.ax + dy * self.seekForce
+end
+
+function monsters.avoid(self, x, y)
+    local dx = x - self.x
+    local dy = y - self.y
+    local length = math.sqrt(dx * dx + dy * dy)
+    dx = dx / length
+    dy = dy / length
+    self.ax = self.ax - dx * self.seekForce
+    self.ay = self.ax - dy * self.seekForce
 end
 
 function monsters.wander(self)

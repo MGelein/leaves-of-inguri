@@ -14,9 +14,10 @@ entityparser.monsterTemplates = {
         health = 3,
         attack = 2,
         defence = 1,
-        detectRadius = 150,
-        behaviour = monsters.zombieBehaviour,
+        detectRadius = 200,
+        behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 1, g = 1, b = 1},
+        weapon = 'arrow'
     },
     zombie = {
         tile = 12,

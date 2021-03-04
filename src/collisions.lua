@@ -50,15 +50,18 @@ function collisions.handleEntity(entA, collider)
                 end
             end
         else
+            if classA == classB and classA == 'weapon' then goto continue end
             local weapon = entA
             local target = entB
             if classB == 'weapon' then
                 weapon = entB
                 target = entA
             end
-            if weapon.owner == target then goto continue end
-            target:damage(weapon.owner.attack)
-            weapons.stop(weapon)
+            if weapon.owner == target then goto continue
+            else
+                target:damage(weapon.owner.attack)
+                weapons.stop(weapon)
+            end
         end
         ::continue::
     end
