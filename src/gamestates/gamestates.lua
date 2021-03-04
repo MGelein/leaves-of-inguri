@@ -16,6 +16,7 @@ function gamestates.setNext(state)
     else
         gamestates.active = state
         gamestates.active.load()
+        gamestates.active.start()
     end
 end
 
@@ -42,6 +43,7 @@ function gamestates.updateOverlay(overlay)
         if overlay.alpha >= 1 then
             overlay.alpha = 1
             gamestates.active = gamestates.next
+            gamestates.active.start()
             gamestates.next = nil
         end
     elseif gamestates.next == nil and overlay.alpha > 0 then

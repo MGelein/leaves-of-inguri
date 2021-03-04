@@ -1,9 +1,8 @@
 fps = {
-    visible = config.debug,
     average = 60,
     draw = function()
-        love.graphics.setFont(fonts.default)
-        if not fps.visible then return end
+        if not config.debug then return end
+        love.graphics.setFont(assets.fonts.debug)
         love.graphics.setColor(0, 0, 0, 0.4)
         love.graphics.rectangle('fill', 0, 0, 60, 40)
         love.graphics.setColor(1, 1, 1, 1)

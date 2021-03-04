@@ -82,6 +82,7 @@ end
 function screen.endDraw()
     love.graphics.pop()
     fps.draw()
+    gui.draw()
     love.graphics.setCanvas()
     love.graphics.scale(screen.sx, screen.sy)
     love.graphics.draw(screen.canvas, screen.x, screen.y, screen.r)

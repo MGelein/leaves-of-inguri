@@ -19,5 +19,6 @@ end
 function love.update(dt)
     gamestates.update(dt)
     fps.update(dt)
+    gui.update(dt)
     screen.update(dt)
 end
