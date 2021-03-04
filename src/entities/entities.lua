@@ -44,6 +44,7 @@ function entities.create(spriteNumber, xPos, yPos)
 
             self.health = self.health - amt
             if self.health <= 0 then
+                soundfx.play('die')
                 self.health = 0
                 entities.remove(self)
                 local shakeTime = 0.2

@@ -10,6 +10,7 @@ require("assets")
 require("collisions")
 require("pxparticles")
 require("gui")
+require("soundfx")
 
 require("entities.entities")
 require("entities.hero")

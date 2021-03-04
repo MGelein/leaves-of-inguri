@@ -15,6 +15,11 @@ config = {
 
     gui = {
         mapNameVisible = 2
+    },
+
+    audio = {
+        masterVolume = 0.5,
+        fxVolume = 0.5,
     }
 }
 
