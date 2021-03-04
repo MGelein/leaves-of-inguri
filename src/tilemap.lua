@@ -94,6 +94,7 @@ function tilemap.update()
 end
 
 function tilemap.unload()
+    entities.removeAll()
     if not tilemap.colliders then return end
     for i, collider in ipairs(tilemap.colliders) do
         hc.remove(collider)
