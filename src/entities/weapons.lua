@@ -28,6 +28,10 @@ function weapons.stop(weapon)
 end
 
 function weapons.attackAt(x, y, fromX, fromY, owner, name)
+    if x == fromX and y == fromY then 
+        fromX = x + 1
+        fromY = y + 1
+    end
     local template = entityparser.weaponTemplates[name]
     if template == nil then return end
     local dx = (x - fromX)
