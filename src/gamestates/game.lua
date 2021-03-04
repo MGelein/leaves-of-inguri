@@ -5,7 +5,8 @@ function game.load()
 end
 
 function game.start()
-    gui.label(assets.fonts.normal, "test", 100, 100, 200, "center")
+    gui.label("test", 100, 100, 200, "center")
+    gui.icon(gui.fullHeart, 100, 120)
 end
 
 function game.draw()
