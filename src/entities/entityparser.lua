@@ -90,7 +90,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 300,
         age = 100,
-        cooldown = 30,
+        cooldown = 60,
         projectile = true,
     },
     trident = {

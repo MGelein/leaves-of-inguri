@@ -59,7 +59,7 @@ function collisions.handleEntity(entA, collider)
             end
             if weapon.owner == target then goto continue
             else
-                target:damage(weapon.owner.attack)
+                if not target.blocking then target:damage(weapon.owner.attack) end
                 weapons.stop(weapon)
             end
         end
