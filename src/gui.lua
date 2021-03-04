@@ -1,5 +1,6 @@
 gui = {
-    heartSpacing = 36
+    heartSpacing = 36,
+    mapNameWidth = 600,
 }
 gui.list = managedlist.create()
 gui.emptyHeart = 89
@@ -123,7 +124,7 @@ end
 function gui.update(dt)
     gui.list:update()
     for i, el in ipairs(gui.list.all) do
-        el:update()
+        el:update(dt)
     end
 end
 
@@ -159,4 +160,38 @@ function gui.createHealthWidget(x, y, entity)
         hearts = gui.hearts(x + 100, y, entity),
     }
     return healthWidget
+end
+
+function gui.showMapname(name)
+    local xPos = (config.width - gui.mapNameWidth) / 2
+    name = name or 'Unnamed'
+
+    local mapHolder = gui.element(0, -1000)
+    mapHolder.targetY = -4
+    mapHolder.waitTime = config.gui.mapNameVisible
+    mapHolder.panel = gui.panel(xPos, 0, gui.mapNameWidth, 100)
+    mapHolder.label = gui.label(name, xPos, 16, gui.mapNameWidth, 'center')
+    mapHolder.label.font = assets.fonts.mapName
+    mapHolder.update = function(self, dt)
+        if self.waitTime < 0 then 
+            self.targetY = self.y
+            self.y = self.y - math.abs(self.y) / 10
+
+            if self.y < -1000 then
+                gui.list:remove(mapHolder)
+                gui.list:remove(mapHolder.panel)
+                gui.list:remove(mapHolder.label)
+            end
+        end
+
+        local diffY = self.targetY - self.y
+        self.y = diffY * .1 + self.y
+
+        if diffY < 0.01 and diffY > 0 then 
+            self.waitTime = self.waitTime - dt
+        end
+
+        self.panel.y = self.y
+        self.label.y = self.panel.y + 16
+    end
 end

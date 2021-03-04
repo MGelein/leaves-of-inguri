@@ -11,6 +11,10 @@ config = {
 
     combat = {
         invulnerableFrames = 20
+    },
+
+    gui = {
+        mapNameVisible = 2
     }
 }
 

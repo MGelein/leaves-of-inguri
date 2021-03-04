@@ -10,7 +10,9 @@ return {
   tileheight = 8,
   nextlayerid = 5,
   nextobjectid = 33,
-  properties = {},
+  properties = {
+    ["name"] = "Testing Fields"
+  },
   tilesets = {
     {
       name = "colored_tilemap_packed",
