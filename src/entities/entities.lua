@@ -16,6 +16,7 @@ function entities.create(spriteNumber, xPos, yPos)
         sx = 1,
         sy = 1,
         health = -100,
+        maxHealth = -100,
         collider = hc.rectangle(xPos, yPos, 32, 32),
         colliderR = 0,
         mass = 0,
@@ -37,7 +38,7 @@ function entities.create(spriteNumber, xPos, yPos)
             if self.health == -100 or self.invulnerableFrames > 0 then return end
             if self.blocking then amt = amt / 2 end
             amt = amt - self.defence
-            if amt == 0 then return end
+            if amt < 0 then return end
 
             self.invulnerableFrames = config.combat.invulnerableFrames
 
