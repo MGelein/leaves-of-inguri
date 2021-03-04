@@ -73,10 +73,10 @@ end
 function entities.createWalk(spriteNumber, xPos, yPos)
     local entity = entities.createForce(spriteNumber, xPos, yPos)
     entity.mass = 1
-    entity.walkAngle = love.math.random(0, math.pi * 2)
+    entity.walkAngle = love.math.random()
     entity.walkAngleSpeed = 0.3 + love.math.random() / 20
     entity.speed = 0
-    entity.sway = love.math.random(0.15, 0.2)
+    entity.sway = 0.2
     entity.tsx = 1
     entity.updateWalk = entities.updateWalk
     entity.attackCooldown = 0
