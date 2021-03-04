@@ -50,6 +50,10 @@ function entities.create(spriteNumber, xPos, yPos)
                 local shakeTime = 0.2
                 if self.collider.class == 'hero' then shakeTime = 0.5 end
                 pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, shakeTime)
+            else
+                if self.collider.class == 'hero' then soundfx.play('hurt')
+                else soundfx.play('hit') end
+            
             end
         end
     }
