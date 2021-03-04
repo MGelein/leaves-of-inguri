@@ -23,6 +23,23 @@ function gui.element(xPos, yPos, rPos, scaleX, scaleY)
     return el
 end
 
+function gui.panel(xPos, yPos, w, h, rPos, sx, sy)
+    local panel = gui.element(xPos, yPos, rPos, sx, sy)
+    panel.w = w
+    panel.h = h
+    panel.backgroundColor = {0, 0, 0, 0.5}
+    panel.lineColor = {1, 1, 1, 1}
+    panel.draw = function(self)
+        love.graphics.setColor(unpack(panel.backgroundColor))
+        love.graphics.rectangle('fill', panel.x, panel.y, panel.w, panel.h)
+        love.graphics.setColor(unpack(panel.lineColor))
+        love.graphics.setLineWidth(4)
+        love.graphics.rectangle('line', panel.x, panel.y, panel.w, panel.h)
+        love.graphics.setColor(1, 1, 1, 1)
+    end
+    return panel
+end
+
 function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
     local label = gui.element(xPos, yPos, rPos, sx, sy)
     limit = limit or 10000
@@ -133,4 +150,13 @@ function gui.updateHearts(self)
         end
         self.emptyHearts = (self.lastMax / 2) - (self.halfHearts + self.fullHearts)
     end
+end
+
+function gui.createHealthWidget(x, y, entity)
+    local healthWidget = {
+        panel = gui.panel(x - 20, y - 10, 310, 60),
+        label = gui.label("Health: ", x, y),
+        hearts = gui.hearts(x + 100, y, entity),
+    }
+    return healthWidget
 end
