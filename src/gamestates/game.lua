@@ -3,6 +3,7 @@ game = {
 }
 game.menuDef = {
     {Save = function() end},
+    {Return = function() game.hideMenu() end},
     {Quests = function() end},
     {Controls = function() end},
     {Main_Menu = function() end},
@@ -28,19 +29,20 @@ function game.update(dt)
         entities.update(dt)
         pxparticles.update(dt)
         tilemap.update()
+        if input.isDown('menu') and not game.paused then game.showMenu() end
     else
-        if input.isDown('block') then 
-            game.paused = false 
-            game.menu:destroy()
-        end
+        if input.isDown('block') then game.hideMenu() end
     end
+end
 
-    if input.isDown('menu') then
-        game.paused = true
-        if not game.menu then 
-            game.menu = gui.buttongroup(game.menuDef, (config.width - 300) / 2, 200, 300, 70)
-        end
-    end
+function game.showMenu()
+    game.paused = true
+    game.menu = gui.buttongroup(game.menuDef, (config.width - 300) / 2, 150, 300, 70)
+end
+
+function game.hideMenu()
+    game.paused = false
+    game.menu:destroy()
 end
 
 function game.stop()
