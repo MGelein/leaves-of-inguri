@@ -6,8 +6,19 @@ entityparser.monsterTemplates = {
         attack = 4,
         defence = 2,
         detectRadius = 200,
-        behaviour = monsters.zombieBehaviour,
+        behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
+        weapon = 'firebolt'
+    },
+    ghost = {
+        tile = 24,
+        health = 4,
+        attack = 2,
+        defence = 0,
+        detectRadius = 150,
+        behaviour = monsters.rangedBehaviour,
+        bloodTint = {r = 0.5, g = 0.5, b = 1},
+        weapon = 'acid'
     },
     skeleton = {
         tile = 11,
@@ -17,7 +28,7 @@ entityparser.monsterTemplates = {
         detectRadius = 200,
         behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 1, g = 1, b = 1},
-        weapon = 'arrow'
+        weapon = 'arrow',
     },
     zombie = {
         tile = 12,
@@ -25,6 +36,15 @@ entityparser.monsterTemplates = {
         attack = 1,
         defence = 1,
         detectRadius = 100,
+        behaviour = monsters.zombieBehaviour,
+        bloodTint = {r = 0.5, g = 1, b = 0.5},
+    },
+    shrubber = {
+        tile = 27,
+        health = 6,
+        attack = 1,
+        defence = 0,
+        detectRadius = 60,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
     },
@@ -82,22 +102,46 @@ entityparser.weaponTemplates = {
         cooldown = 30,
         projectile = false,
     },
-    bow = {
-        tile = 65,
-    },
     arrow = {
         tile = 66,
         speed = 5,
         range = 300,
         age = 100,
-        cooldown = 60,
+        cooldown = 120,
         projectile = true,
     },
     trident = {
-        tile = 67
+        tile = 67,
+        speed = 5,
+        range = 40,
+        age = 10,
+        cooldown = 30,
+        projectile = false,
     },
     firebolt = {
-        tile = 118
+        tile = 119,
+        speed = 5,
+        range = 300,
+        age = 100,
+        cooldown = 120,
+        projectile = true,
+    },
+    acid = {
+        tile = 114,
+        speed = 5,
+        range = 200,
+        age = 50,
+        cooldown = 60,
+        projectile = true,
+    }
+}
+
+entityparser.objectTemplates = {
+    door = {
+        tile = 32
+    },
+    campfire = {
+        tile = 121
     }
 }
 

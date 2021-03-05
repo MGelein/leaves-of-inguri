@@ -3,6 +3,10 @@ weapons = {}
 function weapons.create(x, y, dirX, dirY, owner, template)
     local weapon = entities.createForce(template.tile, x, y)
     weapon:moveTo(x + dirX * 8, y + dirY * 8)
+    hc.remove(weapon.collider)
+    weapon.collider = hc.rectangle(weapon.x, weapon.y, 16, 40)
+    weapon.collider:rotate(math.pi / 4)
+    weapon.collider.parent = weapon
     weapon.collider.class = 'weapon'
     weapon.age = 0
     weapon.maxAge = template.age
