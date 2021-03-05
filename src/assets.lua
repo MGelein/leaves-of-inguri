@@ -9,5 +9,5 @@ function assets.load()
     assets.fonts = {}
     assets.fonts.debug = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 20)
     assets.fonts.normal = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 32)
-    assets.fonts.mapName = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 64)
+    assets.fonts.mapName = love.graphics.newFont('assets/graphics/alagard.ttf', 64)
 end
