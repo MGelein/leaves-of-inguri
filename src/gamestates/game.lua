@@ -37,11 +37,13 @@ end
 
 function game.showMenu()
     game.paused = true
+    gui.showHeader(config.window.title, 1000)
     game.menu = gui.buttongroup(game.menuDef, (config.width - 300) / 2, 150, 300, 70)
 end
 
 function game.hideMenu()
     game.paused = false
+    if gui.header then gui.header.waitTime = 0 end
     if game.menu then game.menu:destroy() end
 end
 

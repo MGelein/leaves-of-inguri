@@ -10,5 +10,5 @@ function assets.load()
     assets.fonts.debug = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 20)
     assets.fonts.normal = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 32)
     assets.fonts.button = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 48)
-    assets.fonts.mapName = love.graphics.newFont('assets/graphics/alagard.ttf', 64)
+    assets.fonts.header = love.graphics.newFont('assets/graphics/alagard.ttf', 64)
 end

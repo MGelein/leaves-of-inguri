@@ -14,7 +14,7 @@ config = {
     },
 
     gui = {
-        mapNameVisible = 2,
+        headerVisible = 2,
         moveTimeout = 0.2,
         activateTimeout = 1,
     },

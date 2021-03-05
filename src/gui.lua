@@ -300,25 +300,27 @@ function gui.createHealthWidget(x, y, entity)
     return healthWidget
 end
 
-function gui.showMapname(name)
-    local xPos = (config.width - gui.mapNameWidth) / 2
+function gui.showHeader(name, duration)
+    duration = duration or config.gui.headerVisible
+    local headerWidth = assets.fonts.header:getWidth(name)
+    local xPos = (config.width - (headerWidth + 40)) / 2
     name = name or 'Unnamed'
 
-    local mapHolder = gui.element(0, -1000)
-    mapHolder.targetY = -4
-    mapHolder.waitTime = config.gui.mapNameVisible
-    mapHolder.panel = gui.panel(xPos, 0, gui.mapNameWidth, 100)
-    mapHolder.label = gui.label(name, xPos, 16, gui.mapNameWidth, 'center')
-    mapHolder.label.font = assets.fonts.mapName
-    mapHolder.update = function(self, dt)
+    local header = gui.element(0, -1000)
+    header.targetY = -4
+    header.waitTime = duration
+    header.panel = gui.panel(xPos, 0, headerWidth + 40, 100)
+    header.label = gui.label(name, xPos + 20, 16, headerWidth, 'center')
+    header.label.font = assets.fonts.header
+    header.update = function(self, dt)
         if self.waitTime < 0 then 
             self.targetY = self.y
             self.y = self.y - math.abs(self.y) / 10
 
             if self.y < -1000 then
-                mapHolder:destroy()
-                mapHolder.panel:destroy()
-                mapHolder.label:destroy()
+                self.panel:destroy()
+                self.label:destroy()
+                gui.list:remove(self)
             end
         end
 
@@ -332,6 +334,7 @@ function gui.showMapname(name)
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
     end
+    gui.header = header
 end
 
 function gui.showText(text)
