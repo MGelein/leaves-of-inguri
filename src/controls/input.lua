@@ -16,7 +16,7 @@ function input.mapKeyboard()
             attack = 'space',
             block = 'lshift',
             special = 's',
-            interact = 'enter',
+            interact = 'return',
 
             menu = 'tab',
             map = 'm',

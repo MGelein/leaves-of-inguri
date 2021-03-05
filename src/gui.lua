@@ -15,6 +15,7 @@ function gui.element(xPos, yPos, rPos, scaleX, scaleY)
         r = rPos,
         sx = 1,
         sy = 1,
+        visible = true,
 
         animAngle = 0,
         draw = function(self) end,
@@ -30,12 +31,13 @@ function gui.panel(xPos, yPos, w, h, rPos, sx, sy)
     panel.h = h
     panel.backgroundColor = {0, 0, 0, 0.5}
     panel.lineColor = {1, 1, 1, 1}
+    panel.lineWidth = 4
     panel.draw = function(self)
-        love.graphics.setColor(unpack(panel.backgroundColor))
-        love.graphics.rectangle('fill', panel.x, panel.y, panel.w, panel.h)
-        love.graphics.setColor(unpack(panel.lineColor))
-        love.graphics.setLineWidth(4)
-        love.graphics.rectangle('line', panel.x, panel.y, panel.w, panel.h)
+        love.graphics.setColor(unpack(self.backgroundColor))
+        love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
+        love.graphics.setColor(unpack(self.lineColor))
+        love.graphics.setLineWidth(self.lineWidth)
+        love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
         love.graphics.setColor(1, 1, 1, 1)
         love.graphics.setLineWidth(1)
     end
@@ -94,6 +96,78 @@ function gui.hearts(xPos, yPos, entity)
     hearts.update = gui.updateHearts
 end
 
+function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
+    local buttonGroup = gui.element(xPos, yPos)
+    buttonGroup.numButtons = #definitions
+    buttonGroup.buttons = {}
+    buttonGroup.selectedIndex = 1
+    buttonGroup.moveTimeout = config.gui.moveTimeout
+    buttonGroup.activateTimeout = config.gui.activateTimeout
+    buttonGroup.panel = gui.panel(xPos, yPos, width, buttonGroup.numButtons * verticalSpacing + 20)
+    yPos = yPos + 20
+    xPos = xPos + 20
+    for i, def in ipairs(definitions) do
+        for text, onActivate in pairs(def) do
+            local button = gui.button(text, xPos, yPos, width - 40, onActivate)
+            table.insert(buttonGroup.buttons, button)
+            yPos = yPos + verticalSpacing
+        end
+    end
+    buttonGroup.update = function(self, dt)
+        if not self.visible then return end
+        if self.moveTimeout > 0 then self.moveTimeout = self.moveTimeout - dt end
+        if self.activateTimeout > 0 then self.activateTimeout = self.activateTimeout - dt end
+
+        if self.moveTimeout <= 0 then
+            if input.isDown('down') or input.isDown('next') then
+                self.selectedIndex = self.selectedIndex + 1
+                if self.selectedIndex > #self.buttons then self.selectedIndex = 1 end
+                self:setSelected(self.selectedIndex)
+            elseif input.isDown('up') or input.isDown('previous') then
+                self.selectedIndex = self.selectedIndex - 1
+                if self.selectedIndex < 1 then self.selectedIndex = #self.buttons end
+                self:setSelected(self.selectedIndex)
+            end
+        end
+        if self.activateTimeout <= 0 then
+            if input.isDown('attack') or input.isDown('interact') then
+                self.buttons[self.selectedIndex].activate()
+                self.activateTimeout = config.gui.activateTimeout
+            end
+        end
+    end
+    buttonGroup.setSelected = function(self, index)
+        for i, button in ipairs(self.buttons) do
+            self.buttons[i].selected = false
+        end
+        self.buttons[index].selected = true
+        self.moveTimeout = config.gui.moveTimeout
+        self.activateTimeout = 0
+    end
+    buttonGroup:setSelected(buttonGroup.selectedIndex)
+end
+
+function gui.button(text, xPos, yPos, width, onActivate)
+    local button = gui.element(xPos, yPos)
+    button.text = text
+    button.w = width
+    button.h = 48
+    button.selected = false
+    button.panel = gui.panel(xPos, yPos, width, button.h)
+    button.label = gui.label(text, xPos, yPos, width, 'center')
+    button.label.font = assets.fonts.button
+    button.draw = function(self)
+        button.panel.visible = self.visible and button.selected
+        button.label.visible = self.visible
+        button.panel.x = self.x
+        button.panel.y = self.y
+        button.label.x = self.x
+        button.label.y = self.y
+    end
+    button.activate = onActivate
+    return button
+end
+
 function gui.icon(tile, xPos, yPos, rPos, sx, sy)
     local icon = gui.element(xPos, yPos, rPos, sx, sy)
     icon.tile = tile
@@ -118,7 +192,7 @@ end
 
 function gui.draw()
     for i, el in ipairs(gui.list.all) do
-        el:draw()
+        if el.visible then el:draw() end
     end
 end
 
