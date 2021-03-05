@@ -7,7 +7,7 @@ function collisions.handleDetect(entity)
         if classA == 'monster' and shape.class == 'hero' then
             foundTarget = true
             entity.target = shape.parent
-        elseif classA == 'hero' and shape.class == 'monster' then
+        elseif classA == 'hero' and (shape.class == 'monster' or shape.class == 'object') then
             foundTarget = true
             hero.setTarget(entity, shape.parent)
         end

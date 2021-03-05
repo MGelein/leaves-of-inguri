@@ -42,7 +42,7 @@ end
 
 function game.hideMenu()
     game.paused = false
-    game.menu:destroy()
+    if game.menu then game.menu:destroy() end
 end
 
 function game.stop()

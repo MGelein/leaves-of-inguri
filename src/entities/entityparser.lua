@@ -149,14 +149,22 @@ entityparser.objectTemplates = {
     door = {
         tile = 33,
         health = 2,
+        description = {'A simple wooden door'}
     },
     campfire = {
         tile = 122,
         health = 1,
+        description = {'A beautiful campfire with embers that softly glow, welcoming you closer with a familiar warmth and protection.'}
     },
     gravestone = {
         tile = 108,
         health = 4,
+        description = {'An ornate gravestone.'}
+    },
+    well = {
+        tile = 96,
+        health = 50,
+        description = {'A well filled with water.'}
     }
 }
 

@@ -184,6 +184,52 @@ function gui.button(text, xPos, yPos, width, onActivate)
     return button
 end
 
+function gui.textbox(text, xPos, yPos, w)
+    local width, lines = assets.fonts.normal:getWrap(text, w - 20)
+    local height = #lines * assets.fonts.normal:getHeight() + 20
+    yPos = yPos - height
+    local box = gui.element(xPos, yPos)
+    box.text = text
+    box.width = w
+    box.height = height
+    box.font = assets.fonts.normal
+    box.numLines = #lines
+    box.panel = gui.panel(xPos, yPos, w, box.height)
+    box.char = 1
+    box.interactLetGo = false
+    box.attackLetGo = false
+    box.label = gui.label(text:sub(1, 1), xPos + 10, yPos + 10, w - 20)
+
+    box.update = function(self)
+        if not input.isDown('interact') then self.interactLetGo = true end
+        if not input.isDown('attack') then self.attackLetGo = true end
+
+        if self.char < #self.text then
+            box.label.text = self.text:sub(1, self.char)
+            local amount = math.floor(love.math.random() + 0.3)
+            if input.isDown('attack') or (input.isDown('interact') and self.interactLetGo) then amount = 4 end
+            self.char = self.char + amount
+
+            if self.char >= #self.text then 
+                box.label.text = self.text 
+                self.interactLetGo = false
+                self.attackLetGo = false
+            end
+        else
+            if (input.isDown('interact') and self.interactLetGo) or (input.isDown('attack') and self.attackLetGo) then
+                game.hideMenu()
+            end
+        end
+    end
+
+    box.destroy = function(self)
+        box.panel:destroy()
+        box.label:destroy()
+        gui.list:remove(self)
+    end
+    return box
+end
+
 function gui.icon(tile, xPos, yPos, rPos, sx, sy)
     local icon = gui.element(xPos, yPos, rPos, sx, sy)
     icon.tile = tile
@@ -285,4 +331,9 @@ function gui.showMapname(name)
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
     end
+end
+
+function gui.showText(text)
+    game.paused = true
+    game.menu = gui.textbox(text, (config.width - 600) / 2, config.height - 10, 600)
 end

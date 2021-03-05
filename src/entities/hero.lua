@@ -14,7 +14,7 @@ function hero.create(xPos, yPos)
     entity.releasedAttack = true
     entity.attack = hero.attack
     entity.defence = hero.defence
-    entity.target = 0
+    entity.target = nil
     entity.weapon = hero.weapon
     entity.health = hero.health
     entity.maxHealth = hero.health
@@ -49,14 +49,22 @@ function hero.handleInput(self)
     elseif not input.isDown('attack') then
         self.releasedAttack = true
     end
+
+    if input.isDown('interact') and self.target and self.target.interact then
+        self.target:interact()
+    end
 end
 
-function hero.setTarget(self, monster)
+function hero.setTarget(self, newTarget)
     if self.target == nil then 
-        self.target = monster
+        self.target = newTarget
+    elseif self.target.collider.class == 'object' and newTarget.collider.class == 'monster' then
+        self.target = newTarget
     else
-        local monsterDist = dist(monster.x, monster.y, self.x, self.y)
+        local newTargetDist = dist(newTarget.x, newTarget.y, self.x, self.y)
         local targetDist = dist(self.x, self.y, self.target.x, self.target.y)
-        if monsterDist < targetDist then self.target = monster end
+        if newTargetDist < targetDist and not (newTarget.collider.class == 'object' and self.target.collider.class == 'monster') then
+            self.target = newTarget 
+        end
     end
 end
