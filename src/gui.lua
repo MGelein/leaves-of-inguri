@@ -16,10 +16,14 @@ function gui.element(xPos, yPos, rPos, scaleX, scaleY)
         sx = 1,
         sy = 1,
         visible = true,
+        wasVisible = true,
 
         animAngle = 0,
         draw = function(self) end,
         update = function(self, dt) end,
+        destroy = function(self)
+            gui.list:remove(self)
+        end
     }
     gui.list:add(el)
     return el
@@ -144,7 +148,13 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
         self.moveTimeout = config.gui.moveTimeout
         self.activateTimeout = 0
     end
+    buttonGroup.destroy = function(self)
+        for i, button in ipairs(self.buttons) do button:destroy() end
+        self.panel:destroy()
+        gui.list:remove(self)
+    end
     buttonGroup:setSelected(buttonGroup.selectedIndex)
+    return buttonGroup
 end
 
 function gui.button(text, xPos, yPos, width, onActivate)
@@ -156,13 +166,18 @@ function gui.button(text, xPos, yPos, width, onActivate)
     button.panel = gui.panel(xPos, yPos, width, button.h)
     button.label = gui.label(text, xPos, yPos, width, 'center')
     button.label.font = assets.fonts.button
-    button.draw = function(self)
+    button.update = function(self, dt)
         button.panel.visible = self.visible and button.selected
         button.label.visible = self.visible
         button.panel.x = self.x
         button.panel.y = self.y
         button.label.x = self.x
         button.label.y = self.y
+    end
+    button.destroy = function(self)
+        self.panel:destroy()
+        self.label:destroy()
+        gui.list:remove(self)
     end
     button.activate = onActivate
     return button
@@ -253,9 +268,9 @@ function gui.showMapname(name)
             self.y = self.y - math.abs(self.y) / 10
 
             if self.y < -1000 then
-                gui.list:remove(mapHolder)
-                gui.list:remove(mapHolder.panel)
-                gui.list:remove(mapHolder.label)
+                mapHolder:destroy()
+                mapHolder.panel:destroy()
+                mapHolder.label:destroy()
             end
         end
 
