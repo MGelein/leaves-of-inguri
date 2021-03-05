@@ -138,28 +138,31 @@ entityparser.weaponTemplates = {
 
 entityparser.objectTemplates = {
     door = {
-        tile = 32
+        tile = 32,
     },
     campfire = {
-        tile = 121
+        tile = 121,
     }
 }
 
 function entityparser.parse(tile, x, y)
     if tile == hero.symbolTile then 
         hero.create(x, y)
-    elseif entityparser.isMonsterTile(tile) then 
+    elseif entityparser.getMonsterTemplate(tile) then 
         local template = entityparser.getMonsterTemplate(tile)
         monsters.create(x, y, template)
+    elseif entityparser.getObjectTemplate(tile) then
+        local template = entityparser.getObjectTemplate(tile)
+        objects.create(x, y, template)
     else
         entities.create(tile, x, y) 
     end
 end
 
-function entityparser.isMonsterTile(tile)
-    if tile >= 10 and tile <= 15 then return true
-    elseif tile >= 19 and tile <= 27 then return true
-    else return false end
+function entityparser.getObjectTemplate(tile)
+    for name, template in pairs(entityparser.objectTemplates) do
+        if template.tile == tile then return template end
+    end
 end
 
 function entityparser.getMonsterTemplate(tile)
