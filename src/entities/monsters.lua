@@ -1,8 +1,6 @@
 monsters = {}
 
 function monsters.create(xPos, yPos, template)
-    xPos = xPos + 16
-    yPos = yPos + 16
     local monster = entities.createWalk(template.tile, xPos, yPos)
     monster.health = template.health
     monster.maxHealth = template.health
