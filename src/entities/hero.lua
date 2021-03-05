@@ -1,6 +1,9 @@
 hero = {
     symbolTile = 5,
     health = 10,
+    attack = 2,
+    defence = 0,
+    weapon = 'sword'
 }
 
 function hero.create(xPos, yPos)
@@ -9,10 +12,10 @@ function hero.create(xPos, yPos)
     entity.update = hero.update
     entity.collider.class = 'hero'
     entity.releasedAttack = true
-    entity.attack = 2
-    entity.defence = 0
+    entity.attack = hero.attack
+    entity.defence = hero.defence
     entity.target = 0
-    entity.weapon = 'sword'
+    entity.weapon = hero.weapon
     entity.health = hero.health
     entity.maxHealth = hero.health
     entity.detectCollider = hc.circle(xPos, yPos, 100)

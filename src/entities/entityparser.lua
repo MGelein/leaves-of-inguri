@@ -8,7 +8,8 @@ entityparser.monsterTemplates = {
         detectRadius = 200,
         behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
-        weapon = 'firebolt'
+        weapon = 'firebolt',
+        speedMult = 1,
     },
     ghost = {
         tile = 24,
@@ -18,7 +19,9 @@ entityparser.monsterTemplates = {
         detectRadius = 150,
         behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 0.5, g = 0.5, b = 1},
-        weapon = 'acid'
+        weapon = 'acid',
+        walkAngleSpeed = 0.05,
+        speedMult = 0.5,
     },
     skeleton = {
         tile = 11,
@@ -29,6 +32,7 @@ entityparser.monsterTemplates = {
         behaviour = monsters.rangedBehaviour,
         bloodTint = {r = 1, g = 1, b = 1},
         weapon = 'arrow',
+        speedMult = 0.8,
     },
     zombie = {
         tile = 12,
@@ -38,6 +42,7 @@ entityparser.monsterTemplates = {
         detectRadius = 100,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
+        speedMult = 0.6
     },
     shrubber = {
         tile = 27,
@@ -47,6 +52,7 @@ entityparser.monsterTemplates = {
         detectRadius = 60,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
+        speedMult = 0.9
     },
     snake = {
         tile = 19,
@@ -56,6 +62,7 @@ entityparser.monsterTemplates = {
         detectRadius = 80,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
+        speedMult = 0.9
     },
     dog = {
         tile = 20,
@@ -65,6 +72,7 @@ entityparser.monsterTemplates = {
         detectRadius = 120,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
+        speedMult = 1.1
     },
     rat = {
         tile = 21,
@@ -74,6 +82,7 @@ entityparser.monsterTemplates = {
         detectRadius = 50,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
+        speedMult = 1,
     },
 }
 
@@ -139,12 +148,15 @@ entityparser.weaponTemplates = {
 entityparser.objectTemplates = {
     door = {
         tile = 33,
+        health = 2,
     },
     campfire = {
         tile = 122,
+        health = 1,
     },
     gravestone = {
         tile = 108,
+        health = 4,
     }
 }
 

@@ -9,9 +9,10 @@ function monsters.create(xPos, yPos, template)
     monster.weapon = template.weapon
     monster.particleTint = template.bloodTint
     monster.collider.class = 'monster'
+    monster.walkAngleSpeed = template.walkAngleSpeed or monster.walkAngleSpeed
     
     monster.home = {x = xPos, y = yPos}
-    monster.wanderForce = 0.1
+    monster.wanderForce = 0.1 * template.speedMult
     monster.wanderFrames = 0
     monster.wanderDir = {x = 0, y = 0}
     monster.wanderRadius = 100
@@ -20,7 +21,7 @@ function monsters.create(xPos, yPos, template)
     monster.detectCollider.class = 'detect'
     monster.activity = 'wandering'
     
-    monster.seekForce = 0.3
+    monster.seekForce = 0.3 * template.speedMult
     monster.updateBehaviour = template.behaviour
     return monster
 end

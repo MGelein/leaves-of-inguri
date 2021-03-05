@@ -16,6 +16,8 @@ function entities.create(spriteNumber, xPos, yPos)
         sx = 1,
         sy = 1,
         health = -100,
+        attack = 0,
+        defence = 0,
         maxHealth = -100,
         collider = hc.rectangle(xPos, yPos, 32, 32),
         colliderR = 0,
