@@ -37,6 +37,7 @@ function gui.panel(xPos, yPos, w, h, rPos, sx, sy)
         love.graphics.setLineWidth(4)
         love.graphics.rectangle('line', panel.x, panel.y, panel.w, panel.h)
         love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setLineWidth(1)
     end
     return panel
 end
