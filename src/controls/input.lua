@@ -9,12 +9,20 @@ end
 function input.mapKeyboard()
     input.keyboard = {
         mapping = {
-            up = 'w', 
-            left = 'a', 
-            down = 's', 
-            right = 'd',
+            up = 'up', 
+            left = 'left', 
+            down = 'down', 
+            right = 'right',
             attack = 'space',
             block = 'lshift',
+            special = 's',
+            interact = 'enter',
+
+            menu = 'tab',
+            map = 'm',
+            next = 'd',
+            previous = 'a',
+
         },
         isDown = function(name)
             return key.isDown(input.keyboard.mapping[name])
@@ -29,8 +37,15 @@ function input.mapController()
             left = controller.A.isDPLeft, 
             down = controller.A.isDPDown, 
             right = controller.A.isDPRight,
-            attack = controller.A.isADown,
+            attack = controller.A.isXDown,
             block = controller.A.isBDown,
+            special = controller.A.isYDown,
+            interact = controller.A.isADown,
+
+            menu = controller.A.isMenuDown,
+            map = controller.A.isViewDown,
+            next = controller.A.isRightShoulderDown,
+            previous = controller.A.isLeftShoulderDown,
         },
         isDown = function(name)
             return input.controller.mapping[name]()
