@@ -291,8 +291,9 @@ function gui.updateHearts(self)
 end
 
 function gui.createHealthWidget(x, y, entity)
+    local width = 130 + (entity.maxHealth / 2) * gui.heartSpacing
     local healthWidget = {
-        panel = gui.panel(x - 20, y - 10, 310, 60),
+        panel = gui.panel(x - 20, y - 10, width, 60),
         label = gui.label("Health: ", x, y),
         hearts = gui.hearts(x + 100, y, entity),
     }

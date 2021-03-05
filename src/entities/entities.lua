@@ -173,6 +173,7 @@ function entities.remove(entity)
     entities.list:remove(entity)
     hc.remove(entity.collider)
     entity.removed = true
+    if entity == hero.entity.target then hero.entity.target = nil end
 end
 
 function entities.removeAll()
