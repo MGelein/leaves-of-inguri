@@ -1,5 +1,7 @@
 objects = {}
 
-function objects.create(x, y, template)
-    local object = entities.create(template.tile, x, y)
+function objects.create(xPos, yPos, template)
+    xPos = xPos + 16
+    yPos = yPos + 16
+    local object = entities.create(template.tile, xPos, yPos)
 end

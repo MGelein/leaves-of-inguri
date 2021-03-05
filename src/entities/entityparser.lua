@@ -138,10 +138,13 @@ entityparser.weaponTemplates = {
 
 entityparser.objectTemplates = {
     door = {
-        tile = 32,
+        tile = 33,
     },
     campfire = {
-        tile = 121,
+        tile = 122,
+    },
+    gravestone = {
+        tile = 108,
     }
 }
 
@@ -155,7 +158,7 @@ function entityparser.parse(tile, x, y)
         local template = entityparser.getObjectTemplate(tile)
         objects.create(x, y, template)
     else
-        entities.create(tile, x, y) 
+        entities.create(tile, x + 16, y + 16) 
     end
 end
 
