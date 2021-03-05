@@ -112,6 +112,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
+            text = text:gsub('_', ' ')
             local button = gui.button(text, xPos, yPos, width - 40, onActivate)
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
