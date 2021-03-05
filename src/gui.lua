@@ -135,7 +135,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
             end
         end
         if self.activateTimeout <= 0 then
-            if input.isDown('attack') or input.isDown('interact') then
+            if input.isDownOnce('attack') or input.isDownOnce('interact') then
                 self.buttons[self.selectedIndex].activate()
                 self.activateTimeout = config.gui.activateTimeout
             end
@@ -216,7 +216,7 @@ function gui.textbox(text, xPos, yPos, w)
                 self.attackLetGo = false
             end
         else
-            if (input.isDown('interact') and self.interactLetGo) or (input.isDown('attack') and self.attackLetGo) then
+            if (input.isDownOnce('interact') and self.interactLetGo) or (input.isDownOnce('attack') and self.attackLetGo) then
                 game.hideMenu()
             end
         end

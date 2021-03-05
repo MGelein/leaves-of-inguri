@@ -11,7 +11,6 @@ function hero.create(xPos, yPos)
     entity.force = 0.3
     entity.update = hero.update
     entity.collider.class = 'hero'
-    entity.releasedAttack = true
     entity.attack = hero.attack
     entity.defence = hero.defence
     entity.target = nil
@@ -38,19 +37,16 @@ function hero.handleInput(self)
     if input.isDown('block') then self.blocking = true
     else self.blocking = false end
 
-    if input.isDown('attack') and self.releasedAttack and self.attackCooldown == 0 then
-        self.releasedAttack = false
+    if input.isDownOnce('attack') and self.attackCooldown == 0 then
         if self.target == nil then 
             weapons.attackAt(self.x + self.vx, self.y + self.vy, self.x, self.y, self, self.weapon)
         else
             weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, self.weapon)
         end
         self.attackCooldown = entityparser.weaponTemplates[self.weapon].cooldown
-    elseif not input.isDown('attack') then
-        self.releasedAttack = true
     end
 
-    if input.isDown('interact') and self.target and self.target.interact then
+    if input.isDownOnce('interact') and self.target and self.target.interact then
         self.target:interact()
     end
 end

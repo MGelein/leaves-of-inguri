@@ -1,5 +1,6 @@
 input = {
-    methods = {'keyboard', 'controller', 'touch'}
+    methods = {'keyboard', 'controller', 'touch'},
+    history = {},
 }
 
 function input.load()
@@ -62,4 +63,17 @@ function input.isDown(name)
         end
     end
     return false
+end
+
+function input.isDownOnce(name)
+    if input.isDown(name) then
+        if not input.history[name] then
+            input.history[name] = true
+            return true
+        else
+            return false
+        end
+    else
+        input.history[name] = false
+    end
 end

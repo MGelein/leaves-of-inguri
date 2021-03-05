@@ -29,9 +29,9 @@ function game.update(dt)
         entities.update(dt)
         pxparticles.update(dt)
         tilemap.update()
-        if input.isDown('menu') and not game.paused then game.showMenu() end
+        if input.isDownOnce('menu') and not game.paused then game.showMenu() end
     else
-        if input.isDown('block') then game.hideMenu() end
+        if input.isDownOnce('block') then game.hideMenu() end
     end
 end
 
