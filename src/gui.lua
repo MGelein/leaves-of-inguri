@@ -125,23 +125,26 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
 
         if self.moveTimeout <= 0 then
             if input.isDown('down') or input.isDown('next') then
-                self.selectedIndex = self.selectedIndex + 1
                 if self.selectedIndex > #self.buttons then self.selectedIndex = 1 end
-                self:setSelected(self.selectedIndex)
+                self:setSelected(self.selectedIndex + 1)
             elseif input.isDown('up') or input.isDown('previous') then
-                self.selectedIndex = self.selectedIndex - 1
                 if self.selectedIndex < 1 then self.selectedIndex = #self.buttons end
-                self:setSelected(self.selectedIndex)
+                self:setSelected(self.selectedIndex - 1)
             end
         end
         if self.activateTimeout <= 0 then
             if input.isDownOnce('attack') or input.isDownOnce('interact') then
                 self.buttons[self.selectedIndex].activate()
+                soundfx.play('positive')
                 self.activateTimeout = config.gui.activateTimeout
             end
         end
     end
     buttonGroup.setSelected = function(self, index)
+        if index ~= self.selectedIndex then 
+            soundfx.play('select') 
+            self.selectedIndex = index
+        end
         for i, button in ipairs(self.buttons) do
             self.buttons[i].selected = false
         end

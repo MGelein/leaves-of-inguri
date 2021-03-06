@@ -31,7 +31,10 @@ function game.update(dt)
         tilemap.update()
         if input.isDownOnce('menu') and not game.paused then game.showMenu() end
     else
-        if input.isDownOnce('block') then game.hideMenu() end
+        if input.isDownOnce('block') then
+            soundfx.play('negative')
+            game.hideMenu() 
+        end
     end
 end
 
