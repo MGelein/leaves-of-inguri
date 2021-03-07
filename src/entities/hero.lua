@@ -1,6 +1,7 @@
 hero = {
     symbolTile = 5,
     health = 20,
+    maxHealth = 20,
     attack = 2,
     defence = 0,
     weapon = 'sword'
@@ -16,10 +17,11 @@ function hero.create(xPos, yPos)
     entity.target = nil
     entity.weapon = hero.weapon
     entity.health = hero.health
-    entity.maxHealth = hero.health
+    entity.maxHealth = hero.maxHealth
     entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
     hero.entity = entity
+    gui.heartEntity = entity
 end
 
 function hero.moveTo(x, y)
@@ -31,6 +33,7 @@ function hero.update(self, dt)
     self.attackCooldown = decrease(self.attackCooldown)
     hero.handleInput(self)
     screen.follow(self.x, self.y, dt)
+    hero.health = self.health
 end
 
 function hero.handleInput(self)

@@ -1,6 +1,7 @@
 gui = {
     heartSpacing = 36,
     mapNameWidth = 600,
+    heartEntity = nil,
 }
 gui.list = managedlist.create()
 gui.emptyHeart = 89
@@ -67,9 +68,8 @@ function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
     return label
 end
 
-function gui.hearts(xPos, yPos, entity)
+function gui.hearts(xPos, yPos)
     local hearts = gui.element(xPos, yPos)
-    hearts.entity = entity
     hearts.lastHealth = 0
     hearts.lastMax = 0
     hearts.invalidated = true
@@ -273,13 +273,13 @@ function gui.clear()
 end
 
 function gui.updateHearts(self)
-    if self.lastMax ~= self.entity.maxHealth then
+    if self.lastMax ~= gui.heartEntity.maxHealth then
         self.invalidated = true
-        self.lastMax = self.entity.maxHealth
+        self.lastMax = gui.heartEntity.maxHealth
     end
-    if self.lastHealth ~= self.entity.health then 
+    if self.lastHealth ~= gui.heartEntity.health then 
         self.invalidated = true
-        self.lastHealth = self.entity.health
+        self.lastHealth = gui.heartEntity.health
     end
 
     if self.invalidated then
@@ -294,11 +294,12 @@ function gui.updateHearts(self)
 end
 
 function gui.createHealthWidget(x, y, entity)
+    gui.heartEntity = entity
     local width = 130 + (entity.maxHealth / 2) * gui.heartSpacing
     local healthWidget = {
         panel = gui.panel(x - 20, y - 10, width, 60),
         label = gui.label("Health: ", x, y),
-        hearts = gui.hearts(x + 100, y, entity),
+        hearts = gui.hearts(x + 100, y),
     }
     return healthWidget
 end
