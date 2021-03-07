@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 6,
-  nextobjectid = 38,
+  nextobjectid = 39,
   properties = {
     ["name"] = "Testing Fields"
   },
@@ -686,6 +686,23 @@ return {
             ["destination"] = "testingcity@3,3",
             ["method"] = "collide",
             ["type"] = "warp"
+          }
+        },
+        {
+          id = 38,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 328,
+          y = 88,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["method"] = "interact",
+            ["text"] = "Here lies an unoriginal quote. Long forgotten, hardly missed.",
+            ["type"] = "text"
           }
         }
       }
