@@ -10,3 +10,10 @@ end
 function randomFromTable(list)
     return list[math.floor(love.math.random(1, #list))]
 end
+
+function splitstring(str, delim)
+    if not delim then delim = '%s' end
+    local parts = {}
+    for part in str:gmatch('([^' .. delim .. ']+)') do table.insert(parts, part) end
+    return parts
+end

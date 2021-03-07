@@ -20,6 +20,7 @@ end
 
 function game.draw()
     tilemap.draw()
+    triggers.draw()
     pxparticles.draw()
     entities.draw()
 end
@@ -27,6 +28,7 @@ end
 function game.update(dt)
     if not game.paused then
         entities.update(dt)
+        triggers.update(dt)
         pxparticles.update(dt)
         tilemap.update()
         if input.isDownOnce('menu') and not game.paused then game.showMenu() end

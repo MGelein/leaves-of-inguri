@@ -11,6 +11,7 @@ require("collisions")
 require("pxparticles")
 require("gui")
 require("soundfx")
+require("triggers")
 
 require("entities.entities")
 require("entities.hero")

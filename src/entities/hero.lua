@@ -17,9 +17,14 @@ function hero.create(xPos, yPos)
     entity.weapon = hero.weapon
     entity.health = hero.health
     entity.maxHealth = hero.health
-    entity.detectCollider = hc.circle(xPos, yPos, 100)
+    entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
     hero.entity = entity
+end
+
+function hero.moveTo(x, y)
+    hero.entity:moveTo(x, y)
+    hero.entity.detectCollider:moveTo(x, y)
 end
 
 function hero.update(self, dt)
@@ -47,7 +52,9 @@ function hero.handleInput(self)
     end
 
     if input.isDownOnce('interact') and self.target and self.target.interact then
-        self.target:interact()
+        if dist(self.target.x, self.target.y, self.x, self.y) < 48 then
+            self.target:interact()
+        end
     end
 end
 

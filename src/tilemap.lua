@@ -3,13 +3,16 @@ tilemap = {
     y = 0,
     r = 0,
     scale = 4,
-    colliders = {}
+    colliders = {},
+    nextHeroPos = nil,
 }
 
 function tilemap.load(name)
     tilemap.unload()
+    triggers.clear()
     tilemap.data = require('maps.' .. name)
 
+    tilemap.name = name
     tilemap.cols = tilemap.data.width
     tilemap.rows = tilemap.data.height
     tilemap.tileWidth = tilemap.data.tilewidth
@@ -22,6 +25,7 @@ function tilemap.load(name)
         if layer.name == 'tiles' then tilemap.renderCanvas(layer.data)
         elseif layer.name == 'collision' then tilemap.createCollisionShapes(layer.objects)
         elseif layer.name == 'entities' then tilemap.createEntities(layer.data)
+        elseif layer.name == 'triggers' then tilemap.createTriggers(layer.objects)
         end
     end
 
@@ -29,6 +33,13 @@ function tilemap.load(name)
     local paddingY = config.height - tilemap.height * tilemap.scale
     screen.setBounds(paddingX, paddingY)
     gui.showHeader(tilemap.data.properties.name)
+    tilemap.nextHeroPos = nil
+end
+
+function tilemap.createTriggers(objects)
+    for i, triggerDef in ipairs(objects) do
+        local trigger = triggers.create(triggerDef)
+    end
 end
 
 function tilemap.createEntities(tiles)
@@ -39,6 +50,13 @@ function tilemap.createEntities(tiles)
             entityparser.parse(tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
         end
     end
+end
+
+function tilemap.setNextHeroPos(xPos, yPos)
+    tilemap.nextHeroPos = {
+        x = xPos,
+        y = yPos,
+    }
 end
 
 function tilemap.renderCanvas(tiles)

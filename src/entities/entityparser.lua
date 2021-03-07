@@ -172,7 +172,8 @@ function entityparser.parse(tile, x, y)
     x = x + 16
     y = y + 16
     if tile == hero.symbolTile then 
-        hero.create(x, y)
+        if tilemap.nextHeroPos then hero.create(tilemap.nextHeroPos.x, tilemap.nextHeroPos.y)
+        else hero.create(x, y) end
     elseif entityparser.getMonsterTemplate(tile) then 
         local template = entityparser.getMonsterTemplate(tile)
         monsters.create(x, y, template)
