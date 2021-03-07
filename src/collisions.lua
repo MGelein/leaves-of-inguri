@@ -16,12 +16,13 @@ function collisions.handleDetect(entity)
 end
 
 function collisions.handleTile(collider)
+    local ownClass = collider.class
     for shape, delta in pairs(hc.collisions(collider)) do
         local class = shape.class
-        if class == 'tile' or class == 'trigger' or class == 'detect' then
+        if class == 'tile' or class == 'trigger' or class == 'detect' or class == 'water' then
             -- do nothing
         elseif class == 'weapon' then
-            weapons.stop(shape.parent)
+            if ownClass == 'tile' then weapons.stop(shape.parent) end
         else
             if shape.parent.move then shape.parent:move(-delta.x, -delta.y) end
         end

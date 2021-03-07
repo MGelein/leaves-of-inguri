@@ -11,7 +11,7 @@ game.menuDef = {
 }
 
 function game.load()
-    tilemap.load('testmap')
+    tilemap.load('testingcity')
 end
 
 function game.start()

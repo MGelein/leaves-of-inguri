@@ -77,7 +77,7 @@ function tilemap.createCollisionShapes(shapes)
     for i, shape in ipairs(shapes) do
         local collider = tilemap.createCollider(shape)
         if collider then
-            collider.class = 'tile'
+            collider.class = shape.properties.class or 'tile'
             table.insert(tilemap.colliders, collider)
         end
     end

@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 14,
+  nextobjectid = 15,
   properties = {
     ["name"] = "Testing City"
   },
@@ -243,6 +243,31 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 14,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 128,
+          y = 72,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 8, y = -8 },
+            { x = 40, y = -8 },
+            { x = 48, y = 0 },
+            { x = 48, y = 8 },
+            { x = 40, y = 16 },
+            { x = 8, y = 16 },
+            { x = 0, y = 8 }
+          },
+          properties = {
+            ["class"] = "water"
+          }
         }
       }
     },
