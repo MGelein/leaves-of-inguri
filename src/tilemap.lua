@@ -34,6 +34,7 @@ function tilemap.load(name)
     screen.setBounds(paddingX, paddingY)
     gui.showHeader(tilemap.data.properties.name)
     tilemap.nextHeroPos = nil
+    screen.snapToFollow = true
 end
 
 function tilemap.createTriggers(objects)

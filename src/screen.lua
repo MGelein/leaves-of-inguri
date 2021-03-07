@@ -14,7 +14,8 @@ screen = {
     offY = 0,
     shakeTime = 0,
     shakeForce = 4,
-    bounds = {x2 = config.width, y2 = config.height}
+    bounds = {x2 = config.width, y2 = config.height},
+    snapToFollow = true,
 }
 
 function screen.setResolution(width, height, fullscreen)
@@ -51,6 +52,10 @@ end
 function screen.follow(x, y, dt)
     x = x - screen.w2
     y = y - screen.h2
+    if screen.snapToFollow then 
+        dt = 1
+        screen.snapToFollow = false 
+    end
     local dx = (-x - screen.offX) * dt
     local dy = (-y - screen.offY) * dt
     screen.offX = screen.offX + dx

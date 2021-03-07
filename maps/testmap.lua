@@ -683,7 +683,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["destination"] = "testmap@28,8",
+            ["destination"] = "testingcity@3,3",
             ["method"] = "collide",
             ["type"] = "warp"
           }
