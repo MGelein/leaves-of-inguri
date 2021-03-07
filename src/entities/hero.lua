@@ -53,10 +53,25 @@ function hero.handleInput(self)
         end
         self.attackCooldown = entityparser.weaponTemplates[self.weapon].cooldown
     end
+    if input.isDownOnce('interact') then
+        local trigger = hero.findInteractTrigger(self)
+        if trigger then trigger:activate() end
 
-    if input.isDownOnce('interact') and self.target and self.target.interact then
-        if dist(self.target.x, self.target.y, self.x, self.y) < 48 then
-            self.target:interact()
+        if not trigger and self.target and self.target.interact then
+            if dist(self.target.x, self.target.y, self.x, self.y) < config.interactDist then
+                self.target:interact()
+            end
+        end
+    end
+end
+
+function hero.findInteractTrigger(self)
+    for shape, delta in pairs(hc.collisions(self.detectCollider)) do    	
+        if shape.class == 'trigger' and shape.parent.method == 'interact' then
+            local x, y = shape:center()
+            if dist(self.x, self.y, x, y) < config.interactDist then
+                return shape.parent
+            end
         end
     end
 end

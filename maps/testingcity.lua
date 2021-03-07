@@ -295,7 +295,7 @@ return {
           visible = true,
           properties = {
             ["destination"] = "testmap@42,24",
-            ["method"] = "collide",
+            ["method"] = "interact",
             ["type"] = "warp"
           }
         }
