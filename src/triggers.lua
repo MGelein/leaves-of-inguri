@@ -16,6 +16,10 @@ function triggers.create(def)
     return trigger
 end
 
+function triggers.text(self)
+    gui.showText(self.properties.text)
+end
+
 function triggers.warp(self)
     local destinationString = self.properties.destination
     if not destinationString then return end
@@ -53,7 +57,8 @@ function triggers.clear()
 end
 
 function triggers.activate(self)
-    triggers[self.type](self)
+    if triggers[self.type] then triggers[self.type](self)
+    else print('unrecognized trigger type', self.type) end
 end
 
 function triggers.parseDestination(dest)

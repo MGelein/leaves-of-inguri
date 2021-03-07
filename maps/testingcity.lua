@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 15,
+  nextobjectid = 19,
   properties = {
     ["name"] = "Testing City"
   },
@@ -295,8 +295,25 @@ return {
           visible = true,
           properties = {
             ["destination"] = "testmap@42,24",
-            ["method"] = "interact",
+            ["method"] = "collide",
             ["type"] = "warp"
+          }
+        },
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 136,
+          y = 24,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["method"] = "interact",
+            ["text"] = "A simple wooden table, showing signs of long and intense use.",
+            ["type"] = "text"
           }
         }
       }

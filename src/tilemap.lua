@@ -95,6 +95,9 @@ function tilemap.createCollider(object)
             table.insert(points, coord.y * scale + off.y)
         end
         return hc.polygon(unpack(points))
+    elseif object.shape == 'ellipse' then
+        local radius = ((object.width + object.height) / 2) * scale / 2
+        return hc.circle(object.x * scale + radius, object.y * scale + radius, radius)
     end
 end
 

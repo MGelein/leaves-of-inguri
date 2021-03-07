@@ -347,6 +347,7 @@ function gui.showHeader(name, duration)
 end
 
 function gui.showText(text)
+    text = text or '...'
     game.paused = true
     game.menu = gui.textbox(text, (config.width - 600) / 2, config.height - 10, 600)
 end
