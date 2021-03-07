@@ -17,3 +17,16 @@ function splitstring(str, delim)
     for part in str:gmatch('([^' .. delim .. ']+)') do table.insert(parts, part) end
     return parts
 end
+
+function printtable(toprint, indent)
+    indent = indent or ''
+    for name, value in pairs(toprint) do
+        if type(value) == 'table' then 
+            print(table.concat({indent, name, ' = {'}), '')
+            printtable(toprint[name], indent .. '  ')
+            print(table.concat({indent, '}'}), '')
+        else 
+            print(table.concat({indent, name, ' = ', value}, ''))
+        end
+    end
+end
