@@ -125,10 +125,8 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
 
         if self.moveTimeout <= 0 then
             if input.isDown('down') or input.isDown('next') then
-                if self.selectedIndex > #self.buttons then self.selectedIndex = 1 end
                 self:setSelected(self.selectedIndex + 1)
             elseif input.isDown('up') or input.isDown('previous') then
-                if self.selectedIndex < 1 then self.selectedIndex = #self.buttons end
                 self:setSelected(self.selectedIndex - 1)
             end
         end
@@ -141,6 +139,9 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
         end
     end
     buttonGroup.setSelected = function(self, index)
+        if index < 1 then index = #self.buttons
+        elseif index > #self.buttons then index = 1 end
+        
         if index ~= self.selectedIndex then 
             soundfx.play('select') 
             self.selectedIndex = index
@@ -316,15 +317,18 @@ function gui.showHeader(name, duration)
     header.panel = gui.panel(xPos, 0, headerWidth + 40, 100)
     header.label = gui.label(name, xPos + 20, 16, headerWidth, 'center')
     header.label.font = assets.fonts.header
+    header.destroy = function(self)
+        self.panel:destroy()
+        self.label:destroy()
+        gui.list:remove(self)
+    end
     header.update = function(self, dt)
         if self.waitTime < 0 then 
             self.targetY = self.y
             self.y = self.y - math.abs(self.y) / 10
 
             if self.y < -1000 then
-                self.panel:destroy()
-                self.label:destroy()
-                gui.list:remove(self)
+                self:destroy()
             end
         end
 
@@ -338,6 +342,7 @@ function gui.showHeader(name, duration)
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
     end
+    if gui.header then gui.header:destroy() end
     gui.header = header
 end
 
