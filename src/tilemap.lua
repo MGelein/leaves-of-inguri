@@ -10,6 +10,7 @@ tilemap = {
 function tilemap.load(name)
     tilemap.unload()
     triggers.clear()
+    npcs.clear()
     tilemap.data = require('maps.' .. name)
 
     tilemap.name = name

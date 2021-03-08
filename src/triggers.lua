@@ -3,13 +3,16 @@ triggers.list = managedlist.create()
 
 function triggers.create(def)
     local trigger = {
+        x = def.x,
+        y = def.y,
         type = def.properties.type,
         method = def.properties.method,
         activated = false,
         properties = def.properties,
-        collider = tilemap.createCollider(def),
         activate = triggers.activate,
     }
+    if trigger.type == 'npc' then npcs.registerTrigger(trigger) end
+    trigger.collider = tilemap.createCollider(def)
     trigger.collider.class = 'trigger'
     trigger.collider.parent = trigger
     triggers.list:add(trigger)
@@ -33,6 +36,10 @@ function triggers.warp(self)
         tilemap.setNextHeroPos(dest.x, dest.y)
         tilemap.load(dest.name)
     end
+end
+
+function triggers.npc(self)
+    self.npc:talk()
 end
 
 function triggers.draw()

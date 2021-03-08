@@ -180,9 +180,15 @@ function entityparser.parse(tile, x, y)
     elseif entityparser.getObjectTemplate(tile) then
         local template = entityparser.getObjectTemplate(tile)
         objects.create(x, y, template)
+    elseif entityparser.isNPC(tile) then
+        npcs.create(tile, x, y)
     else
         entities.create(tile, x, y) 
     end
+end
+
+function entityparser.isNPC(tile)
+    return tile == 5 or tile == 8 or tile == 9
 end
 
 function entityparser.getObjectTemplate(tile)

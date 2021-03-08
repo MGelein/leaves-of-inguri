@@ -59,8 +59,11 @@ function collisions.handleEntity(entA, collider)
                     local ratioA = entA.mass / totalMass
                     entA:move(delta.x * ratioB, delta.y * ratioB)
                     entB:move(-delta.x * ratioA, -delta.y * ratioA)
-                    if not entA.weapon then entB:damage(entA.attack) end
-                    if not entB.weapon then entA:damage(entB.attack) end
+
+                    if classA ~= 'npc' and classB ~= 'npc' then
+                        if not entA.weapon then entB:damage(entA.attack) end
+                        if not entB.weapon then entA:damage(entB.attack) end
+                    end
                 end
             end
         else
