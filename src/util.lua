@@ -18,6 +18,10 @@ function splitstring(str, delim)
     return parts
 end
 
+function capitalize(str)
+    return str:sub(1, 1):upper() .. str:sub(2):lower()
+end
+
 function printtable(toprint, indent)
     indent = indent or ''
     for name, value in pairs(toprint) do

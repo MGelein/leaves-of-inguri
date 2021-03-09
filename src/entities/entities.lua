@@ -36,6 +36,12 @@ function entities.create(spriteNumber, xPos, yPos)
             self.y = self.y + dy
         end,
 
+        heal = function(self, amt)
+            if amt < 0  or self.health == -100 then return end
+            self.health = self.health + amt
+            if self.health > self.maxHealth then self.health = self.maxHealth end
+        end,
+
         damage = function(self, amt)
             if self.health == -100 or self.invulnerableFrames > 0 then return end
             if self.blocking then amt = amt / 2 end

@@ -1,6 +1,6 @@
 hero = {
     symbolTile = 6,
-    health = 20,
+    health = 1,
     maxHealth = 20,
     attack = 2,
     defence = 0,

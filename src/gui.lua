@@ -198,14 +198,16 @@ function gui.dialogue(data)
         gui.list:remove(self)
     end
     dialogue.showEntry = function(self, name)
-        if name == 'exit' then 
-            game.hideMenu()
-            return
-        end
         if self.textbox then self.textbox:destroy() end
         if self.buttons then self.buttons:destroy() end
         
         local entry = self.entries[name]
+        if not entry then 
+            game.hideMenu()
+            return
+        end
+
+        for i, command in ipairs(entry.commands) do dialogues.executeCommand(command) end
         self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
         self.textbox.partOfDialogue = true
         local buttonDefs = {}
