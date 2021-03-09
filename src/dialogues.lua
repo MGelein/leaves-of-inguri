@@ -104,14 +104,16 @@ function dialogues.evaluateCondition(condition)
     local varname, operand, value = unpack(parts)
     local var = dialogues.resolveVariableName(varname)
     if not var then print("Cannot resolve variable " .. varname) return false end
-    if type(var) == 'number' then value = tonumber(value) end
+    if type(var) == 'number' then value = tonumber(value)
+    elseif type(var) == 'boolean' then value = value:lower() == 'true' end
     local fn = dialogues.operands[operand]
     if not fn then print('Unsupported operation: "' .. operand .. '"') return false end
     return fn(var, value)
 end
 
 function dialogues.resolveVariableName(name)
-    if name == 'HEALTH' then return hero.health end
+    if name == 'health' then return hero.health
+    else return savefile.data[name] end
 end
 
 function dialogues.executeCommand(command)
@@ -133,4 +135,11 @@ function dialogues.executeDamageCommand(args)
     local amt = tonumber(args[1])
     if not amt then print("Expected a number of hitpoints to damage, but got: " .. args[1]) return end
     hero.entity:damage(amt)
+end
+
+function dialogues.executeSetCommand(args)
+    if #args > 2 or #args < 1 then print("Wrong number of arguments for set, expected 1 or 2, got " .. tostring(#args)) return end
+    local value = args[2] or true
+    local name = args[1]
+    savefile.data[name] = value
 end

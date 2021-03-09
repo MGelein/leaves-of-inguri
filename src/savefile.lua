@@ -23,7 +23,7 @@ function savefile.serialize(data, prefix)
     local parts = {}
     for key, value in pairs(data) do
         local valType = type(value)
-        if valType == 'string' or valType == 'number' then
+        if valType == 'string' or valType == 'number' or valType == 'boolean' then
             local typePrefix = valType:sub(1, 1)
             table.insert(parts, table.concat({prefix, typePrefix, capitalize(key), ' = ', tostring(value)}))
         elseif valType == 'table' then
@@ -60,7 +60,9 @@ function savefile.read(url)
 end
 
 function savefile.createTableEntry(data, key, value)
-    if key:sub(1, 1) == 'n' then value = tonumber(value) end
+    if key:sub(1, 1) == 'n' then value = tonumber(value)
+    elseif key:sub(1, 1) == 'b' then value = value:lower() == 'true' end
+    
     key = key:sub(2, 2):lower() .. key:sub(3)
     data[key] = value
 end

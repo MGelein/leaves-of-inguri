@@ -1,7 +1,7 @@
 @Susan Smith
 
 #greeting
-{HEALTH < 20}
+{health < 20}
 Hello my dear, you look hurt, but how is your day?
 - Really good, I'm enjoying killing all the vermin around! >goodjob
 - Rotten, there is so much evil surrounding us here... >poorhero
@@ -24,7 +24,7 @@ Oh my poor dear, Is there any way I can help you?
 - Come to think of it, can you heal me? >healhero
 
 #healhero
-{HEALTH < 20}
+{health < 20}
 :HEAL(100)
 That is indeed something I would be able to do... Here you go, all topped up!
 - Amazing, thank you and goodbye! >exit
@@ -34,6 +34,11 @@ Nope sorry, you are already fully healed!
 - Bitch! >exit
 
 #nosword
+{susanHasNoSword == true}
+I already told you I have no sword, so you might want to scurry off. Go and ask the blacksmith!
+- Sorry m'lady, I will do better next time! >exit
+
 {DEFAULT}
+:SET(susanHasNoSword)
 Unfortunately I do not have a sword, you should probably ask the blacksmith for that...
 - Understandable, have a good day! >exit
