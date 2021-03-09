@@ -8,6 +8,16 @@ dialogues.lineTypes = {
     ['{'] = 'condition',
 }
 
+dialogues.operands = {
+    ['<'] = function(a, b) return a < b end,
+    ['>'] = function(a, b) return a > b end,
+    ['<='] = function(a, b) return a <= b end,
+    ['>='] = function(a, b) return a >= b end,
+    ['=='] = function(a, b) return a == b end,
+    ['!='] = function(a, b) return a ~= b end,
+    ['~='] = function(a, b) return a ~= b end,
+}
+
 function dialogues.load(name)
     local dialogue = {entries = {}}
     dialogue.show = dialogues.show
@@ -88,8 +98,20 @@ function dialogues.parseResponse(line)
 end
 
 function dialogues.evaluateCondition(condition)
-    print(condition)
-    return true
+    if condition == 'DEFAULT' then return true end
+    local parts = splitstring(condition, ' ')
+    if #parts ~= 3 then print("Malformed condition:", condition) return false end
+    local varname, operand, value = unpack(parts)
+    local var = dialogues.resolveVariableName(varname)
+    if not var then print("Cannot resolve variable " .. varname) return false end
+    if type(var) == 'number' then value = tonumber(value) end
+    local fn = dialogues.operands[operand]
+    if not fn then print('Unsupported operation: "' .. operand .. '"') return false end
+    return fn(var, value)
+end
+
+function dialogues.resolveVariableName(name)
+    if name == 'HEALTH' then return hero.health end
 end
 
 function dialogues.executeCommand(command)
