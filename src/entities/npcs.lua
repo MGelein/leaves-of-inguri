@@ -3,7 +3,7 @@ npcs.list = managedlist.create()
 
 function npcs.create(tile, xPos, yPos)
     local npc = entities.createForce(tile, xPos, yPos)
-    npc.damage = 0
+    npc.attack = 0
     npc.mass = 0
     npc.home = {x = xPos, y = yPos}
     npc.collider.class = 'npc'

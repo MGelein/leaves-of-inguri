@@ -34,7 +34,7 @@ function gui.panel(xPos, yPos, w, h, rPos, sx, sy)
     local panel = gui.element(xPos, yPos, rPos, sx, sy)
     panel.w = w
     panel.h = h
-    panel.backgroundColor = {0, 0, 0, 0.5}
+    panel.backgroundColor = {0, 0, 0, 0.8}
     panel.lineColor = {1, 1, 1, 1}
     panel.lineWidth = 4
     panel.draw = function(self)
@@ -189,7 +189,7 @@ function gui.button(text, xPos, yPos, width, onActivate, font)
 end
 
 function gui.dialogue(data)
-    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height - 10)
+    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height / 4)
     dialogue.w = config.gui.dialogueWidth
     dialogue.entries = data.entries
     dialogue.destroy = function(self)
@@ -198,25 +198,27 @@ function gui.dialogue(data)
         gui.list:remove(self)
     end
     dialogue.showEntry = function(self, name)
-        if name == 'exit' then self:destroy() end
+        if name == 'exit' then 
+            game.hideMenu()
+            return
+        end
         if self.textbox then self.textbox:destroy() end
         if self.buttons then self.buttons:destroy() end
         
         local entry = self.entries[name]
         self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
+        self.textbox.partOfDialogue = true
         local buttonDefs = {}
         for i, response in ipairs(entry.responses) do
             local def = {}
             local res = response.text:gsub(' ', '_')
             def[response.text] = function()
-                print('execute')
                 dialogue:showEntry(response.dest)
             end
             table.insert(buttonDefs, def)
         end
         
-        local responseHeight = #entry.responses * assets.fonts.normal:getHeight()
-        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y - 500, self.w, responseHeight, assets.fonts.normal)
+        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y + 10, self.w, 70, assets.fonts.normal)
     end
     dialogue:showEntry('greeting')
     return dialogue
@@ -234,6 +236,7 @@ function gui.textbox(text, xPos, yPos, w)
     box.numLines = #lines
     box.panel = gui.panel(xPos, yPos, w, box.height)
     box.char = 1
+    box.partOfDialogue = false
     box.interactLetGo = false
     box.attackLetGo = false
     box.label = gui.label(text:sub(1, 1), xPos + 10, yPos + 10, w - 20)
@@ -254,8 +257,10 @@ function gui.textbox(text, xPos, yPos, w)
                 self.attackLetGo = false
             end
         else
-            if (input.isDownOnce('interact') and self.interactLetGo) or (input.isDownOnce('attack') and self.attackLetGo) then
-                game.hideMenu()
+            if not self.partOfDialogue then
+                if (input.isDownOnce('interact') and self.interactLetGo) or (input.isDownOnce('attack') and self.attackLetGo) then
+                    game.hideMenu()
+                end
             end
         end
     end

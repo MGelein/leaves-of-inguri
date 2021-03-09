@@ -12,6 +12,7 @@ function dialogues.load(name)
     for line in love.filesystem.lines('src/dialogue/' .. name .. '.txt') do
         if #line > 0 then dialogues.parseLine(line, dialogue) end
     end
+    dialogues.finishEntry(dialogue)
     return dialogue
 end
 
@@ -19,7 +20,7 @@ function dialogues.parseLine(line, dialogue, entry)
     local lineType = dialogues.lineTypes[line:sub(1, 1)]
     
     if lineType == 'entry' then 
-        if dialogues.cEntry.id then dialogue.entries[dialogues.cEntry.id] = dialogues.cEntry end
+        dialogues.cEntry = dialogues.finishEntry(dialogue)
         dialogues.cEntry = { id = line:sub(2), responses = {}}
     elseif lineType == nil then
         dialogues.cEntry.text = line
@@ -28,6 +29,11 @@ function dialogues.parseLine(line, dialogue, entry)
     elseif lineType == 'response' then
         table.insert(dialogues.cEntry.responses, dialogues.parseResponse(line))
     end
+end
+
+function dialogues.finishEntry(dialogue)
+    if dialogues.cEntry.id then dialogue.entries[dialogues.cEntry.id] = dialogues.cEntry end
+    return {}
 end
 
 function dialogues.parseResponse(line)
