@@ -1,25 +1,35 @@
 @Susan Smith
 
 #greeting
+{HEALTH < 20}
+Hello my dear, you look hurt, but how is your day?
+- Really good, I'm enjoying killing all the vermin around! >goodjob
+- Rotten, there is so much evil surrounding us here... >poorhero
+
+{DEFAULT}
 Hello my dear, how is your day so far?
 - Really good, I'm enjoying killing all the vermin around! >goodjob
 - Rotten, there is so much evil surrounding us here... >poorhero
 
 #goodjob
+{DEFAULT}
 You're doing a great job handling all those rats my dear. Can I help you somehow?
 - Now that you mention it, you could give me a better sword! >nosword
 - Come to think of it, can you heal me? >healhero
 
 #poorhero
+{DEFAULT}
 Oh my poor dear, Is there any way I can help you?
 - Now that you mention it, you could give me a better sword! >nosword
 - Come to think of it, can you heal me? >healhero
 
 #healhero
+{DEFAULT}
 :HEAL(100)
 That is indeed something I would be able to do... Here you go, all topped up!
 - Amazing, thank you and goodbye! >exit
 
 #nosword
+{DEFAULT}
 Unfortunately I do not have a sword, you should probably ask the blacksmith for that...
 - Understandable, have a good day! >exit

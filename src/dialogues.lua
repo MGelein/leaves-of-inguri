@@ -5,6 +5,7 @@ dialogues.lineTypes = {
     ['#'] = 'entry',
     ['-'] = 'response',
     [':'] = 'command',
+    ['{'] = 'condition',
 }
 
 function dialogues.load(name)
@@ -19,21 +20,34 @@ end
 
 function dialogues.parseLine(line, dialogue, entry)
     local lineType = dialogues.lineTypes[line:sub(1, 1)]
+    local entry = dialogues.cEntry
     
     if lineType == 'entry' then 
         dialogues.cEntry = dialogues.finishEntry(dialogue)
-        dialogues.cEntry = { id = line:sub(2), responses = {}, commands = {}}
+        dialogues.cEntry = { 
+            id = line:sub(2), 
+            options = {
+                {text = '', responses = {}, commands = {}, condition = ''},
+            }
+        }
     elseif lineType == nil then
-        dialogues.cEntry.text = line
+        entry.options[#entry.options].text = line
     elseif lineType == 'name' then
         dialogue.name = line:sub(2)
     elseif lineType == 'response' then
-        table.insert(dialogues.cEntry.responses, dialogues.parseResponse(line))
+        table.insert(entry.options[#entry.options].responses, dialogues.parseResponse(line))
     elseif lineType == 'command' then
         local command = dialogues.parseCommand(line:sub(2))
         if command then 
-            table.insert(dialogues.cEntry.commands, command)
+            table.insert(entry.options[#entry.options].commands, command)
         end
+    elseif lineType == 'condition' then
+        local cond = entry.options[#entry.options].condition
+        if #cond > 1 then 
+            local newOption = {text = '', responses = {}, commands = {}, condition = ''}
+            table.insert(entry.options, newOption)
+        end
+        entry.options[#entry.options].condition = line:sub(2, line:find('}') - 1)
     end
 end
 
@@ -71,6 +85,11 @@ function dialogues.parseResponse(line)
         dest = line:sub(destIndex + 1)
     }
     return res
+end
+
+function dialogues.evaluateCondition(condition)
+    print(condition)
+    return true
 end
 
 function dialogues.executeCommand(command)

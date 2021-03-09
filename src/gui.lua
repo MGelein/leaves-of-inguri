@@ -206,6 +206,12 @@ function gui.dialogue(data)
             game.hideMenu()
             return
         end
+        for i, option in ipairs(entry.options) do
+            if dialogues.evaluateCondition(option.condition) then
+                entry = option
+                break
+            end
+        end
 
         for i, command in ipairs(entry.commands) do dialogues.executeCommand(command) end
         self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
