@@ -1,8 +1,8 @@
 npcs = {}
 npcs.list = managedlist.create()
 
-function npcs.create(tile, xPos, yPos)
-    local npc = entities.createForce(tile, xPos, yPos)
+function npcs.create(id, tile, xPos, yPos)
+    local npc = entities.createForce(id, tile, xPos, yPos)
     npc.attack = 0
     npc.mass = 0
     npc.home = {x = xPos, y = yPos}

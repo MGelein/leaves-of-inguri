@@ -5,8 +5,9 @@ entities = {
 }
 entities.list = managedlist.create()
 
-function entities.create(spriteNumber, xPos, yPos)
+function entities.create(identity, spriteNumber, xPos, yPos)
     local entity = {
+        id = identity,
         sprite = spriteNumber,
         particleTint = {r = 1, g = 1, b = 1},
         x = xPos,
@@ -53,6 +54,7 @@ function entities.create(spriteNumber, xPos, yPos)
             self.health = self.health - amt
             if self.health <= 0 then
                 soundfx.play('die')
+                tilemap.recordEntityDeath(self)
                 self.health = 0
                 entities.remove(self)
                 local shakeTime = 0.2
@@ -72,8 +74,8 @@ function entities.create(spriteNumber, xPos, yPos)
     return entity
 end
 
-function entities.createForce(spriteNumber, xPos, yPos)
-    local entity = entities.create(spriteNumber, xPos, yPos)
+function entities.createForce(id, spriteNumber, xPos, yPos)
+    local entity = entities.create(id, spriteNumber, xPos, yPos)
     entity.mass = 0.1
     entity.vx = 0
     entity.vy = 0
@@ -84,8 +86,8 @@ function entities.createForce(spriteNumber, xPos, yPos)
     return entity
 end
 
-function entities.createWalk(spriteNumber, xPos, yPos)
-    local entity = entities.createForce(spriteNumber, xPos, yPos)
+function entities.createWalk(id, spriteNumber, xPos, yPos)
+    local entity = entities.createForce(id, spriteNumber, xPos, yPos)
     entity.mass = 1
     entity.walkAngle = love.math.random()
     entity.walkAngleSpeed = 0.3 + love.math.random() / 20

@@ -1,9 +1,10 @@
 objects = {}
 
-function objects.create(xPos, yPos, template)
-    local object = entities.create(template.tile, xPos, yPos)
+function objects.create(id, xPos, yPos, template)
+    local object = entities.create(id, template.tile, xPos, yPos)
     object.health = template.health or object.health
     object.collider.class = 'object'
+    object.index = i
     object.description = template.description
     if template.update then object.update = template.update end
 

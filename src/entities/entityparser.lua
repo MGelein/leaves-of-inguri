@@ -168,7 +168,7 @@ entityparser.objectTemplates = {
     }
 }
 
-function entityparser.parse(tile, x, y)
+function entityparser.parse(i, tile, x, y)
     x = x + 16
     y = y + 16
     if tile == hero.symbolTile then 
@@ -176,14 +176,14 @@ function entityparser.parse(tile, x, y)
         else hero.create(x, y) end
     elseif entityparser.getMonsterTemplate(tile) then 
         local template = entityparser.getMonsterTemplate(tile)
-        monsters.create(x, y, template)
+        monsters.create(i, x, y, template)
     elseif entityparser.getObjectTemplate(tile) then
         local template = entityparser.getObjectTemplate(tile)
-        objects.create(x, y, template)
+        objects.create(i, x, y, template)
     elseif entityparser.isNPC(tile) then
-        npcs.create(tile, x, y)
+        npcs.create(i, tile, x, y)
     else
-        entities.create(tile, x, y) 
+        entities.create(i, tile, x, y) 
     end
 end
 

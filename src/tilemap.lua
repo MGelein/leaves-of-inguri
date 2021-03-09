@@ -46,10 +46,10 @@ end
 
 function tilemap.createEntities(tiles)
     for i, tile in ipairs(tiles) do
-        if tile > 0 then
+        if tile > 0 and tilemap.isAlive(i) then
             local x = (i - 1) % tilemap.cols
             local y = math.floor((i - 1) / tilemap.cols)
-            entityparser.parse(tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
+            entityparser.parse(i, tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
         end
     end
 end
@@ -127,4 +127,16 @@ function tilemap.unload()
     tilemap.y = 0
     tilemap.r = 0
     tilemap.colliders = {}
+end
+
+function tilemap.recordEntityDeath(entity)
+    if entity.id < 1 then return end
+    local key = tilemap.name .. 'Entity' .. entity.id .. 'Dead'
+    savefile.data[key] = true
+end
+
+function tilemap.isAlive(id)
+    if id < 1 then return true end
+    local key = tilemap.name .. 'Entity' .. id .. 'Dead'
+    return not savefile.data[key]
 end
