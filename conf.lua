@@ -19,6 +19,8 @@ config = {
         headerVisible = 2,
         moveTimeout = 0.2,
         activateTimeout = 1,
+        textboxWidth = 600,
+        dialogueWidth = 800,
     },
 
     audio = {

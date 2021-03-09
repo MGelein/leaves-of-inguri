@@ -25,7 +25,7 @@ function printtable(toprint, indent)
             print(table.concat({indent, name, ' = {'}), '')
             printtable(toprint[name], indent .. '  ')
             print(table.concat({indent, '}'}), '')
-        else 
+        else
             print(table.concat({indent, name, ' = ', value}, ''))
         end
     end

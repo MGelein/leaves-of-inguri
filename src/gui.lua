@@ -1,6 +1,6 @@
 gui = {
     heartSpacing = 36,
-    mapNameWidth = 600,
+    mapNameWidth = config.gui.textboxWidth,
     heartEntity = nil,
 }
 gui.list = managedlist.create()
@@ -100,7 +100,7 @@ function gui.hearts(xPos, yPos)
     hearts.update = gui.updateHearts
 end
 
-function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
+function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
     local buttonGroup = gui.element(xPos, yPos)
     buttonGroup.numButtons = #definitions
     buttonGroup.buttons = {}
@@ -113,7 +113,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
-            local button = gui.button(text, xPos, yPos, width - 40, onActivate)
+            local button = gui.button(text, xPos, yPos, width - 40, onActivate, font)
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
         end
@@ -162,7 +162,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing)
     return buttonGroup
 end
 
-function gui.button(text, xPos, yPos, width, onActivate)
+function gui.button(text, xPos, yPos, width, onActivate, font)
     local button = gui.element(xPos, yPos)
     button.text = text
     button.w = width
@@ -170,7 +170,7 @@ function gui.button(text, xPos, yPos, width, onActivate)
     button.selected = false
     button.panel = gui.panel(xPos, yPos, width, button.h)
     button.label = gui.label(text, xPos, yPos, width, 'center')
-    button.label.font = assets.fonts.button
+    button.label.font = font or assets.fonts.button
     button.update = function(self, dt)
         button.panel.visible = self.visible and button.selected
         button.label.visible = self.visible
@@ -186,6 +186,40 @@ function gui.button(text, xPos, yPos, width, onActivate)
     end
     button.activate = onActivate
     return button
+end
+
+function gui.dialogue(data)
+    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height - 10)
+    dialogue.w = config.gui.dialogueWidth
+    dialogue.entries = data.entries
+    dialogue.destroy = function(self)
+        if self.textbox then self.textbox:destroy() end
+        if self.buttons then self.buttons:destroy() end
+        gui.list:remove(self)
+    end
+    dialogue.showEntry = function(self, name)
+        if name == 'exit' then self:destroy() end
+        if self.textbox then self.textbox:destroy() end
+        if self.buttons then self.buttons:destroy() end
+        
+        local entry = self.entries[name]
+        self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
+        local buttonDefs = {}
+        for i, response in ipairs(entry.responses) do
+            local def = {}
+            local res = response.text:gsub(' ', '_')
+            def[response.text] = function()
+                print('execute')
+                dialogue:showEntry(response.dest)
+            end
+            table.insert(buttonDefs, def)
+        end
+        
+        local responseHeight = #entry.responses * assets.fonts.normal:getHeight()
+        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y - 500, self.w, responseHeight, assets.fonts.normal)
+    end
+    dialogue:showEntry('greeting')
+    return dialogue
 end
 
 function gui.textbox(text, xPos, yPos, w)
@@ -349,5 +383,11 @@ end
 function gui.showText(text)
     text = text or '...'
     game.paused = true
-    game.menu = gui.textbox(text, (config.width - 600) / 2, config.height - 10, 600)
+    game.menu = gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, config.height - 10, config.gui.textboxWidth)
+end
+
+function gui.showDialogue(data)
+    if not data then return end
+    game.paused = true
+    game.menu = gui.dialogue(data)
 end

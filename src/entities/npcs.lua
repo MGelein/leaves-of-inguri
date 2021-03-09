@@ -27,7 +27,7 @@ function npcs.registerTrigger(trigger)
 end
 
 function npcs.talk(self)
-    self.dialogue:show('greeting')
+    gui.showDialogue(self.dialogue)
 end
 
 function npcs.loadPersonalityData(self)

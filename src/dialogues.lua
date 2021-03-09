@@ -6,10 +6,6 @@ dialogues.lineTypes = {
     ['-'] = 'response'
 }
 
-function dialogues.show(self, entry)
-    gui.showText(self.entries[entry].text)
-end
-
 function dialogues.load(name)
     local dialogue = {entries = {}}
     dialogue.show = dialogues.show
