@@ -24,10 +24,14 @@ Oh my poor dear, Is there any way I can help you?
 - Come to think of it, can you heal me? >healhero
 
 #healhero
-{DEFAULT}
+{HEALTH < 20}
 :HEAL(100)
 That is indeed something I would be able to do... Here you go, all topped up!
 - Amazing, thank you and goodbye! >exit
+
+{DEFAULT}
+Nope sorry, you are already fully healed!
+- Bitch! >exit
 
 #nosword
 {DEFAULT}
