@@ -86,3 +86,10 @@ function dialogues.executeHealCommand(args)
     if not amt then print("Expected a number of hitpoints to heal, but got: " .. args[1]) return end
     hero.entity:heal(amt)
 end
+
+function dialogues.executeDamageCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for damage, expected 1, got " .. tostring(#args)) return end
+    local amt = tonumber(args[1])
+    if not amt then print("Expected a number of hitpoints to damage, but got: " .. args[1]) return end
+    hero.entity:damage(amt)
+end
