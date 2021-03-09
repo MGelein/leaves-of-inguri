@@ -13,6 +13,7 @@ require("gui")
 require("soundfx")
 require("triggers")
 require("dialogues")
+require("savefile")
 
 require("entities.entities")
 require("entities.hero")
