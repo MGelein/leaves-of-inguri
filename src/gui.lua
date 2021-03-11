@@ -89,6 +89,8 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
         love.graphics.push()
         
         love.graphics.translate(self.x, self.y)
+        love.graphics.setColor(0, 0, 0, 0.5)
+        love.graphics.rectangle('fill', 0, 0, self.w, self.h)
         love.graphics.setColor(unpack(self.c))
         love.graphics.rectangle('fill', 0, 0, self.actualW, self.h)
         love.graphics.setColor(1, 1, 1, 0.5)
