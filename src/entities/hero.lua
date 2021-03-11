@@ -21,7 +21,6 @@ function hero.create(xPos, yPos)
     entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
     hero.entity = entity
-    gui.heartEntity = entity
 end
 
 function hero.moveTo(x, y)

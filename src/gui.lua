@@ -1,7 +1,6 @@
 gui = {
     heartSpacing = 36,
     mapNameWidth = config.gui.textboxWidth,
-    heartEntity = nil,
 }
 gui.list = managedlist.create()
 gui.emptyHeart = 89
@@ -68,36 +67,62 @@ function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
     return label
 end
 
-function gui.hearts(xPos, yPos)
-    local hearts = gui.element(xPos, yPos)
-    hearts.lastHealth = 0
-    hearts.lastMax = 0
-    hearts.invalidated = true
-    hearts.fullHearts = 0
-    hearts.emptyHearts = 0
-    hearts.halfHearts = 0
-    hearts.draw = function(self)
+function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx, sy)
+    local bar = gui.element(xPos, yPos, rPos, sx, sy)
+    bar.maxValue = max
+    bar.lastMax = max
+    bar.value = value
+    bar.lastVal = value
+    bar.text  = tostring(bar.value) .. '/' .. tostring(bar.maxValue)
+    bar.ratio = bar.value / bar.maxValue
+    bar.w = width
+    bar.adjustedW = bar.w * bar.ratio
+    bar.diffW = 0
+    bar.actualW = bar.adjustedW
+    bar.h = height
+    bar.c = color
+    bar.shadowHeight = bar.h / 6
+    bar.font = assets.fonts.normal
+    bar.textHeight = (bar.h - bar.font:getHeight()) / 2
+    bar.draw = function(self)
         love.graphics.push()
+        
         love.graphics.translate(self.x, self.y)
-        local counter = self.fullHearts
-        while counter > 0 do
-            assets.entities.drawSprite(gui.fullHeart, 0, 0, 0, 4, 4)
-            love.graphics.translate(gui.heartSpacing, 0)
-            counter = counter - 1
-        end
-        if self.halfHearts > 0 then
-            assets.entities.drawSprite(gui.halfHeart, 0, 0, 0, 4, 4)
-            love.graphics.translate(gui.heartSpacing, 0)
-        end
-        counter = self.emptyHearts
-        while counter > 0 do
-            assets.entities.drawSprite(gui.emptyHeart, 0, 0, 0, 4, 4)
-            love.graphics.translate(gui.heartSpacing, 0)
-            counter = counter - 1
-        end
+        love.graphics.setColor(unpack(self.c))
+        love.graphics.rectangle('fill', 0, 0, self.actualW, self.h)
+        love.graphics.setColor(1, 1, 1, 0.5)
+        love.graphics.rectangle('fill', 0, 0, self.actualW, self.shadowHeight)
+        love.graphics.setColor(0, 0, 0, 0.5)
+        love.graphics.rectangle('fill', 0, self.h - self.shadowHeight, self.actualW, self.shadowHeight)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.setLineWidth(tilemap.scale)
+        love.graphics.rectangle('line', 0, 0, self.w, self.h)
+        
+        love.graphics.setFont(self.font)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.printf(self.text, 0, self.textHeight, self.w, 'center')
         love.graphics.pop()
     end
-    hearts.update = gui.updateHearts
+    bar.update = function(self, dt)
+        if self.value ~= self.lastValue or self.maxValue ~= self.lastMax then
+            self.lastValue = self.value
+            self.ratio = self.value / self.maxValue
+            self.adjustedW = self.w * self.ratio
+            self.text  = tostring(self.value) .. '/' .. tostring(self.maxValue)
+            self.diffW = self.adjustedW - self.actualW
+        end
+        if self.diffW ~= 0 then
+            self.actualW = self.actualW + (self.diffW * dt * 2)
+            if self.actualW >= self.adjustedW and self.diffW > 0 then 
+                self.diffW = 0
+                self.actualW = self.adjustedW
+            elseif self.actualW <= self.adjustedW and self.diffW < 0 then
+                self.diffW = 0
+                self.actualW = self.adjustedW
+            end
+        end
+    end
+    return bar
 end
 
 function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
@@ -320,36 +345,26 @@ function gui.clear()
     gui.list = managedlist.create()
 end
 
-function gui.updateHearts(self)
-    if self.lastMax ~= gui.heartEntity.maxHealth then
-        self.invalidated = true
-        self.lastMax = gui.heartEntity.maxHealth
-    end
-    if self.lastHealth ~= gui.heartEntity.health then 
-        self.invalidated = true
-        self.lastHealth = gui.heartEntity.health
+function gui.createHealthWidget(x, y)
+    local padding = 10
+    local widget = gui.element(x, y)
+    x = x + padding
+    widget.icon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
+    widget.icon.vr = 0
+    x = x + padding + 32
+    widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
+    
+    widget.update = function(self)
+        self.healthBar.value = hero.entity.health
+        self.healthBar.maxValue = hero.entity.maxHealth
     end
 
-    if self.invalidated then
-        self.invalidated = false
-        self.fullHearts = math.floor(self.lastHealth / 2)
-        self.halfHearts = 0
-        if self.lastHealth - self.fullHearts * 2 > 0 then
-            self.halfHearts = 1
-        end
-        self.emptyHearts = (self.lastMax / 2) - (self.halfHearts + self.fullHearts)
+    widget.destroy = function(self)
+        self.healthBar:destroy()
+        self.icon:destroy()
+        gui.list:remove(self)
     end
-end
-
-function gui.createHealthWidget(x, y, entity)
-    gui.heartEntity = entity
-    local width = 130 + (entity.maxHealth / 2) * gui.heartSpacing
-    local healthWidget = {
-        panel = gui.panel(x - 20, y - 10, width, 60),
-        label = gui.label("Health: ", x, y),
-        hearts = gui.hearts(x + 100, y),
-    }
-    return healthWidget
+    return widget
 end
 
 function gui.showHeader(name, duration)
