@@ -14,6 +14,7 @@ require("soundfx")
 require("triggers")
 require("dialogues")
 require("savefile")
+require("spells")
 
 require("entities.entities")
 require("entities.hero")

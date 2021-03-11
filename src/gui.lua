@@ -6,6 +6,7 @@ gui.list = managedlist.create()
 gui.emptyHeart = 89
 gui.halfHeart = 90
 gui.fullHeart = 91
+gui.manaCrystal = 99
 
 function gui.element(xPos, yPos, rPos, scaleX, scaleY)
     if rPos == nil then rPos = 0 end
@@ -349,22 +350,32 @@ function gui.clear()
 end
 
 function gui.createHealthWidget(x, y)
+    local resetX = x
     local padding = 10
     local widget = gui.element(x, y)
     x = x + padding
-    widget.icon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
-    widget.icon.vr = 0
+    widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
     x = x + padding + 32
     widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
+    
+    x = resetX + padding
+    y = y + 32 + padding
+    widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
+    x = x + padding + 32
+    widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
     
     widget.update = function(self)
         self.healthBar.value = hero.entity.health
         self.healthBar.maxValue = hero.entity.maxHealth
+        self.manaBar.value = hero.entity.mana
+        self.manaBar.maxValue = hero.entity.maxMana
     end
 
     widget.destroy = function(self)
         self.healthBar:destroy()
-        self.icon:destroy()
+        self.healthIcon:destroy()
+        self.manaBar:destroy()
+        self.manaIcon:destroy()
         gui.list:remove(self)
     end
     return widget

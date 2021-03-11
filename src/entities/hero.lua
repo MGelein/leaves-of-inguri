@@ -2,6 +2,9 @@ hero = {
     symbolTile = 6,
     health = 1,
     maxHealth = 20,
+    mana = 10,
+    maxMana = 10,
+
     attack = 2,
     defence = 0,
     weapon = 'sword'
@@ -16,8 +19,12 @@ function hero.create(xPos, yPos)
     entity.defence = hero.defence
     entity.target = nil
     entity.weapon = hero.weapon
+
     entity.health = hero.health
     entity.maxHealth = hero.maxHealth
+    entity.mana = hero.mana
+    entity.maxMana = hero.maxMana
+
     entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
     hero.entity = entity
@@ -33,6 +40,8 @@ function hero.update(self, dt)
     hero.handleInput(self)
     screen.follow(self.x, self.y, dt)
     hero.health = self.health
+    hero.mana = self.mana
+    spells.update(dt)
 end
 
 function hero.handleInput(self)
@@ -40,7 +49,11 @@ function hero.handleInput(self)
     if input.isDown('right') then self.ax = self.ax + self.force end
     if input.isDown('up') then self.ay = self.ay - self.force end
     if input.isDown('down') then self.ay = self.ay + self.force end
-    
+
+    if input.isDownOnce('special') then spells.castSelected() end
+    if input.isDownOnce('next') then spells.changeSpell(1) end
+    if input.isDownOnce('previous') then spells.changeSpell(-1) end
+     
     if input.isDown('block') then self.blocking = true
     else self.blocking = false end
 

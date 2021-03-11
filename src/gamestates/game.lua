@@ -15,7 +15,7 @@ function game.load()
 end
 
 function game.start()
-    gui.createHealthWidget(0, 0)
+    gui.createHealthWidget(0, config.height - 96)
 end
 
 function game.draw()

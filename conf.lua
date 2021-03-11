@@ -12,7 +12,8 @@ config = {
     interactDist = 48,
 
     combat = {
-        invulnerableFrames = 20
+        invulnerableFrames = 20,
+        spellCooldown = 0.5,
     },
 
     gui = {
