@@ -5,6 +5,7 @@ function assets.load()
     
     assets.tiles = spritesheet.create('assets/graphics/tiles.png', 8, 8)
     assets.entities = spritesheet.create('assets/graphics/entities.png', 8, 8)
+    pxparticles.defaultQuad = love.graphics.newQuad(1, 0, 1, 1, assets.entities.width, assets.entities.height)
 
     assets.fonts = {}
     assets.fonts.debug = love.graphics.newFont('assets/graphics/rainyhearts.ttf', 20)

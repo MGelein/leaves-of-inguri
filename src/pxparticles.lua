@@ -2,6 +2,7 @@ pxparticles = {}
 pxparticles.scale = 4
 pxparticles.force = 3
 pxparticles.list = managedlist.create()
+pxparticles.defaultQuad = nil
 
 function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint, shakeTime)
     if shakeTime > 0 then screen.shakeTime = shakeTime end
@@ -19,7 +20,7 @@ end
 
 function pxparticles.new(particleQuad, xPos, yPos, floorLevel, particleTint)
     local p = {
-        quad = particleQuad,
+        quad = particleQuad or pxparticles.defaultQuad,
         x = xPos,
         y = yPos,
         vx = 0,

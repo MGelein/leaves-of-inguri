@@ -81,6 +81,7 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
     bar.actualW = bar.adjustedW
     bar.h = height
     bar.c = color
+    bar.rgb = {r = color[1], g = color[2], b = color[3]}
     bar.shadowHeight = bar.h / 6
     bar.font = assets.fonts.normal
     bar.textHeight = (bar.h - bar.font:getHeight()) / 2
