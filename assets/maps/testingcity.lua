@@ -11,19 +11,20 @@ return {
   nextlayerid = 5,
   nextobjectid = 20,
   properties = {
+    ["bgm"] = "testbgm",
     ["name"] = "Testing City"
   },
   tilesets = {
     {
       name = "colored_tilemap_packed",
       firstgid = 1,
-      filename = "../../../Pictures/colored_tilemap_packed.tsx",
+      filename = "../../../../Pictures/colored_tilemap_packed.tsx",
       tilewidth = 8,
       tileheight = 8,
       spacing = 0,
       margin = 0,
       columns = 14,
-      image = "../../../Pictures/Assets/Kenney Roguelike/kenney_microroguelike_1.2/Tilemap/colored_tilemap_packed.png",
+      image = "../../../../Pictures/Assets/Kenney Roguelike/kenney_microroguelike_1.2/Tilemap/colored_tilemap_packed.png",
       imagewidth = 112,
       imageheight = 80,
       objectalignment = "unspecified",

@@ -34,6 +34,7 @@ function tilemap.load(name)
     local paddingY = config.height - tilemap.height * tilemap.scale
     screen.setBounds(paddingX, paddingY)
     gui.showHeader(tilemap.data.properties.name)
+    music.play(tilemap.data.properties.bgm)
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
 end

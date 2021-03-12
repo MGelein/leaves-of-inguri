@@ -15,6 +15,7 @@ require("triggers")
 require("dialogues")
 require("savefile")
 require("spells")
+require("music")
 
 require("entities.entities")
 require("entities.hero")
