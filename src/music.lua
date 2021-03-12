@@ -6,6 +6,7 @@ function music.play(name)
     if name then
         music.currentSource = love.audio.newSource('assets/audio/music/' .. name .. '.ogg', 'stream')
         music.setVolume(config.audio.masterVolume * config.audio.bgmVolume)
+        music.currentSource:setLooping(true)
         music.currentSource:play()
     end
 end
