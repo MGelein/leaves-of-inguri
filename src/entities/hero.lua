@@ -19,6 +19,7 @@ function hero.create(xPos, yPos)
     entity.defence = hero.defence
     entity.target = nil
     entity.weapon = hero.weapon
+    entity.prevWalkAngle = entity.walkAngle
 
     entity.health = hero.health
     entity.maxHealth = hero.maxHealth
@@ -41,6 +42,8 @@ function hero.update(self, dt)
     screen.follow(self.x, self.y, dt)
     hero.health = self.health
     hero.mana = self.mana
+    if self.prevWalkAngle > self.walkAngle then soundfx.play('step') end
+    self.prevWalkAngle = self.walkAngle
     spells.update(dt)
 end
 

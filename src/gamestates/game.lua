@@ -41,6 +41,7 @@ function game.update(dt)
 end
 
 function game.showMenu()
+    soundfx.play('positive')
     game.paused = true
     gui.showHeader(config.window.title, 1000)
     game.menu = gui.buttongroup(game.menuDef, (config.width - 300) / 2, 150, 300, 70)

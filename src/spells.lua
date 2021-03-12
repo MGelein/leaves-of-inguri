@@ -38,6 +38,7 @@ end
 function spells.heal()
     local spell = spells.templates.heal
     if hero.entity.mana >= spell.cost then
+        soundfx.play('heal')
         hero.entity.mana = hero.entity.mana - spell.cost
         hero.entity:heal(spell.amt)
     else spells.fail() end

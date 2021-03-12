@@ -115,7 +115,7 @@ end
 function entities.updateWalk(self, dt)
     self.speed = math.sqrt(self.vx * self.vx + self.vy * self.vy)
 
-    if self.speed > 0 then 
+    if self.speed > 0.05 then 
         self.walkAngle = self.walkAngle + self.walkAngleSpeed 
         if self.walkAngle > math.pi * 2 then self.walkAngle = self.walkAngle - math.pi * 2 end
     end
