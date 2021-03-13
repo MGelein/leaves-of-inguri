@@ -3,7 +3,12 @@ spells = {
     known = {'heal', 'blink', 'talkWithPlants'},
     selectedIndex = 1,
     selected = 'heal',
+
+    healIcon = 120,
+    blinkIcon = 88,
+    talkWithPlantsIcon = 77,
 }
+spells.selectedIcon = spells.healIcon
 
 spells.templates = {
     heal = {
@@ -29,6 +34,7 @@ function spells.changeSpell(dir)
     if spells.selectedIndex > #spells.known then spells.selectedIndex = 1
     elseif spells.selectedIndex <= 0 then spells.selectedIndex = #spells.known end
     spells.selected = spells.known[spells.selectedIndex]
+    spells.selectedIcon = spells[spells.selected .. 'Icon']
 end
 
 function spells.fail()

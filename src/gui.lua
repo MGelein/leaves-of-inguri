@@ -354,21 +354,22 @@ function gui.createHealthWidget(x, y)
     local padding = 10
     local widget = gui.element(x, y)
     x = x + padding
-    widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
-    x = x + padding + 32
-    widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
-    
-    x = resetX + padding
-    y = y + 32 + padding
     widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
     x = x + padding + 32
     widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
+    
+    x = resetX + padding
+    y = y + 32 + padding
+    widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
+    x = x + padding + 32
+    widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
     
     widget.update = function(self)
         self.healthBar.value = hero.entity.health
         self.healthBar.maxValue = hero.entity.maxHealth
         self.manaBar.value = hero.entity.mana
         self.manaBar.maxValue = hero.entity.maxMana
+        self.manaIcon.tile = spells.selectedIcon
     end
 
     widget.destroy = function(self)
