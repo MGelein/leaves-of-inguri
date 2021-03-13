@@ -14,6 +14,10 @@ spells.templates = {
     heal = {
         amt = 4,
         cost = 2,
+    },
+    blink = {
+        time = 0.1,
+        cost = 1,
     }
 }
 
@@ -47,5 +51,15 @@ function spells.heal()
         soundfx.play('heal')
         hero.entity.mana = hero.entity.mana - spell.cost
         hero.entity:heal(spell.amt)
+    else spells.fail() end
+end
+
+function spells.blink()
+    local spell = spells.templates.blink
+    if hero.entity.mana >= spell.cost then
+        hero.explode()
+        soundfx.play('blink')
+        hero.entity.mana = hero.entity.mana - spell.cost
+        hero.entity.blinkTime = spell.time
     else spells.fail() end
 end

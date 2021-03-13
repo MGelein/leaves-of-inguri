@@ -25,6 +25,7 @@ function hero.create(xPos, yPos)
     entity.maxHealth = hero.maxHealth
     entity.mana = hero.mana
     entity.maxMana = hero.maxMana
+    entity.blinkTime = 0
 
     entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
@@ -44,7 +45,21 @@ function hero.update(self, dt)
     hero.mana = self.mana
     if self.prevWalkAngle > self.walkAngle then soundfx.play('step') end
     self.prevWalkAngle = self.walkAngle
+    
     spells.update(dt)
+    if self.blinkTime > 0 then 
+        self.blinkTime = self.blinkTime - dt
+        for i = 0, 20 do
+            self.x = self.x + self.vx
+            self.y = self.y + self.vy
+            tilemap.update()
+            entities.updateColliders(self)
+        end
+    end
+end
+
+function hero.explode()
+    pxparticles.fromSprite(hero.entity.sprite, hero.entity.x, hero.entity.y, hero.entity.particleTint, 0.3) 
 end
 
 function hero.handleInput(self)
