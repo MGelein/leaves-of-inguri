@@ -12,6 +12,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         particleTint = {r = 1, g = 1, b = 1},
         x = xPos,
         y = yPos,
+        home = {x = xPos, y = yPos},
         r = 0,
         scale = 4,
         sx = 1,

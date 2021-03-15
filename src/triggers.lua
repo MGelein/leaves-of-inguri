@@ -39,7 +39,8 @@ function triggers.warp(self)
 end
 
 function triggers.npc(self)
-    self.npc:talk()
+    if self.npc then self.npc:talk()
+    else print('Could not find dialogue file for "' .. self.properties.id .. '"') end
 end
 
 function triggers.draw()

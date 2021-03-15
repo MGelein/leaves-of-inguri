@@ -5,22 +5,22 @@ function npcs.create(id, tile, xPos, yPos)
     local npc = entities.createForce(id, tile, xPos, yPos)
     npc.attack = 0
     npc.mass = 0
-    npc.home = {x = xPos, y = yPos}
     npc.collider.class = 'npc'
     npc.collider.parent = npc
-    npc.load = npcs.loadPersonalityData
     npc.update = npcs.update
-    npc.talk = npcs.talk
     npcs.list:add(npc)
 end
 
 function npcs.registerTrigger(trigger)
-    for i, npc in ipairs(npcs.list.all) do
-        if npc.home.x - 16 == trigger.x * tilemap.scale and npc.home.y - 16 == trigger.y * tilemap.scale then
+    local tx = trigger.x * tilemap.scale
+    local ty = trigger.y * tilemap.scale
+    for i, npc in ipairs(entities.list.all) do
+        if npc.home.x - 16 == tx and npc.home.y - 16 == ty then
             npc.name = trigger.properties.id
             npc.trigger = trigger
+            npc.talk = npcs.talk
             trigger.npc = npc
-            npc:load()
+            npcs.loadPersonalityData(npc)
             break
         end
     end
