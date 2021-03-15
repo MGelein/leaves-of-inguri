@@ -10,6 +10,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         id = identity,
         sprite = spriteNumber,
         particleTint = {r = 1, g = 1, b = 1},
+        tint = {1, 1, 1},
         x = xPos,
         y = yPos,
         home = {x = xPos, y = yPos},
@@ -27,6 +28,11 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         blocking = false,
         invulnerableFrames = 0,
         removed = false,
+        effects = {},
+
+        setEffect = function(self, effect, duration)
+            self.effects[effect] = duration
+        end,
 
         moveTo = function(self, x, y)
             self.x = x
@@ -133,7 +139,7 @@ end
 function entities.draw()
     for i, ent in ipairs(entities.list.all) do
         if ent.invulnerableFrames > 0 then love.graphics.setColor(1, 0.5, 0.5)
-        else love.graphics.setColor(1, 1, 1, 1) end
+        else love.graphics.setColor(unpack(ent.tint)) end
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
         if ent.blocking then
             assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
@@ -160,6 +166,11 @@ function entities.update(dt)
             entities.updateColliders(entity)
         else
             entities.remove(entity)
+        end
+        
+        for effect, duration in pairs(entity.effects) do
+            entity.effects[effect] = entity.effects[effect] - dt
+            if entity.effects[effect] <= 0 then entity.effects[effect] = nil end
         end
     end
 end

@@ -38,13 +38,6 @@ function hero.moveTo(x, y)
     hero.entity.detectCollider:moveTo(x, y)
 end
 
-function hero.setEffect(name, duration)
-    hero.effects[name] = duration
-    -- if not hero.effects[name] then hero.effects[name] = duration
-    -- elseif hero.effects[name] < duration then hero.effects[name] = duration 
-    -- end
-end
-
 function hero.update(self, dt)
     self.attackCooldown = decrease(self.attackCooldown)
     hero.handleInput(self)
@@ -63,11 +56,6 @@ function hero.update(self, dt)
             tilemap.update()
             entities.updateColliders(self)
         end
-    end
-
-    for effect, duration in pairs(hero.effects) do
-        hero.effects[effect] = hero.effects[effect] - dt
-        if hero.effects[effect] <= 0 then hero.effects[effect] = nil end
     end
 end
 

@@ -72,7 +72,7 @@ function spells.talkWithPlants()
     local spell = spells.templates.talkWithPlants
     if hero.entity.mana >= spell.cost then
         soundfx.play('talkwithplants')
-        hero.setEffect('talkWithPlants', spell.time)
+        hero.entity:setEffect('talkWithPlants', spell.time)
         hero.entity.mana = hero.entity.mana - spell.cost
     else spells.fail() end
 end
