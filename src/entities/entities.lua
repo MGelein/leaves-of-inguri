@@ -2,6 +2,7 @@ entities = {
     shield = 95,
     hero = 5,
     campfire = 122,
+    white = {1, 1, 1},
 }
 entities.list = managedlist.create()
 
@@ -29,6 +30,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         invulnerableFrames = 0,
         removed = false,
         effects = {},
+        highlightHue = 0, 
 
         setEffect = function(self, effect, duration)
             self.effects[effect] = duration
@@ -162,11 +164,9 @@ function entities.update(dt)
         if entity.updateBehaviour then entity:updateBehaviour() end
         if entity.detectCollider then collisions.handleDetect(entity) end
 
-        if entity.health ~= 0 then
-            entities.updateColliders(entity)
-        else
-            entities.remove(entity)
-        end
+        if entity.health ~= 0 then entities.updateColliders(entity)
+        else entities.remove(entity) end
+        entities.handleHighlight(entity, dt)
         
         for effect, duration in pairs(entity.effects) do
             entity.effects[effect] = entity.effects[effect] - dt
@@ -186,6 +186,16 @@ function entities.updateColliders(entity)
         if entity.detectCollider then entity.detectCollider:moveTo(entity.x, entity.y) end
     end
     collisions.handleEntity(entity, entity.collider)
+end
+
+function entities.handleHighlight(entity, dt)
+    if not entity.effects['talkWithPlants'] then
+        entity.tint = entities.white
+    else
+        entity.tint = HSV(entity.highlightHue, 0.5, 1)
+        entity.highlightHue = entity.highlightHue + dt * 360
+        if entity.highlightHue > 360 then entity.highlightHue = 0 end 
+    end
 end
 
 function entities.remove(entity)

@@ -106,6 +106,7 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
         love.graphics.setColor(1, 1, 1)
         love.graphics.printf(self.text, 0, self.textHeight, self.w, 'center')
         love.graphics.pop()
+        love.graphics.setLineWidth(1)
     end
     bar.update = function(self, dt)
         if self.value ~= self.lastValue or self.maxValue ~= self.lastMax then
