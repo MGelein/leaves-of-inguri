@@ -7,3 +7,4 @@ Oh my, a human that seems to understand our language? How do you do?
 
 {DEFAULT}
 The tree sways in the wind. It looks suspiciously conscious...
+- Leave the tree, for now... >exit
