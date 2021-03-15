@@ -5,10 +5,14 @@ hero = {
     mana = 10,
     maxMana = 10,
 
+    manaRegenCounter = 0,
+    manaRegen = 1 / config.combat.manaPerSecond,
+    healthRegenCounter = 0,
+    healthRegen = 1 / config.combat.healthPerSecond,
+
     attack = 2,
     defence = 0,
     weapon = 'sword',
-    effects = {}
 }
 
 function hero.create(xPos, yPos)
@@ -39,6 +43,8 @@ function hero.moveTo(x, y)
 end
 
 function hero.update(self, dt)
+    hero.handleManaRegen(self, dt)
+    hero.handleHealthRegen(self, dt)
     self.attackCooldown = decrease(self.attackCooldown)
     hero.handleInput(self)
     screen.follow(self.x, self.y, dt)
@@ -55,6 +61,27 @@ function hero.update(self, dt)
             self.y = self.y + self.vy
             tilemap.update()
             entities.updateColliders(self)
+        end
+    end
+end
+
+function hero.handleManaRegen(self, dt)
+    if self.mana < self.maxMana then
+        hero.manaRegenCounter = hero.manaRegenCounter + dt
+        if hero.manaRegenCounter > hero.manaRegen then 
+            hero.manaRegenCounter = hero.manaRegenCounter - hero.manaRegen
+            self.mana = self.mana + 1
+            if self.mana >= hero.maxMana then self.mana = hero.maxMana end
+        end
+    end
+end
+
+function hero.handleHealthRegen(self, dt)
+    if self.health < self.maxHealth then
+        hero.healthRegenCounter = hero.healthRegenCounter + dt
+        if hero.healthRegenCounter > hero.healthRegen then 
+            hero.healthRegenCounter = hero.healthRegenCounter - hero.healthRegen
+            self:heal(1)
         end
     end
 end

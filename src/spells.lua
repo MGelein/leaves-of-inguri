@@ -60,7 +60,7 @@ end
 
 function spells.blink()
     local spell = spells.templates.blink
-    if hero.entity.mana >= spell.cost then
+    if hero.entity.mana >= spell.cost and hero.entity.speed > 0.1 then
         hero.explode()
         soundfx.play('blink')
         hero.entity.mana = hero.entity.mana - spell.cost

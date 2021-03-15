@@ -12,6 +12,8 @@ config = {
     interactDist = 48,
 
     combat = {
+        manaPerSecond = 0.5,
+        healthPerSecond = 0.5,
         invulnerableFrames = 20,
         spellCooldown = 0.5,
     },
