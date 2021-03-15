@@ -18,6 +18,10 @@ spells.templates = {
     blink = {
         time = 0.1,
         cost = 1,
+    },
+    talkWithPlants = {
+        time = 5,
+        cost = 4,
     }
 }
 
@@ -42,7 +46,7 @@ function spells.changeSpell(dir)
 end
 
 function spells.fail()
-    print("Spell failed")
+    soundfx.play('fail')
 end
 
 function spells.heal()
@@ -61,5 +65,14 @@ function spells.blink()
         soundfx.play('blink')
         hero.entity.mana = hero.entity.mana - spell.cost
         hero.entity.blinkTime = spell.time
+    else spells.fail() end
+end
+
+function spells.talkWithPlants()
+    local spell = spells.templates.talkWithPlants
+    if hero.entity.mana >= spell.cost then
+        soundfx.play('talkwithplants')
+        hero.setEffect('talkWithPlants', spell.time)
+        hero.entity.mana = hero.entity.mana - spell.cost
     else spells.fail() end
 end

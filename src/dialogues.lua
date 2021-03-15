@@ -113,6 +113,7 @@ end
 
 function dialogues.resolveVariableName(name)
     if name == 'health' then return hero.health
+    elseif hero.effects[name] then return hero.effects[name]
     else return savefile.data[name] end
 end
 

@@ -1,6 +1,10 @@
 @Susan Smith
 
 #greeting
+{talkWithPlants > 0}
+Well hello young druid, you look like you have a pair of very green fingers!
+- Mind your own bussiness you old hag! >exit
+
 {health < 20}
 Hello my dear, you look hurt, but how is your day?
 - Really good, I'm enjoying killing all the vermin around! >goodjob
