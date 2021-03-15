@@ -100,7 +100,9 @@ end
 function dialogues.evaluateCondition(condition)
     if condition == 'DEFAULT' then return true end
     local parts = splitstring(condition, ' ')
+    if #parts == 1 then return dialogues.resolveVariableName(condition) ~= nil end
     if #parts ~= 3 then print("Malformed condition:", condition) return false end
+    
     local varname, operand, value = unpack(parts)
     local var = dialogues.resolveVariableName(varname)
     if not var then print("Cannot resolve variable " .. varname) return false end

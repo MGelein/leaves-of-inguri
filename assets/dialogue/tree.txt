@@ -1,7 +1,7 @@
 @Big Tree
 
 #greeting
-{talkWithPlants > 0}
+{talkWithPlants}
 Oh my, a human that seems to understand our language? How do you do?
 - Very well master tree, how are you? >exit
 
