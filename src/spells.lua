@@ -74,5 +74,9 @@ function spells.talkWithPlants()
         soundfx.play('talkwithplants')
         hero.entity:setEffect('talkWithPlants', spell.time)
         hero.entity.mana = hero.entity.mana - spell.cost
+
+        for i, trigger in ipairs(triggers.byTag('plant')) do
+            trigger.npc:setEffect('highlight', spell.time)
+        end
     else spells.fail() end
 end

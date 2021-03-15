@@ -706,6 +706,7 @@ return {
           properties = {
             ["id"] = "tree",
             ["method"] = "interact",
+            ["tag"] = "plant",
             ["type"] = "npc"
           }
         },

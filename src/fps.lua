@@ -4,7 +4,7 @@ fps = {
         if not config.debug then return end
         love.graphics.setFont(assets.fonts.debug)
         love.graphics.setColor(0, 0, 0, 0.4)
-        love.graphics.rectangle('fill', 0, 0, 60, 60)
+        love.graphics.rectangle('fill', 0, 0, 100, 60)
         love.graphics.setColor(1, 1, 1, 1)
         love.graphics.print(math.floor(fps.average + .5) .. " FPS", 4, 2)
         love.graphics.print(math.floor(collectgarbage('count')) .. " kB", 4, 22)

@@ -7,6 +7,7 @@ function triggers.create(def)
         y = def.y,
         type = def.properties.type,
         method = def.properties.method,
+        tag = def.properties.tag or '',
         activated = false,
         properties = def.properties,
         activate = triggers.activate,
@@ -36,6 +37,14 @@ function triggers.warp(self)
         tilemap.setNextHeroPos(dest.x, dest.y)
         tilemap.load(dest.name)
     end
+end
+
+function triggers.byTag(tag)
+    local filtered = {}
+    for i, trigger in ipairs(triggers.list.all) do
+        if trigger.tag == tag then table.insert(filtered, trigger) end
+    end
+    return filtered
 end
 
 function triggers.npc(self)

@@ -189,7 +189,7 @@ function entities.updateColliders(entity)
 end
 
 function entities.handleHighlight(entity, dt)
-    if not entity.effects['talkWithPlants'] then
+    if not entity.effects['highlight'] then
         entity.tint = entities.white
     else
         entity.tint = HSV(entity.highlightHue, 0.5, 1)
