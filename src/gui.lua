@@ -11,11 +11,11 @@ gui.manaCrystal = 99
 function gui.element(xPos, yPos, rPos, scaleX, scaleY)
     if rPos == nil then rPos = 0 end
     local el = {
-        x = xPos,
-        y = yPos,
-        r = rPos,
-        sx = 1,
-        sy = 1,
+        x = xPos or 0,
+        y = yPos or 0,
+        r = rPos or 0,
+        sx = scaleX or 1,
+        sy = scaleY or scaleX or 1,
         visible = true,
         wasVisible = true,
 
@@ -333,6 +333,21 @@ function gui.icon(tile, xPos, yPos, rPos, sx, sy)
     return icon
 end
 
+function gui.imgbox(img, scale)
+    local imgbox = gui.element(0, 0, 0, scale, scale)
+    imgbox.w = img:getWidth() * scale
+    imgbox.h = img:getHeight() * scale
+    imgbox.x = (config.width - imgbox.w) / 2
+    imgbox.y = (config.height -imgbox.h) / 2
+    imgbox.img = img
+    imgbox.draw = function(self)
+        love.graphics.draw(self.img, self.x, self.y, self.r, self.sx, self.sy)
+        love.graphics.setLineWidth(tilemap.scale)
+        love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+    end
+    return imgbox
+end
+
 function gui.draw()
     for i, el in ipairs(gui.list.all) do
         if el.visible then el:draw() end
@@ -438,4 +453,10 @@ function gui.showDialogue(data)
     if not data then return end
     game.paused = true
     game.menu = gui.dialogue(data)
+end
+
+function gui.showImage(img)
+    if not img then return end
+    game.paused = true
+    game.menu = gui.imgbox(img, tilemap.scale)
 end

@@ -16,6 +16,8 @@ end
 
 function game.start()
     gui.createHealthWidget(0, config.height - 96)
+
+    gui.showImage(assets.minimap)
 end
 
 function game.draw()
