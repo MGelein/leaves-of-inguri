@@ -11,7 +11,7 @@ hero = {
     healthRegen = 1 / config.combat.healthPerSecond,
 
     attack = 2,
-    defence = 0,
+    defence = 0.2,
     weapon = 'sword',
 }
 

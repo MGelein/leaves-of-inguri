@@ -113,7 +113,7 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
             self.lastValue = self.value
             self.ratio = self.value / self.maxValue
             self.adjustedW = self.w * self.ratio
-            self.text  = tostring(self.value) .. '/' .. tostring(self.maxValue)
+            self.text  = tostring(math.floor(self.value)) .. '/' .. tostring(math.floor(self.maxValue))
             self.diffW = self.adjustedW - self.actualW
         end
         if self.diffW ~= 0 then
