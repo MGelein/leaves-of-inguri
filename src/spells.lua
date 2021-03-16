@@ -1,6 +1,7 @@
 spells = {
     cooldown = 0,
-    known = {'heal', 'blink', 'talkWithPlants'},
+    -- known = {'heal', 'blink', 'talkWithPlants'},
+    known = {},
     selectedIndex = 1,
     selected = 'heal',
 
@@ -26,7 +27,7 @@ spells.templates = {
 }
 
 function spells.castSelected()
-    if spells.cooldown > 0 then return end 
+    if spells.cooldown > 0 or #spells.known < 1 then return end 
     spells.cooldown = config.combat.spellCooldown
     local spell = spells[spells.selected]
     if not spell then print("Can't find the " .. spells.selected .. " implementation.") return end
@@ -38,6 +39,7 @@ function spells.update(dt)
 end
 
 function spells.changeSpell(dir)
+    if #spells.known < 1 then return end
     spells.selectedIndex = spells.selectedIndex + dir
     if spells.selectedIndex > #spells.known then spells.selectedIndex = 1
     elseif spells.selectedIndex <= 0 then spells.selectedIndex = #spells.known end

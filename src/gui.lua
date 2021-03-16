@@ -354,20 +354,22 @@ function gui.createHealthWidget(x, y)
     local resetX = x
     local padding = 10
     local widget = gui.element(x, y)
+    local showMana = #spells.known > 1
     x = x + padding
-    widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
+    if showMana then widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16) end
     x = x + padding + 32
-    widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
+    if showMana then widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9}) end
     
     x = resetX + padding
     y = y + 32 + padding
     widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
     x = x + padding + 32
     widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
-    
+    widget.showMana = showMana
     widget.update = function(self)
         self.healthBar.value = hero.entity.health
         self.healthBar.maxValue = hero.entity.maxHealth
+        if not self.showMana then return end
         self.manaBar.value = hero.entity.mana
         self.manaBar.maxValue = hero.entity.maxMana
         self.manaIcon.tile = spells.selectedIcon
@@ -376,8 +378,10 @@ function gui.createHealthWidget(x, y)
     widget.destroy = function(self)
         self.healthBar:destroy()
         self.healthIcon:destroy()
-        self.manaBar:destroy()
-        self.manaIcon:destroy()
+        if self.showMana then
+            self.manaBar:destroy()
+            self.manaIcon:destroy()
+        end
         gui.list:remove(self)
     end
     return widget
