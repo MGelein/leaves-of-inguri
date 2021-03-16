@@ -56,7 +56,6 @@ function entities.create(identity, spriteNumber, xPos, yPos)
             if self.health == -100 or self.invulnerableFrames > 0 then return end
             amt = amt - amt * self.defence
             if amt < 0 then return end
-            print('dealing ', amt)
 
             self.invulnerableFrames = config.combat.invulnerableFrames
 
