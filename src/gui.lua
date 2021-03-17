@@ -125,7 +125,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
     buttonGroup.moveTimeout = config.gui.moveTimeout
     buttonGroup.activateTimeout = config.gui.activateTimeout
     buttonGroup.panel = gui.panel(xPos, -500, width, buttonGroup.numButtons * verticalSpacing + 20)
-    ez.easeOut(buttonGroup.panel, 'y', yPos, 1)
+    ez.easeOut(buttonGroup.panel, 'y', yPos)
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
@@ -416,13 +416,13 @@ function gui.showHeader(name, duration)
             self.waitTime = self.waitTime - dt
             if self.waitTime <= 0 then 
                 self.eased = false
-                ez.easeIn(header, 'y', -1000, 1, function() self:destroy() end)
+                ez.easeIn(header, 'y', -1000, {complete = function() self:destroy() end})
             end
         end
     end
     if gui.header then gui.header:destroy() end
     gui.header = header
-    ez.easeOut(header, 'y', header.targetY, 1, function() header.eased = true end)
+    ez.easeOut(header, 'y', header.targetY, {complete = function() header.eased = true end})
 end
 
 function gui.showText(text)

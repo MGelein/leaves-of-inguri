@@ -5,30 +5,32 @@ ez.elasticConst = (math.pi * 2) / 3
 ez.elasticConst2 = (math.pi * 2) / 4.5
 ez.shape = 'Cubic'
 
-function ez.easeLinear(object, attribute, targetValue, easeTime, onComplete)
-    return ez.ease(object, attribute, targetValue, easeTime, 'linear', onComplete)
+function ez.easeLinear(object, attribute, targetValue, props)
+    return ez.ease(object, attribute, targetValue, props, 'linear')
 end
 
-function ez.easeIn(object, attribute, targetValue, easeTime, onComplete)
-    return ez.ease(object, attribute, targetValue, easeTime, 'in', onComplete)
+function ez.easeIn(object, attribute, targetValue, props)
+    return ez.ease(object, attribute, targetValue, props, 'in')
 end
 
-function ez.easeOut(object, attribute, targetValue, easeTime, onComplete)
-    return ez.ease(object, attribute, targetValue, easeTime, 'out', onComplete)
+function ez.easeOut(object, attribute, targetValue, props)
+    return ez.ease(object, attribute, targetValue, props, 'out')
 end
 
-function ez.easeInOut(object, attribute, targetValue, easeTime, onComplete)
-    return ez.ease(object, attribute, targetValue, easeTime, 'inOut', onComplete)
+function ez.easeInOut(object, attribute, targetValue, props)
+    return ez.ease(object, attribute, targetValue, props, 'inOut')
 end
 
-function ez.ease(object, attribute, targetValue, easeTime, easeFn, onComplete)
+function ez.ease(object, attribute, targetValue, props, easeFn)
+    local fnName = '_' .. easeFn .. ez.shape
+    props = props or {}
     if type(attribute) ~= 'string' then
         print('Attribute must be a string describing the attribute name.') 
         return
     elseif type(object[attribute]) ~= 'number' then
         print('Only numbers can be eased.')
         return
-    elseif ez[easeFn .. ez.shape] == nil then
+    elseif ez[fnName] == nil then
         print('Could not find easing implementation for function', (easeFn .. ez.shape))
         return
     end
@@ -38,30 +40,34 @@ function ez.ease(object, attribute, targetValue, easeTime, easeFn, onComplete)
         attr = attribute,
         target = targetValue,
         start = object[attribute],
-        time = easeTime or 1,
-        fn = ez[easeFn .. ez.shape],
+        time = props.time or 1,
+        delay = props.delay or 0,
+        fn = ez[fnName],
         elapsed = 0,
         timeRatio = 0,
         valueRatio = 0,
-        complete = onComplete,
+        complete = props.complete,
 
-        remove = ez.remove,
+        remove = ez._remove,
     }
     e.delta = (e.target - e.start)
-    ez.add(e)
+    ez._add(e)
     return e
 end
 
 function ez.update(dt)
     for i, e in ipairs(ez.list) do
-        e.obj[e.attr] = e.start + e.valueRatio * e.delta
-        e.elapsed = e.elapsed + dt
-        e.timeRatio = e.elapsed / e.time
-        e.valueRatio = e.fn(e.timeRatio)
-        if e.elapsed >= e.time then 
-            e.obj[e.attr] = e.target
-            if e.complete then e.complete() end
-            e:remove() 
+        e.delay = e.delay - dt
+        if e.delay <= 0 then
+            e.obj[e.attr] = e.start + e.valueRatio * e.delta
+            e.elapsed = e.elapsed + dt
+            e.timeRatio = e.elapsed / e.time
+            e.valueRatio = e.fn(e.timeRatio)
+            if e.elapsed >= e.time then 
+                e.obj[e.attr] = e.target
+                if e.complete then e.complete() end
+                e:remove() 
+            end
         end
     end
 
@@ -85,60 +91,60 @@ function ez.setShape(shape)
     ez.shape = shape:sub(1, 1):upper() .. shape:sub(2)
 end
 
-function ez.remove(self)
+function ez._remove(self)
     table.insert(ez.toRem, self)
 end
 
-function ez.add(self)
+function ez._add(self)
     table.insert(ez.list, self)
 end
 
-function ez.linearCubic(timeRatio)
+function ez._linearCubic(timeRatio)
     return timeRatio
 end
-ez.linearElastic = ez.linearCubic
-ez.linearSine = ez.linearCubic
+ez._linearElastic = ez._linearCubic
+ez._linearSine = ez._linearCubic
 
-function ez.inOutCubic(t)
+function ez._inOutCubic(t)
     if t < 0.5 then return 4 * t * t * t
     else return 1 - math.pow(-2 * t + 2, 3) / 2 end
 end
 
-function ez.inOutSine(t)
+function ez._inOutSine(t)
     return -(math.cos(math.pi * t) - 1) / 2;
 end
 
-function ez.inOutElastic(t)
+function ez._inOutElastic(t)
     if t == 0 then return 0
     elseif t == 1 then return 1
     elseif t <= 0.5 then return -(math.pow(2, 20 * t - 10) * math.sin((20 * t - 11.125) * ez.elasticConst2)) / 2
     else return (math.pow(2, -20 * t + 10) * math.sin((20 * t - 11.125) * ez.elasticConst2)) / 2 + 1 end
 end
 
-function ez.inCubic(t)
+function ez._inCubic(t)
     return t * t * t
 end
 
-function ez.inSine(t)
+function ez._inSine(t)
     return 1 - math.cos((t * math.pi) / 2)
 end
 
-function ez.inElastic(t)
+function ez._inElastic(t)
     if t == 0 then return 0
     elseif t == 1 then return 1
     else return -math.pow(2, 10 * t - 10) * math.sin((t * 10 - 10.75) * ez.elasticConst); end
 end
 
-function ez.outCubic(t)
+function ez._outCubic(t)
     local invTime = 1 - t
     return 1 - invTime * invTime * invTime
 end
 
-function ez.outSine(t)
+function ez._outSine(t)
     return math.sin((t * math.pi) / 2)
 end
 
-function ez.outElastic(t)
+function ez._outElastic(t)
     if t == 0 then return 0
     elseif t == 1 then return 1
     else return math.pow(2, -10 * t) * math.sin((t * 10 - 0.75) * ez.elasticConst) + 1 end
