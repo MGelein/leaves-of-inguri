@@ -124,13 +124,15 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
     buttonGroup.selectedIndex = 1
     buttonGroup.moveTimeout = config.gui.moveTimeout
     buttonGroup.activateTimeout = config.gui.activateTimeout
-    buttonGroup.panel = gui.panel(xPos, yPos, width, buttonGroup.numButtons * verticalSpacing + 20)
+    buttonGroup.panel = gui.panel(xPos, -500, width, buttonGroup.numButtons * verticalSpacing + 20)
+    ez.easeOut(buttonGroup.panel, 'y', yPos, 1)
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
-            local button = gui.button(text, xPos, yPos, width - 40, onActivate, font)
+            local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
+            ez.easeOut(button, 'y', yPos)
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
         end
