@@ -1,4 +1,4 @@
-ez = {}
+local ez = {}
 ez.list = {}
 ez.toRem = {}
 ez.elasticConst = (math.pi * 2) / 3
@@ -143,3 +143,5 @@ function ez.outElastic(t)
     elseif t == 1 then return 1
     else return math.pow(2, -10 * t) * math.sin((t * 10 - 0.75) * ez.elasticConst) + 1 end
 end
+
+return ez
