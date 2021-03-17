@@ -73,13 +73,11 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
     bar.maxValue = max
     bar.lastMax = max
     bar.value = value
-    bar.lastVal = value
+    bar.lastVal = value - 1
     bar.text  = tostring(bar.value) .. '/' .. tostring(bar.maxValue)
     bar.ratio = bar.value / bar.maxValue
     bar.w = width
-    bar.adjustedW = bar.w * bar.ratio
-    bar.diffW = 0
-    bar.actualW = bar.adjustedW
+    bar.barW = 0
     bar.h = height
     bar.c = color
     bar.rgb = {r = color[1], g = color[2], b = color[3]}
@@ -93,11 +91,11 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
         love.graphics.setColor(0, 0, 0, 0.5)
         love.graphics.rectangle('fill', 0, 0, self.w, self.h)
         love.graphics.setColor(unpack(self.c))
-        love.graphics.rectangle('fill', 0, 0, self.actualW, self.h)
+        love.graphics.rectangle('fill', 0, 0, self.barW, self.h)
         love.graphics.setColor(1, 1, 1, 0.5)
-        love.graphics.rectangle('fill', 0, 0, self.actualW, self.shadowHeight)
+        love.graphics.rectangle('fill', 0, 0, self.barW, self.shadowHeight)
         love.graphics.setColor(0, 0, 0, 0.5)
-        love.graphics.rectangle('fill', 0, self.h - self.shadowHeight, self.actualW, self.shadowHeight)
+        love.graphics.rectangle('fill', 0, self.h - self.shadowHeight, self.barW, self.shadowHeight)
         love.graphics.setColor(1, 1, 1)
         love.graphics.setLineWidth(tilemap.scale)
         love.graphics.rectangle('line', 0, 0, self.w, self.h)
@@ -112,19 +110,8 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
         if self.value ~= self.lastValue or self.maxValue ~= self.lastMax then
             self.lastValue = self.value
             self.ratio = self.value / self.maxValue
-            self.adjustedW = self.w * self.ratio
             self.text  = tostring(math.floor(self.value)) .. '/' .. tostring(math.floor(self.maxValue))
-            self.diffW = self.adjustedW - self.actualW
-        end
-        if self.diffW ~= 0 then
-            self.actualW = self.actualW + (self.diffW * dt * 2)
-            if self.actualW >= self.adjustedW and self.diffW > 0 then 
-                self.diffW = 0
-                self.actualW = self.adjustedW
-            elseif self.actualW <= self.adjustedW and self.diffW < 0 then
-                self.diffW = 0
-                self.actualW = self.adjustedW
-            end
+            ez.easeOut(self, 'barW', self.w * self.ratio)
         end
     end
     return bar
@@ -426,7 +413,7 @@ function gui.showHeader(name, duration)
             self.waitTime = self.waitTime - dt
             if self.waitTime <= 0 then 
                 self.eased = false
-                ez.easeIn(header, 'y', -1000, 1, function() print('remove') self:destroy() end)
+                ez.easeIn(header, 'y', -1000, 1, function() self:destroy() end)
             end
         end
     end
