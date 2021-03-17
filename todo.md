@@ -5,3 +5,38 @@
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
+
+# Done
+- Porting code from the Galleons game
+- Writing generic input class that abstracts away differences between controller and keys
+- Changing the way the screen class works from the Galleons game
+- TILED map loader: make the map display and work
+- Make an entity system that allows for easy entity manipulation
+- TILED map loader: collision and objects
+- TILED map loader: entities
+- Make a moving entity that respects collision
+- Basic walking animations for necessary entities
+- Basic AI implementation to test some stuff, based on boids.
+- Combining an actual tiled map with more monster templates, working on proper collision
+- Make a particle system that can work from source sprites to make them disintegrate
+- Make a basic weapons system that can attack in a direction
+- Basic combat now works, including blocking, damage and dying.
+- Soundfx enginge added
+- Adding basic GUI system
+- Adding map headers to the GUI and to the TILED loading system
+- Health meter and connect it to the hero
+- Adding interactable entities
+- Better fonts for the headers of the maps
+- Adding warp triggers
+- Another test map to further test warping
+- NPCS and a basic dialogue system
+- Dialogue system can now have global checks and conditions to make it more interactive
+- Better UI progressbar for the health instead of hearts
+- More soundfx and now also background music
+- Magic system and thinking about how spells should work
+- Adding the first healing spell
+- Adding the second blink spell
+- Adding the third talk with plants spell
+- Overhauling dialogue system to make it work with plants and other triggers
+- Create a minimap and GUI element to display it with
+- Make an easing library to make further UI easing easier.
