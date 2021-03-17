@@ -333,6 +333,7 @@ function gui.imgbox(img, scale)
         love.graphics.draw(self.img, self.x, self.y, self.r, self.sx, self.sy)
         love.graphics.setLineWidth(tilemap.scale)
         love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+        love.graphics.setLineWidth(1)
     end
     return imgbox
 end
