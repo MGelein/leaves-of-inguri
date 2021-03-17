@@ -20,4 +20,5 @@ function love.update(dt)
     fps.update(dt)
     gui.update(dt)
     screen.update(dt)
+    ez.update(dt)
 end

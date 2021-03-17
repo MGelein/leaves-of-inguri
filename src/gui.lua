@@ -420,27 +420,19 @@ function gui.showHeader(name, duration)
         gui.list:remove(self)
     end
     header.update = function(self, dt)
-        if self.waitTime < 0 then 
-            self.targetY = self.y
-            self.y = self.y - math.abs(self.y) / 10
-
-            if self.y < -1000 then
-                self:destroy()
-            end
-        end
-
-        local diffY = self.targetY - self.y
-        self.y = diffY * .1 + self.y
-
-        if diffY < 0.01 and diffY > 0 then 
-            self.waitTime = self.waitTime - dt
-        end
-
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
+        if self.eased then
+            self.waitTime = self.waitTime - dt
+            if self.waitTime <= 0 then 
+                self.eased = false
+                ez.easeIn(header, 'y', -1000, 1, function() print('remove') self:destroy() end)
+            end
+        end
     end
     if gui.header then gui.header:destroy() end
     gui.header = header
+    ez.easeOut(header, 'y', header.targetY, 1, function() header.eased = true end)
 end
 
 function gui.showText(text)
