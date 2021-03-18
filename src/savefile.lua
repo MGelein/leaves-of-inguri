@@ -2,16 +2,21 @@ savefile = {}
 savefile.data = {}
 savefile.url = 'savefile'
 
-function savefile.save()
-    savefile.write(savefile.url, savefile.data)
+function savefile.exists(slot)
+    if love.filesystem.getInfo(savefile.url .. tostring(slot)) then return true
+    else return false end
 end
 
-function savefile.load()
-    savefile.data = savefile.read(savefile.url)
+function savefile.save(slot)
+    savefile.write(savefile.url .. tostring(slot), savefile.data)
 end
 
-function savefile.delete()
-    love.filesystem.remove(savefile.url)
+function savefile.load(slot)
+    savefile.data = savefile.read(savefile.url .. tostring(slot))
+end
+
+function savefile.delete(slot)
+    love.filesystem.remove(savefile.url .. tostring(slot))
 end
 
 function savefile.write(url, data)

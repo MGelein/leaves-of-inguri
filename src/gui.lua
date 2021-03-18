@@ -222,7 +222,7 @@ function gui.dialogue(data)
         
         local entry = self.entries[name]
         if not entry then 
-            game.hideMenu()
+            game.popMenu()
             return
         end
         for i, option in ipairs(entry.options) do
@@ -286,7 +286,7 @@ function gui.textbox(text, xPos, yPos, w)
         else
             if not self.partOfDialogue then
                 if (input.isDownOnce('interact') and self.interactLetGo) or (input.isDownOnce('attack') and self.attackLetGo) then
-                    game.hideMenu()
+                    game.popMenu()
                 end
             end
         end

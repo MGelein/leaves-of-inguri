@@ -40,3 +40,5 @@
 - Overhauling dialogue system to make it work with plants and other triggers
 - Create a minimap and GUI element to display it with
 - Make an easing library to make further UI easing easier.
+- Make savefiles work with slots
+- Add savefile menu, very rudimentary
