@@ -10,6 +10,7 @@
 - Porting code from the Galleons game
 - Writing generic input class that abstracts away differences between controller and keys
 - Changing the way the screen class works from the Galleons game
+- Create a spritesheet utility that allows for easier working with spritesheets and quads
 - TILED map loader: make the map display and work
 - Make an entity system that allows for easy entity manipulation
 - TILED map loader: collision and objects
@@ -21,7 +22,7 @@
 - Make a particle system that can work from source sprites to make them disintegrate
 - Make a basic weapons system that can attack in a direction
 - Basic combat now works, including blocking, damage and dying.
-- Soundfx enginge added
+- Soundfx engine added
 - Adding basic GUI system
 - Adding map headers to the GUI and to the TILED loading system
 - Health meter and connect it to the hero
