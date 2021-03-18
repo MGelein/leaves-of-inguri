@@ -1,6 +1,7 @@
 input = {
     methods = {'keyboard', 'controller', 'touch'},
     history = {},
+    lastMethod = 'keyboard'
 }
 
 function input.load()
@@ -58,6 +59,7 @@ function input.isDown(name)
     for i, method in ipairs(input.methods) do
         if input[method] then
             if input[method].isDown(name) then
+                input.lastMethod = method
                 return true
             end
         end
