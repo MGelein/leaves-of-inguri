@@ -2,6 +2,7 @@ controller = {}
 controller.requireRegistration = false
 controller.unregistered = {}
 controller.newlyRegistered = {}
+controller.deadzone = 0.2
 
 function love.joystickadded(joystick)
     if controller.requireRegistration then
@@ -48,6 +49,19 @@ function controller.register(js)
         getRightX = function() return js:getAxis(4) end,
         getRightY = function() return js:getAxis(5) end,
         getRightTrigger = function() return js:getAxis(6) end,
+
+        isLXNegative = function() return js:getAxis(1) < -controller.deadzone end,
+        isLXPositive = function() return js:getAxis(1) > controller.deadzone end,
+        isLYNegative = function() return js:getAxis(2) < -controller.deadzone end,
+        isLYPositive = function() return js:getAxis(2) > controller.deadzone end,
+
+        isLTDown = function() return js:getAxis(3) > 0 end,
+        isRTDown = function() return js:getAxis(6) > 0 end,
+
+        isRXNegative = function() return js:getAxis(4) < -controller.deadzone end,
+        isRXPositive = function() return js:getAxis(4) > controller.deadzone end,
+        isRYNegative = function() return js:getAxis(5) < -controller.deadzone end,
+        isRYPositive = function() return js:getAxis(5) > controller.deadzone end,
         
         isADown = function() return js:isDown(1) end,
         isBDown = function() return js:isDown(2) end,

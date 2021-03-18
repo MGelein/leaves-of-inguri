@@ -1,4 +1,5 @@
 # TODO
+- Multiple control options for one input, f.e. analog and dpad for movement
 - Making the minimap work properly
 - Designing a controller and controls explanation/overlay
 - Saving and loading of actual files in slots

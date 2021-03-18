@@ -1,7 +1,7 @@
 spells = {
     cooldown = 0,
-    -- known = {'heal', 'blink', 'talkWithPlants'},
-    known = {},
+    known = {'heal', 'blink', 'talkWithPlants'},
+    -- known = {},
     selectedIndex = 1,
     selected = 'heal',
 

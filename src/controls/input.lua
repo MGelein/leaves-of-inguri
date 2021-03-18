@@ -11,23 +11,26 @@ end
 function input.mapKeyboard()
     input.keyboard = {
         mapping = {
-            up = 'up', 
-            left = 'left', 
-            down = 'down', 
-            right = 'right',
-            attack = 'space',
-            block = 'lshift',
-            special = 's',
-            interact = 'return',
+            up = {'up', 'i'}, 
+            left = {'left', 'j'}, 
+            down = {'down', 'k'}, 
+            right = {'right', 'l'},
+            attack = {'space'},
+            block = {'lshift', 'x'},
+            special = {'s', 'c'},
+            interact = {'return', 'z'},
 
-            menu = 'tab',
-            map = 'm',
-            next = 'd',
-            previous = 'a',
+            menu = {'tab', 'escape'},
+            map = {'m', '\\'},
+            next = {'d'},
+            previous = {'a'},
 
         },
         isDown = function(name)
-            return key.isDown(input.keyboard.mapping[name])
+            for i, keyName in ipairs(input.keyboard.mapping[name]) do
+                if key.isDown(keyName) then return true end
+            end
+            return false
         end,
     }
 end
@@ -35,22 +38,25 @@ end
 function input.mapController()
     input.controller = {
         mapping = {
-            up = controller.A.isDPUp, 
-            left = controller.A.isDPLeft, 
-            down = controller.A.isDPDown, 
-            right = controller.A.isDPRight,
-            attack = controller.A.isXDown,
-            block = controller.A.isBDown,
-            special = controller.A.isYDown,
-            interact = controller.A.isADown,
+            up = {controller.A.isDPUp, controller.A.isLYNegative}, 
+            left = {controller.A.isDPLeft, controller.A.isLXNegative}, 
+            down = {controller.A.isDPDown, controller.A.isLYPositive}, 
+            right = {controller.A.isDPRight, controller.A.isLXPositive},
+            attack = {controller.A.isXDown},
+            block = {controller.A.isBDown},
+            special = {controller.A.isYDown},
+            interact = {controller.A.isADown},
 
-            menu = controller.A.isMenuDown,
-            map = controller.A.isViewDown,
-            next = controller.A.isRightShoulderDown,
-            previous = controller.A.isLeftShoulderDown,
+            menu = {controller.A.isMenuDown},
+            map = {controller.A.isViewDown},
+            next = {controller.A.isRightShoulderDown, controller.A.isRTPositive},
+            previous = {controller.A.isLeftShoulderDown, controller.A.isLTPositive},
         },
         isDown = function(name)
-            return input.controller.mapping[name]()
+            for i, fn in ipairs(input.controller.mapping[name]) do
+                if fn() then return true end
+            end
+            return false
         end,
     }
 end
