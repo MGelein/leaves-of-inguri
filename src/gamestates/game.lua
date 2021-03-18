@@ -43,7 +43,7 @@ function game.update(dt)
         if input.isDownOnce('map') then gui.showImage(assets.minimap) end
     else
         if input.isDownOnce('block') then
-            soundfx.play('negative')
+            soundfx.play('ui_close')
             game.popMenu() 
         end
     end
@@ -54,7 +54,7 @@ function game.showMenu(menuDef)
     if game.menu then 
         game.menu:destroy()
     end
-    soundfx.play('positive')
+    soundfx.play('ui_open')
     game.paused = true
     gui.showHeader(config.window.title, 1000)
     game.menu = gui.buttongroup(menuDef, (config.width - 300) / 2, 150, 300, 70)

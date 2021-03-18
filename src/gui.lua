@@ -153,7 +153,6 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
         if self.activateTimeout <= 0 then
             if input.isDownOnce('attack') or input.isDownOnce('interact') then
                 self.buttons[self.selectedIndex].activate()
-                soundfx.play('positive')
                 self.activateTimeout = config.gui.activateTimeout
             end
         end
@@ -163,7 +162,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
         elseif index > #self.buttons then index = 1 end
         
         if index ~= self.selectedIndex then 
-            soundfx.play('select') 
+            soundfx.play('ui_select') 
             self.selectedIndex = index
         end
         for i, button in ipairs(self.buttons) do
