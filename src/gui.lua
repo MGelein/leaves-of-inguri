@@ -7,6 +7,11 @@ gui.emptyHeart = 89
 gui.halfHeart = 90
 gui.fullHeart = 91
 gui.manaCrystal = 99
+gui.overlay = {
+    alpha = 0,
+    ease = nil,
+    visible = false,
+}
 
 function gui.element(xPos, yPos, rPos, scaleX, scaleY)
     if rPos == nil then rPos = 0 end
@@ -339,9 +344,14 @@ function gui.imgbox(img, scale)
 end
 
 function gui.draw()
+    if gui.overlay.visible then
+        love.graphics.setColor(0, 0, 0, gui.overlay.alpha)
+        love.graphics.rectangle('fill', 0, 0, config.width, config.height)
+    end
     for i, el in ipairs(gui.list.all) do
         if el.visible then el:draw() end
     end
+    controloverlay.draw()
 end
 
 function gui.update(dt)
@@ -349,6 +359,27 @@ function gui.update(dt)
     for i, el in ipairs(gui.list.all) do
         el:update(dt)
     end
+end
+
+function gui.showOverlay()
+    if gui.overlay.ease then 
+        gui.overlay.ease:remove() 
+        gui.overlay.ease = nil
+    end
+    gui.overlay.visible = true
+    gui.overlay.ease = ez.easeInOut(gui.overlay, 'alpha', 0.8)
+end
+
+function gui.hideOverlay()
+    if gui.overlay.ease then 
+        gui.overlay.ease:remove() 
+        gui.overlay.ease = nil
+    end
+    gui.overlay.ease = ez.easeInOut(gui.overlay, 'alpha', 0, {complete = function() 
+        gui.overlay.visible = false
+        gui.overlay.ease:remove()
+        gui.overlay.ease = nil
+    end})
 end
 
 function gui.clear()

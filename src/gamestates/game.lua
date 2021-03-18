@@ -50,6 +50,7 @@ function game.update(dt)
 end
 
 function game.showMenu(menuDef)
+    gui.showOverlay()
     table.insert(game.menuStack, menuDef)
     if game.menu then 
         game.menu:destroy()
@@ -67,6 +68,7 @@ function game.popMenu()
         if gui.header then gui.header.waitTime = 0 end
         if game.menu then game.menu:destroy() end
         game.menuStack = {}
+        gui.hideOverlay()
     else
         local prevMenu = game.menuStack[#game.menuStack]
         table.remove(game.menuStack, #game.menuStack)
