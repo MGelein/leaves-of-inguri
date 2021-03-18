@@ -117,7 +117,8 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
     return bar
 end
 
-function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
+function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, noEase)
+    local easeTime = noEase and 0 or 1
     local buttonGroup = gui.element(xPos, yPos)
     buttonGroup.numButtons = #definitions
     buttonGroup.buttons = {}
@@ -125,14 +126,14 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font)
     buttonGroup.moveTimeout = config.gui.moveTimeout
     buttonGroup.activateTimeout = config.gui.activateTimeout
     buttonGroup.panel = gui.panel(xPos, -500, width, buttonGroup.numButtons * verticalSpacing + 20)
-    ez.easeOut(buttonGroup.panel, 'y', yPos)
+    ez.easeOut(buttonGroup.panel, 'y', yPos, {time = easeTime})
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
             local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
-            ez.easeOut(button, 'y', yPos)
+            ez.easeOut(button, 'y', yPos, {time = easeTime})
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
         end
@@ -245,7 +246,7 @@ function gui.dialogue(data)
             table.insert(buttonDefs, def)
         end
         
-        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y + 10, self.w, 70, assets.fonts.normal)
+        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y + 10, self.w, 70, assets.fonts.normal, true)
     end
     dialogue:showEntry('greeting')
     return dialogue

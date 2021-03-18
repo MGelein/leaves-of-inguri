@@ -42,3 +42,4 @@
 - Make an easing library to make further UI easing easier.
 - Make savefiles work with slots
 - Add savefile menu, very rudimentary
+- Menu now works with stacks so we can navigate them

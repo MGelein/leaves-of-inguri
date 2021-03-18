@@ -2,6 +2,7 @@ game = {
     paused = false,
     menuStack = {}
 }
+
 game.menuDef = {
     {Save = function() game.showMenu(game.saveMenuDef) end},
     {Return = function() game.popMenu() end},
@@ -18,7 +19,7 @@ game.saveMenuDef = {
 }
 
 function game.load()
-    tilemap.load('testmap')
+    tilemap.load('testingcity')
 end
 
 function game.start()
