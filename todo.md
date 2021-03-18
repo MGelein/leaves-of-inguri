@@ -46,3 +46,4 @@
 - Add savefile menu, very rudimentary
 - Menu now works with stacks so we can navigate them
 - Improved UI audio, better music changes between maps and improved sound fx triggering
+- Better controls, improved aliases and input
