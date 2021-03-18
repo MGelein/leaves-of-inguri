@@ -29,7 +29,6 @@ require("entities.entityparser")
 require("controls.controller")
 require("controls.key")
 require("controls.input")
-require("controls.controloverlay")
 
 require("gamestates.gamestates")
 require("gamestates.game")

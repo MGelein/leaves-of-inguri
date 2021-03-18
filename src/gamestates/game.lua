@@ -1,6 +1,6 @@
 game = {
     paused = false,
-    menuStack = {}
+    menuStack = {},
 }
 
 game.menuDef = {

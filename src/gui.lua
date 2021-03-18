@@ -351,7 +351,6 @@ function gui.draw()
     for i, el in ipairs(gui.list.all) do
         if el.visible then el:draw() end
     end
-    controloverlay.draw()
 end
 
 function gui.update(dt)
