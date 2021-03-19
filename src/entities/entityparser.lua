@@ -92,7 +92,7 @@ entityparser.weaponTemplates = {
         speed = 3,
         range = 20,
         age = 10,
-        cooldown = 40,
+        cooldown = 0.8,
         projectile = false,
     },
     sword = {
@@ -100,7 +100,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 20,
         age = 10,
-        cooldown = 20,
+        cooldown = 0.3,
         projectile = false,
     },
     axe = {
@@ -108,7 +108,7 @@ entityparser.weaponTemplates = {
         speed = 4,
         range = 30,
         age = 10,
-        cooldown = 30,
+        cooldown = 0.5,
         projectile = false,
     },
     arrow = {
@@ -116,7 +116,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 300,
         age = 100,
-        cooldown = 120,
+        cooldown = 2,
         projectile = true,
     },
     trident = {
@@ -124,7 +124,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 40,
         age = 10,
-        cooldown = 30,
+        cooldown = 0.5,
         projectile = false,
     },
     firebolt = {
@@ -132,7 +132,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 300,
         age = 100,
-        cooldown = 120,
+        cooldown = 2,
         projectile = true,
     },
     acid = {
@@ -140,7 +140,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 200,
         age = 50,
-        cooldown = 60,
+        cooldown = 1,
         projectile = true,
     }
 }
@@ -171,7 +171,7 @@ entityparser.objectTemplates = {
 function entityparser.parse(i, tile, x, y)
     x = x + 16
     y = y + 16
-    if tile == hero.symbolTile then 
+    if entityparser.isHero(tile) then 
         if tilemap.nextHeroPos then hero.create(tilemap.nextHeroPos.x, tilemap.nextHeroPos.y)
         else hero.create(x, y) end
     elseif entityparser.getMonsterTemplate(tile) then 
@@ -185,6 +185,10 @@ function entityparser.parse(i, tile, x, y)
     else
         entities.create(i, tile, x, y) 
     end
+end
+
+function entityparser.isHero(tile)
+    return tile == 6
 end
 
 function entityparser.isNPC(tile)

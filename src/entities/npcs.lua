@@ -7,7 +7,6 @@ function npcs.create(id, tile, xPos, yPos)
     npc.mass = 0
     npc.collider.class = 'npc'
     npc.collider.parent = npc
-    npc.update = npcs.update
     npcs.list:add(npc)
 end
 
@@ -33,12 +32,6 @@ end
 function npcs.loadPersonalityData(self)
     self.dialogue = dialogues.load(self.name)
     self.name = self.dialogue.name
-end
-
-function npcs.update(self, dt)
-    if self.trigger then 
-        self.trigger.collider:moveTo(self.x, self.y) 
-    end
 end
 
 function npcs.clear()

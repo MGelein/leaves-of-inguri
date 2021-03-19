@@ -11,9 +11,8 @@ function monsters.create(id, xPos, yPos, template)
     monster.collider.class = 'monster'
     monster.walkAngleSpeed = template.walkAngleSpeed or monster.walkAngleSpeed
     
-    monster.home = {x = xPos, y = yPos}
     monster.wanderForce = 0.1 * template.speedMult
-    monster.wanderFrames = 0
+    monster.wanderTime = 0
     monster.wanderDir = {x = 0, y = 0}
     monster.wanderRadius = 100
     
@@ -26,27 +25,27 @@ function monsters.create(id, xPos, yPos, template)
     return monster
 end
 
-function monsters.zombieBehaviour(self)
+function monsters.zombieBehaviour(self, dt)
     if self.target ~= nil then self.activity = 'seeking'
     else self.activity = 'wandering' end
 
-    if self.activity == 'wandering' then monsters.wander(self)
+    if self.activity == 'wandering' then monsters.wander(self, dt)
     elseif self.activity == 'seeking' then monsters.seek(self, self.target.x, self.target.y) end
 end
 
-function monsters.rangedBehaviour(self)
-    self.attackCooldown = decrease(self.attackCooldown)
+function monsters.rangedBehaviour(self, dt)
+    self.attackCooldown = self.attackCooldown - dt
     if self.target ~= nil then self.activity = 'shooting'
     else self.activity = 'wandering' end
 
-    if self.activity == 'wandering' then monsters.wander(self)
+    if self.activity == 'wandering' then monsters.wander(self, dt)
     elseif self.activity == 'shooting' then 
 
         local targetDist = dist(self.target.x, self.target.y, self.x, self.y)
         if targetDist < 100 then 
             monsters.avoid(self, self.target.x, self.target.y)
         end
-        if self.attackCooldown == 0 then
+        if self.attackCooldown <= 0 then
             weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, self.weapon)
             self.attackCooldown = entityparser.weaponTemplates[self.weapon].cooldown
         end
@@ -73,10 +72,10 @@ function monsters.avoid(self, x, y)
     self.ay = self.ax - dy * self.seekForce
 end
 
-function monsters.wander(self)
-    self.wanderFrames = decrease(self.wanderFrames)
-    if self.wanderFrames <= 0 then
-        self.wanderFrames = love.math.random(50, 100)
+function monsters.wander(self, dt)
+    self.wanderTime = self.wanderTime - dt
+    if self.wanderTime <= 0 then
+        self.wanderTime = love.math.random(1, 2)
         local homeDelta = {x = self.home.x - self.x, y = self.home.y - self.y}
         local homeDist = math.sqrt(homeDelta.x * homeDelta.x + homeDelta.y * homeDelta.y)
         if homeDist < self.wanderRadius then

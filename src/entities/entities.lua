@@ -16,7 +16,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         y = yPos,
         home = {x = xPos, y = yPos},
         r = 0,
-        scale = 4,
+        scale = tilemap.scale,
         sx = 1,
         sy = 1,
         health = -100,
@@ -27,8 +27,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         colliderR = 0,
         mass = 0,
         blocking = false,
-        invulnerableFrames = 0,
-        removed = false,
+        invulnerableTime = 0,
         effects = {},
         highlightHue = 0, 
 
@@ -53,11 +52,11 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         end,
 
         damage = function(self, amt)
-            if self.health == -100 or self.invulnerableFrames > 0 then return end
+            if self.health == -100 or self.invulnerableTime > 0 then return end
             amt = amt - amt * self.defence
             if amt < 0 then return end
 
-            self.invulnerableFrames = config.combat.invulnerableFrames
+            self.invulnerableTime = config.combat.invulnerableTime
 
             self.health = self.health - amt
             if self.health <= 0 then
@@ -65,19 +64,17 @@ function entities.create(identity, spriteNumber, xPos, yPos)
                 tilemap.recordEntityDeath(self)
                 self.health = 0
                 entities.remove(self)
-                local shakeTime = 0.2
+                local shakeTime = 0.1
                 if self.collider.class == 'hero' then shakeTime = 0.5 end
                 pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, shakeTime)
             else
                 if self.collider.class == 'hero' then soundfx.play('hurt')
                 else soundfx.play('hit') end
-            
             end
         end
     }
     entity.collider.class = 'entity'
     entity.collider.parent = entity
-
     entities.list:add(entity)
     return entity
 end
@@ -139,8 +136,9 @@ end
 
 function entities.draw()
     for i, ent in ipairs(entities.list.all) do
-        if ent.invulnerableFrames > 0 then love.graphics.setColor(1, 0.5, 0.5)
+        if ent.invulnerableTime > 0 then love.graphics.setColor(1, 0.5, 0.5)
         else love.graphics.setColor(unpack(ent.tint)) end
+        
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
         if ent.blocking then
             assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
@@ -150,17 +148,17 @@ function entities.draw()
             if ent.detectCollider then ent.detectCollider:draw('line') end
         end
     end
-    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setColor(1, 1, 1)
 end
 
 function entities.update(dt)
     entities.list:update()
     for i, entity in ipairs(entities.list.all) do
-        entity.invulnerableFrames = decrease(entity.invulnerableFrames)
+        entity.invulnerableTime = entity.invulnerableTime - dt
         if entity.update then entity:update(dt) end
         if entity.updateForce then entity:updateForce() end
         if entity.updateWalk then entity:updateWalk(dt) end
-        if entity.updateBehaviour then entity:updateBehaviour() end
+        if entity.updateBehaviour then entity:updateBehaviour(dt) end
         if entity.detectCollider then collisions.handleDetect(entity) end
 
         if entity.health ~= 0 then entities.updateColliders(entity)

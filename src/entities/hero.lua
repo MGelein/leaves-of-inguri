@@ -1,5 +1,4 @@
 hero = {
-    symbolTile = 6,
     health = 1,
     maxHealth = 20,
     mana = 10,
@@ -43,13 +42,14 @@ function hero.moveTo(x, y)
 end
 
 function hero.update(self, dt)
+    screen.follow(self.x, self.y, dt)
     hero.handleManaRegen(self, dt)
     hero.handleHealthRegen(self, dt)
-    self.attackCooldown = decrease(self.attackCooldown)
+    self.attackCooldown = self.attackCooldown - dt
     hero.handleInput(self)
-    screen.follow(self.x, self.y, dt)
     hero.health = self.health
     hero.mana = self.mana
+
     if self.prevWalkAngle > self.walkAngle then soundfx.play('step') end
     self.prevWalkAngle = self.walkAngle
     
@@ -103,7 +103,7 @@ function hero.handleInput(self)
     if input.isDown('block') then self.blocking = true
     else self.blocking = false end
 
-    if input.isDownOnce('attack') and self.attackCooldown == 0 then
+    if input.isDownOnce('attack') and self.attackCooldown <= 0 then
         if self.target == nil then 
             weapons.attackAt(self.x + self.vx, self.y + self.vy, self.x, self.y, self, self.weapon)
         else
@@ -140,6 +140,7 @@ function hero.setTarget(self, newTarget)
     elseif self.target.collider.class == 'object' and newTarget.collider.class == 'monster' then
         self.target = newTarget
     else
+        if newTarget == self.target then return end
         local newTargetDist = dist(newTarget.x, newTarget.y, self.x, self.y)
         local targetDist = dist(self.x, self.y, self.target.x, self.target.y)
         if newTargetDist < targetDist and not (newTarget.collider.class == 'object' and self.target.collider.class == 'monster') then

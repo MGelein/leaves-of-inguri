@@ -14,7 +14,7 @@ config = {
     combat = {
         manaPerSecond = 0.5,
         healthPerSecond = 0.5,
-        invulnerableFrames = 20,
+        invulnerableTime = 0.3,
         spellCooldown = 0.5,
     },
 
