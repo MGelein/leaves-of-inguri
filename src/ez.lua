@@ -6,57 +6,51 @@ ez.elasticConst2 = (math.pi * 2) / 4.5
 ez.shape = 'Cubic'
 
 function ez.easeLinear(object, tweens, props)
-    return ez.easeMult(object, tweens, props, 'linear')
+    return ez.ease(object, tweens, props, 'linear')
 end
 
 function ez.easeIn(object, tweens, props)
-    return ez.easeMult(object, tweens, props, 'in')
+    return ez.ease(object, tweens, props, 'in')
 end
 
 function ez.easeOut(object, tweens, props)
-    return ez.easeMult(object, tweens, props, 'out')
+    return ez.ease(object, tweens, props, 'out')
 end
 
 function ez.easeInOut(object, tweens, props)
-    return ez.easeMult(object, tweens, props, 'inOut')
+    return ez.ease(object, tweens, props, 'inOut')
 end
 
-function ez.easeMult(object, tweens, props, easeFn)
-    for attribute, value in pairs(tweens) do
-        ez.ease(object, attribute, value, props, easeFn)
-    end
-end
-
-function ez.ease(object, attribute, targetValue, props, easeFn)
-    local fnName = '_' .. easeFn .. ez.shape
+function ez.ease(object, tweenAbles, props, easeFn)
+    easeFn = easeFn or 'linear'
+    easeFn = '_' .. easeFn .. ez.shape
     props = props or {}
-    if type(attribute) ~= 'string' then
-        print('Attribute must be a string describing the attribute name.') 
-        return
-    elseif type(object[attribute]) ~= 'number' then
-        print('Only numbers can be eased.')
-        return
-    elseif ez[fnName] == nil then
-        print('Could not find easing implementation for function', (easeFn .. ez.shape))
-        return
+
+    local tweenTargets = {}
+    for attribute, targetValue in pairs(tweenAbles) do
+        local tween = {
+            attr = attribute,
+            start = object[attribute],
+            target = targetValue,
+            delta = targetValue - object[attribute]
+        }
+        table.insert(tweenTargets, tween)
     end
 
     local e = {
         obj = object,
-        attr = attribute,
-        target = targetValue,
-        start = object[attribute],
+        tweens = tweenTargets,
+        fn = ez[easeFn],
         time = props.time or 1,
         delay = props.delay or 0,
-        fn = ez[fnName],
         elapsed = 0,
         timeRatio = 0,
         valueRatio = 0,
-        complete = props.complete,
+        onCompletion = props.complete,
 
         remove = ez._remove,
+        complete = ez._complete
     }
-    e.delta = (e.target - e.start)
     ez._add(e)
     return e
 end
@@ -65,14 +59,16 @@ function ez.update(dt)
     for i, e in ipairs(ez.list) do
         e.delay = e.delay - dt
         if e.delay <= 0 then
-            e.obj[e.attr] = e.start + e.valueRatio * e.delta
             e.elapsed = e.elapsed + dt
             e.timeRatio = e.elapsed / e.time
             e.valueRatio = e.fn(e.timeRatio)
             if e.elapsed >= e.time then 
-                e.obj[e.attr] = e.target
-                if e.complete then e.complete() end
+                e.valueRatio = 1
+                if e.onCompletion then e.onCompletion() end
                 e:remove() 
+            end
+            for i, tween in ipairs(e.tweens) do
+                e.obj[tween.attr] = tween.start + e.valueRatio * tween.delta
             end
         end
     end
@@ -95,6 +91,10 @@ end
 function ez.setShape(shape)
     shape = shape:lower()
     ez.shape = shape:sub(1, 1):upper() .. shape:sub(2)
+end
+
+function ez._complete(self, fn)
+    self.onCompletion = fn
 end
 
 function ez._remove(self)
