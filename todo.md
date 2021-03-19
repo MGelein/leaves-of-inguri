@@ -47,4 +47,6 @@
 - Improved UI audio, better music changes between maps and improved sound fx triggering
 - Better controls, improved aliases and input
 - Multiple control options for one input, f.e. analog and dpad for movement
+- All cooldowns of weapons are now measured in seconds insteads of frames
+- Well working menu system for the actual game.
 - Saving and loading of actual files in slots
