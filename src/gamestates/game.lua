@@ -40,11 +40,11 @@ function game.update(dt)
         pxparticles.update(dt)
         tilemap.update()
         if input.isDownOnce('menu') then game.showMenu(game.menuDef) end
-        if input.isDownOnce('map') then gui.showImage(assets.minimap) end
+        if input.isDownOnce('map') then gui.showMinimap() end
     else
         if input.isDownOnce('block') then
             soundfx.play('ui_close')
-            game.popMenu() 
+            game.popMenu()
         end
     end
 end

@@ -116,7 +116,7 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
             self.lastValue = self.value
             self.ratio = self.value / self.maxValue
             self.text  = tostring(math.floor(self.value)) .. '/' .. tostring(math.floor(self.maxValue))
-            ez.easeOut(self, 'barW', self.w * self.ratio)
+            ez.easeOut(self, {barW = self.w * self.ratio})
         end
     end
     return bar
@@ -131,14 +131,14 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
     buttonGroup.moveTimeout = config.gui.moveTimeout
     buttonGroup.activateTimeout = config.gui.activateTimeout
     buttonGroup.panel = gui.panel(xPos, -500, width, buttonGroup.numButtons * verticalSpacing + 20)
-    ez.easeOut(buttonGroup.panel, 'y', yPos, {time = easeTime})
+    ez.easeOut(buttonGroup.panel, {y = yPos}, {time = easeTime})
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
             local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
-            ez.easeOut(button, 'y', yPos, {time = easeTime})
+            ez.easeOut(button, {y = yPos}, {time = easeTime})
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
         end
@@ -366,7 +366,7 @@ function gui.showOverlay()
         gui.overlay.ease = nil
     end
     gui.overlay.visible = true
-    gui.overlay.ease = ez.easeInOut(gui.overlay, 'alpha', 0.8)
+    gui.overlay.ease = ez.easeInOut(gui.overlay, {alpha = 0.8})
 end
 
 function gui.hideOverlay()
@@ -374,9 +374,9 @@ function gui.hideOverlay()
         gui.overlay.ease:remove() 
         gui.overlay.ease = nil
     end
-    gui.overlay.ease = ez.easeInOut(gui.overlay, 'alpha', 0, {complete = function() 
+    gui.overlay.ease = ez.easeInOut(gui.overlay, {alpha = 0}, {complete = function() 
         gui.overlay.visible = false
-        gui.overlay.ease:remove()
+        if gui.overlay.ease then gui.overlay.ease:remove() end
         gui.overlay.ease = nil
     end})
 end
@@ -446,13 +446,13 @@ function gui.showHeader(name, duration)
             self.waitTime = self.waitTime - dt
             if self.waitTime <= 0 then 
                 self.eased = false
-                ez.easeIn(header, 'y', -1000, {complete = function() self:destroy() end})
+                ez.easeIn(header, {y = -1000}, {complete = function() self:destroy() end})
             end
         end
     end
     if gui.header then gui.header:destroy() end
     gui.header = header
-    ez.easeOut(header, 'y', header.targetY, {complete = function() header.eased = true end})
+    ez.easeOut(header, {y = header.targetY}, {complete = function() header.eased = true end})
 end
 
 function gui.showText(text)
@@ -465,6 +465,12 @@ function gui.showDialogue(data)
     if not data then return end
     game.paused = true
     game.menu = gui.dialogue(data)
+end
+
+function gui.showMinimap()
+    gui.showOverlay()
+    soundfx.play('ui_open')
+    gui.showImage(assets.minimap)
 end
 
 function gui.showImage(img)
