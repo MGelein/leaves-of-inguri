@@ -1,6 +1,7 @@
 savefile = {}
 savefile.data = {}
 savefile.url = 'savefile'
+savefile.currentSlot = 1
 
 function savefile.exists(slot)
     if love.filesystem.getInfo(savefile.url .. tostring(slot)) then return true
@@ -8,11 +9,13 @@ function savefile.exists(slot)
 end
 
 function savefile.save(slot)
+    hero.save()
     savefile.write(savefile.url .. tostring(slot), savefile.data)
 end
 
 function savefile.load(slot)
     savefile.data = savefile.read(savefile.url .. tostring(slot))
+    hero.load()
 end
 
 function savefile.delete(slot)
@@ -30,7 +33,7 @@ function savefile.serialize(data, prefix)
         local valType = type(value)
         if valType == 'string' or valType == 'number' or valType == 'boolean' then
             local typePrefix = valType:sub(1, 1)
-            table.insert(parts, table.concat({prefix, typePrefix, capitalize(key), ' = ', tostring(value)}))
+            table.insert(parts, table.concat({prefix, typePrefix, ucfirst(key), ' = ', tostring(value)}))
         elseif valType == 'table' then
             table.insert(parts, savefile.serialize(value, key .. '.'))
         end

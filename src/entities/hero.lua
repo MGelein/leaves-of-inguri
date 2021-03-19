@@ -1,26 +1,39 @@
 hero = {
-    health = 1,
-    maxHealth = 20,
-    mana = 10,
-    maxMana = 10,
-
     manaRegenCounter = 0,
     manaRegen = 1 / config.combat.manaPerSecond,
     healthRegenCounter = 0,
     healthRegen = 1 / config.combat.healthPerSecond,
-
-    attack = 2,
-    defence = 0.2,
-    weapon = 'sword',
 }
 
+function hero.load()
+    hero.health = savefile.data.heroHealth or 1
+    hero.maxHealth = savefile.data.heroMaxHealth or 20
+    hero.mana = savefile.data.heroMana or 10
+    hero.maxMana = savefile.data.heroMaxMana or 10
+    hero.weapon = savefile.data.heroWeapon or 'club'
+    hero.armor = savefile.data.heroArmor or 'cloth'
+end
+
+function hero.save()
+    local data = savefile.data
+    data.currentMap = tilemap.name
+    data.heroHealth = hero.health
+    data.heroMaxHealth = hero.maxHealth
+    data.heroMana = hero.mana
+    data.heroMaxMana = hero.maxMana
+    data.heroWeapon = hero.weapon
+    data.heroArmor = hero.armor
+end
+
 function hero.create(xPos, yPos)
-    local entity = entities.createWalk(-1, 6, xPos, yPos)
+    local weaponTemplate = entityparser.weaponTemplates[hero.weapon] or entityparser.weaponTemplates.club
+    local armorTemplate = entityparser.armorTemplates[hero.armor] or entityparser.armorTemplates.cloth
+    local entity = entities.createWalk(-1, armorTemplate.tile, xPos, yPos)
     entity.force = 0.3
     entity.update = hero.update
     entity.collider.class = 'hero'
-    entity.attack = hero.attack
-    entity.defence = hero.defence
+    entity.attack = weaponTemplate.attack
+    entity.defence = armorTemplate.defence
     entity.target = nil
     entity.weapon = hero.weapon
     entity.prevWalkAngle = entity.walkAngle

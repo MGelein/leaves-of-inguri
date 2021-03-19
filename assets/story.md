@@ -23,7 +23,7 @@ Each area in the game can have multiple quests, which, depending on the difficul
  2. Armor upgrades: __four__ tiers of armor upgrades, one for each area, and one starting equipment.
   - Cloth armor (starting armor): Provided for free at the start of the game, provides no protection against enemy damage.
   - Leather armor (given in The Fringe)
-  - Scale armor (given in The Lost City)
+  - Chain armor (given in The Lost City)
   - Plate armor (given in The Inner Sanctum)
 3. Spell rewards (major): These rewards are required since most, if not all, progression between areas or arcs is gated between the use of these spells. Using them to their full potential becomes a core part of the gameplay.
  - Heal (given in The Fringe)
@@ -46,7 +46,7 @@ The second arc, located inside of the sacred woods, focuses on plants and our co
 
 #### Areas
 - The Lost City - Outskirts __Talk With Plants__
-- The Lost City - Palace _Scale armor_
+- The Lost City - Palace _Chain armor_
 - The Lost City - Gardens _Axe_
 
 ### The third arc: The Inner Sanctum (Blink)

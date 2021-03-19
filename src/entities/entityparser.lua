@@ -94,6 +94,7 @@ entityparser.weaponTemplates = {
         age = 10,
         cooldown = 0.8,
         projectile = false,
+        attack = 1,
     },
     sword = {
         tile = 63,
@@ -102,6 +103,7 @@ entityparser.weaponTemplates = {
         age = 10,
         cooldown = 0.3,
         projectile = false,
+        attack = 4,
     },
     axe = {
         tile = 64,
@@ -110,6 +112,7 @@ entityparser.weaponTemplates = {
         age = 10,
         cooldown = 0.5,
         projectile = false,
+        attack = 3,
     },
     arrow = {
         tile = 66,
@@ -118,6 +121,7 @@ entityparser.weaponTemplates = {
         age = 100,
         cooldown = 2,
         projectile = true,
+        attack = 2,
     },
     trident = {
         tile = 67,
@@ -126,6 +130,7 @@ entityparser.weaponTemplates = {
         age = 10,
         cooldown = 0.5,
         projectile = false,
+        attack = 2,
     },
     firebolt = {
         tile = 119,
@@ -134,6 +139,7 @@ entityparser.weaponTemplates = {
         age = 100,
         cooldown = 2,
         projectile = true,
+        attack = 5,
     },
     acid = {
         tile = 114,
@@ -142,7 +148,15 @@ entityparser.weaponTemplates = {
         age = 50,
         cooldown = 1,
         projectile = true,
+        attack = 4,
     }
+}
+
+entityparser.armorTemplates = {
+    cloth = {tile = 5, defence = 0.1},
+    leather = {tile = 5, defence = 0.3},
+    chain = {tile = 6, defence = 0.6},
+    plate = {tile = 7, defence = 0.8},
 }
 
 entityparser.objectTemplates = {

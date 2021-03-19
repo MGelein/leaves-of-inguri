@@ -22,6 +22,10 @@ function capitalize(str)
     return str:sub(1, 1):upper() .. str:sub(2):lower()
 end
 
+function ucfirst(str)
+    return str:sub(1, 1):upper() .. str:sub(2)
+end
+
 function printtable(toprint, indent)
     indent = indent or ''
     for name, value in pairs(toprint) do

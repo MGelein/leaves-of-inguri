@@ -6,8 +6,9 @@ game = {
     menuUpdate = nil,
 }
 
-function game.load()
-    tilemap.load('testingcity')
+function game.load(slot)
+    savefile.load(savefile.currentSlot)
+    tilemap.load(savefile.data.currentMap or 'testingcity')
 end
 
 function game.start()
@@ -96,10 +97,7 @@ function game.updateMinimap()
 end
 
 function game.openSave()
-    local menu = {
-        {Slot_1 = function() savefile.save(1) end},
-        {Slot_2 = function() savefile.save(2) end},
-        {Slot_3 = function() savefile.save(3) end},
-    }
-    return gui.buttongroup(menu, (config.width - 300) / 2, 150, 300, 70)
+    savefile.save(savefile.currentSlot)
+    local text = "Saving done!"
+    return gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, config.height - 10, config.gui.textboxWidth)
 end
