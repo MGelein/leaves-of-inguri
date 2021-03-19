@@ -153,7 +153,7 @@ entityparser.weaponTemplates = {
 }
 
 entityparser.armorTemplates = {
-    cloth = {tile = 5, defence = 0.1},
+    cloth = {tile = 4, defence = 0.1},
     leather = {tile = 5, defence = 0.3},
     chain = {tile = 6, defence = 0.6},
     plate = {tile = 7, defence = 0.8},
