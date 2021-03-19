@@ -74,22 +74,10 @@ function controller.register(js)
         isLeftStickDown = function() return js:isDown(9) end,
         isRightStickDown = function() return js:isDown(10) end,
         
-        isDPUp = function()
-            local dp = js:getHat(1)
-            return (dp == 'u' or dp == 'lu' or dp=='ru') 
-        end,
-        isDPLeft = function()
-            local dp = js:getHat(1)
-            return (dp == 'l' or dp == 'lu' or dp=='ld') 
-        end,
-        isDPRight = function()
-            local dp = js:getHat(1)
-            return (dp == 'r' or dp == 'ru' or dp=='rd') 
-        end,
-        isDPDown = function()
-            local dp = js:getHat(1)
-            return (dp == 'd' or dp == 'ld' or dp=='rd') 
-        end
+        isDPUp = function() return js:getHat(1):find('u') ~= nil end,
+        isDPLeft = function() return js:getHat(1):find('l') ~= nil end,
+        isDPRight = function() return js:getHat(1):find('r') ~= nil end,
+        isDPDown = function() return js:getHat(1):find('d') ~= nil end,
     }
     input.mapController()
 end
