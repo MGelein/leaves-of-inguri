@@ -1,5 +1,4 @@
 # TODO
-- Multiple control options for one input, f.e. analog and dpad for movement
 - Making the minimap work properly
 - Designing a controller and controls explanation/overlay
 - Saving and loading of actual files in slots
@@ -47,3 +46,4 @@
 - Menu now works with stacks so we can navigate them
 - Improved UI audio, better music changes between maps and improved sound fx triggering
 - Better controls, improved aliases and input
+- Multiple control options for one input, f.e. analog and dpad for movement
