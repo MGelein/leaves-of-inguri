@@ -1,12 +1,9 @@
 game = {
     paused = false,
-    menuStack = {},
-}
 
-game.saveMenuDef = {
-    {Slot_1 = function() savefile.save(1) end},
-    {Slot_2 = function() savefile.save(2) end},
-    {Slot_3 = function() savefile.save(3) end},
+    menu = nil,
+    menuStack = {},
+    menuUpdate = nil,
 }
 
 function game.load()
@@ -33,16 +30,14 @@ function game.update(dt)
         if input.isDownOnce('menu') then game.showMenu('menu') end
         if input.isDownOnce('map') then game.showMenu('minimap') end
     else
-        if input.isDownOnce('block') then
-            game.popMenu()
-        end
+        if input.isDownOnce('block') then game.popMenu() end
+        if game.menuUpdate then game.menuUpdate() end
     end
 end
 
 function game.showMenu(menuName)
     gui.showOverlay()
     table.insert(game.menuStack, menuName)
-    printtable(game.menuStack)
     if game.menu then 
         game.menu:destroy()
     else
@@ -55,9 +50,13 @@ end
 
 function game.popMenu()
     table.remove(game.menuStack, #game.menuStack)
+    game.menuUpdate = nil
     if #game.menuStack < 1 then 
         game.paused = false
-        if gui.header then gui.header.ease.delay = 0 end
+        if gui.header and gui.header.ease then 
+            if gui.header.ease.onCompletion then gui.header.ease:onCompletion() end
+            gui.header.ease.delay = 0
+        end
         if game.menu then game.menu:destroy() end
         game.menuStack = {}
         game.menu = nil
@@ -77,7 +76,7 @@ end
 
 function game.openMenu()
     local menu = {
-        {Save = function() game.showMenu(game.saveMenuDef) end},
+        {Save = function() game.showMenu('save') end},
         {Return = function() game.popMenu() end},
         {Quests = function() end},
         {Controls = function() end},
@@ -88,5 +87,19 @@ function game.openMenu()
 end
 
 function game.openMinimap()
+    game.menuUpdate = game.updateMinimap
     return gui.imgbox(assets.minimap, tilemap.scale)
+end
+
+function game.updateMinimap()
+    if input.isDownOnce('map') then game.popMenu() end
+end
+
+function game.openSave()
+    local menu = {
+        {Slot_1 = function() savefile.save(1) end},
+        {Slot_2 = function() savefile.save(2) end},
+        {Slot_3 = function() savefile.save(3) end},
+    }
+    return gui.buttongroup(menu, (config.width - 300) / 2, 150, 300, 70)
 end
