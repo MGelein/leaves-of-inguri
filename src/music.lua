@@ -24,5 +24,6 @@ function music.stop()
     if music.currentSource then 
         music.currentSource:stop() 
         music.currentSource = nil
+        music.currentName = ''
     end
 end
