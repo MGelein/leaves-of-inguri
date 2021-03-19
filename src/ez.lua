@@ -5,20 +5,26 @@ ez.elasticConst = (math.pi * 2) / 3
 ez.elasticConst2 = (math.pi * 2) / 4.5
 ez.shape = 'Cubic'
 
-function ez.easeLinear(object, attribute, targetValue, props)
-    return ez.ease(object, attribute, targetValue, props, 'linear')
+function ez.easeLinear(object, tweens, props)
+    return ez.easeMult(object, tweens, props, 'linear')
 end
 
-function ez.easeIn(object, attribute, targetValue, props)
-    return ez.ease(object, attribute, targetValue, props, 'in')
+function ez.easeIn(object, tweens, props)
+    return ez.easeMult(object, tweens, props, 'in')
 end
 
-function ez.easeOut(object, attribute, targetValue, props)
-    return ez.ease(object, attribute, targetValue, props, 'out')
+function ez.easeOut(object, tweens, props)
+    return ez.easeMult(object, tweens, props, 'out')
 end
 
-function ez.easeInOut(object, attribute, targetValue, props)
-    return ez.ease(object, attribute, targetValue, props, 'inOut')
+function ez.easeInOut(object, tweens, props)
+    return ez.easeMult(object, tweens, props, 'inOut')
+end
+
+function ez.easeMult(object, tweens, props, easeFn)
+    for attribute, value in pairs(tweens) do
+        ez.ease(object, attribute, value, props, easeFn)
+    end
 end
 
 function ez.ease(object, attribute, targetValue, props, easeFn)
