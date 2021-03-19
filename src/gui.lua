@@ -14,7 +14,6 @@ gui.overlay = {
 }
 
 function gui.element(xPos, yPos, rPos, scaleX, scaleY)
-    if rPos == nil then rPos = 0 end
     local el = {
         x = xPos or 0,
         y = yPos or 0,
@@ -24,19 +23,16 @@ function gui.element(xPos, yPos, rPos, scaleX, scaleY)
         visible = true,
         wasVisible = true,
 
-        animAngle = 0,
         draw = function(self) end,
         update = function(self, dt) end,
-        destroy = function(self)
-            gui.list:remove(self)
-        end
+        destroy = function(self) gui.list:remove(self) end
     }
     gui.list:add(el)
     return el
 end
 
-function gui.panel(xPos, yPos, w, h, rPos, sx, sy)
-    local panel = gui.element(xPos, yPos, rPos, sx, sy)
+function gui.panel(xPos, yPos, w, h)
+    local panel = gui.element(xPos, yPos)
     panel.w = w
     panel.h = h
     panel.backgroundColor = {0, 0, 0, 0.8}
@@ -56,11 +52,9 @@ end
 
 function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
     local label = gui.element(xPos, yPos, rPos, sx, sy)
-    limit = limit or 10000
-    align = align or 'left'
     label.text = string
-    label.limit = limit
-    label.align = align
+    label.limit = limit or 100000
+    label.align = align or 'left'
     label.font = assets.fonts.normal
     label.color = {1, 1, 1}
     label.draw = function(self)
@@ -73,8 +67,8 @@ function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
     return label
 end
 
-function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx, sy)
-    local bar = gui.element(xPos, yPos, rPos, sx, sy)
+function gui.progressbar(value, max, xPos, yPos, width, height, color)
+    local bar = gui.element(xPos, yPos)
     bar.maxValue = max
     bar.lastMax = max
     bar.value = value
@@ -85,15 +79,13 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color, rPos, sx,
     bar.barW = 0
     bar.h = height
     bar.c = color
-    bar.rgb = {r = color[1], g = color[2], b = color[3]}
     bar.shadowHeight = bar.h / 6
     bar.font = assets.fonts.normal
     bar.textHeight = (bar.h - bar.font:getHeight()) / 2
     bar.draw = function(self)
         love.graphics.push()
-        
         love.graphics.translate(self.x, self.y)
-        love.graphics.setColor(0, 0, 0, 0.5)
+        love.graphics.setColor(0, 0, 0, 0.6)
         love.graphics.rectangle('fill', 0, 0, self.w, self.h)
         love.graphics.setColor(unpack(self.c))
         love.graphics.rectangle('fill', 0, 0, self.barW, self.h)
@@ -125,12 +117,9 @@ end
 function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, noEase)
     local easeTime = noEase and 0 or 1
     local buttonGroup = gui.element(xPos, yPos)
-    buttonGroup.numButtons = #definitions
     buttonGroup.buttons = {}
     buttonGroup.selectedIndex = 1
-    buttonGroup.moveTimeout = config.gui.moveTimeout
-    buttonGroup.activateTimeout = config.gui.activateTimeout
-    buttonGroup.panel = gui.panel(xPos, -500, width, buttonGroup.numButtons * verticalSpacing + 20)
+    buttonGroup.panel = gui.panel(xPos, -500, width, #definitions * verticalSpacing + 20)
     ez.easeOut(buttonGroup.panel, {y = yPos}, {time = easeTime})
     yPos = yPos + 20
     xPos = xPos + 20
@@ -144,22 +133,14 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
         end
     end
     buttonGroup.update = function(self, dt)
-        if not self.visible then return end
-        if self.moveTimeout > 0 then self.moveTimeout = self.moveTimeout - dt end
-        if self.activateTimeout > 0 then self.activateTimeout = self.activateTimeout - dt end
-
-        if self.moveTimeout <= 0 then
-            if input.isDown('down') or input.isDown('next') then
-                self:setSelected(self.selectedIndex + 1)
-            elseif input.isDown('up') or input.isDown('previous') then
-                self:setSelected(self.selectedIndex - 1)
-            end
+        if input.isDownOnce('down') or input.isDownOnce('next') then
+            self:setSelected(self.selectedIndex + 1)
+        elseif input.isDownOnce('up') or input.isDownOnce('previous') then
+            self:setSelected(self.selectedIndex - 1)
         end
-        if self.activateTimeout <= 0 then
-            if input.isDownOnce('attack') or input.isDownOnce('interact') then
-                self.buttons[self.selectedIndex].activate()
-                self.activateTimeout = config.gui.activateTimeout
-            end
+
+        if input.isDownOnce('attack') or input.isDownOnce('interact') then
+            self.buttons[self.selectedIndex].activate()
         end
     end
     buttonGroup.setSelected = function(self, index)
@@ -174,8 +155,6 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
             self.buttons[i].selected = false
         end
         self.buttons[index].selected = true
-        self.moveTimeout = config.gui.moveTimeout
-        self.activateTimeout = 0
     end
     buttonGroup.destroy = function(self)
         for i, button in ipairs(self.buttons) do button:destroy() end
@@ -226,10 +205,8 @@ function gui.dialogue(data)
         if self.buttons then self.buttons:destroy() end
         
         local entry = self.entries[name]
-        if not entry then 
-            game.popMenu()
-            return
-        end
+        if not entry then game.popMenu() return end
+
         for i, option in ipairs(entry.options) do
             if dialogues.evaluateCondition(option.condition) then
                 entry = option
@@ -265,7 +242,6 @@ function gui.textbox(text, xPos, yPos, w)
     box.width = w
     box.height = height
     box.font = assets.fonts.normal
-    box.numLines = #lines
     box.panel = gui.panel(xPos, yPos, w, box.height)
     box.char = 1
     box.partOfDialogue = false
@@ -279,7 +255,7 @@ function gui.textbox(text, xPos, yPos, w)
 
         if self.char < #self.text then
             box.label.text = self.text:sub(1, self.char)
-            local amount = math.floor(love.math.random() + 0.3)
+            local amount = math.floor(love.math.random() + 0.4)
             if input.isDown('attack') or (input.isDown('interact') and self.interactLetGo) then amount = 4 end
             self.char = self.char + amount
 
@@ -310,19 +286,8 @@ function gui.icon(tile, xPos, yPos, rPos, sx, sy)
     icon.tile = tile
     icon.ox = 4
     icon.oy = 4
-    icon.calcSx = icon.sx
-    icon.calcSy = icon.sy
-    icon.breathing = false
     icon.draw = function(self)
-        assets.entities.drawSprite(self.tile, self.x, self.y, self.r, self.calcSx * 4, self.calcSy * 4, self.ox, self.oy)
-    end
-    icon.update = function(self)
-        if not breathing then return end
-        self.animAngle = self.animAngle + 0.1
-        if self.animAngle >= math.pi * 2 then self.animAngle = self.animAngle - math.pi * 2 end
-
-        self.calcSx = self.sx + math.sin(self.animAngle) * 0.1
-        self.calcSy = self.sy + math.sin(self.animAngle) * 0.1
+        assets.entities.drawSprite(self.tile, self.x, self.y, self.r, self.sx * 4, self.sy * 4, self.ox, self.oy)
     end
     return icon
 end
@@ -389,22 +354,22 @@ function gui.createHealthWidget(x, y)
     local resetX = x
     local padding = 10
     local widget = gui.element(x, y)
-    local showMana = #spells.known > 1
     x = x + padding
-    if showMana then widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16) end
-    x = x + padding + 32
-    if showMana then widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9}) end
+    if #spells.known > 1 then
+        widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
+        x = x + padding + 32
+        widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
+    else x = x + padding + 32 end
     
     x = resetX + padding
     y = y + 32 + padding
     widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
     x = x + padding + 32
     widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
-    widget.showMana = showMana
     widget.update = function(self)
         self.healthBar.value = hero.entity.health
         self.healthBar.maxValue = hero.entity.maxHealth
-        if not self.showMana then return end
+        if not self.manaBar then return end
         self.manaBar.value = hero.entity.mana
         self.manaBar.maxValue = hero.entity.maxMana
         self.manaIcon.tile = spells.selectedIcon
@@ -413,10 +378,8 @@ function gui.createHealthWidget(x, y)
     widget.destroy = function(self)
         self.healthBar:destroy()
         self.healthIcon:destroy()
-        if self.showMana then
-            self.manaBar:destroy()
-            self.manaIcon:destroy()
-        end
+        if self.manaBar then self.manaBar:destroy() end
+        if self.manaIcon then self.manaIcon:destroy() end
         gui.list:remove(self)
     end
     return widget
