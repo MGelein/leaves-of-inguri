@@ -1,7 +1,6 @@
 hc = require("lib.hc")
 ez = require("ez")
 require("screen")
-require("fonts")
 require("fps")
 require("util")
 require("managedlist")
