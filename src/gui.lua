@@ -424,13 +424,11 @@ end
 
 function gui.showHeader(name, duration)
     duration = duration or config.gui.headerVisible
+    name = name or 'Unnamed'
     local headerWidth = assets.fonts.header:getWidth(name)
     local xPos = (config.width - (headerWidth + 40)) / 2
-    name = name or 'Unnamed'
 
     local header = gui.element(0, -1000)
-    header.targetY = -4
-    header.waitTime = duration
     header.panel = gui.panel(xPos, 0, headerWidth + 40, 100)
     header.label = gui.label(name, xPos + 20, 16, headerWidth, 'center')
     header.label.font = assets.fonts.header
@@ -442,17 +440,15 @@ function gui.showHeader(name, duration)
     header.update = function(self, dt)
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
-        if self.eased then
-            self.waitTime = self.waitTime - dt
-            if self.waitTime <= 0 then 
-                self.eased = false
-                ez.easeIn(header, {y = -1000}, {complete = function() self:destroy() end})
-            end
-        end
     end
+
     if gui.header then gui.header:destroy() end
     gui.header = header
-    ez.easeOut(header, {y = header.targetY}, {complete = function() header.eased = true end})
+    header.ease = ez.easeOut(header, {y = -4}):complete(function() 
+        header.ease = ez.easeIn(header, {y = -1000}, {delay = duration}):complete(function() 
+            header:destroy()
+        end)
+    end)
 end
 
 function gui.showText(text)

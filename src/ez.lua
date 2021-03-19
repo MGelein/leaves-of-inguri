@@ -51,8 +51,7 @@ function ez.ease(object, tweenAbles, props, easeFn)
         remove = ez._remove,
         complete = ez._complete
     }
-    ez._add(e)
-    return e
+    return ez._add(e)
 end
 
 function ez.update(dt)
@@ -95,14 +94,17 @@ end
 
 function ez._complete(self, fn)
     self.onCompletion = fn
+    return self
 end
 
 function ez._remove(self)
     table.insert(ez.toRem, self)
+    return self
 end
 
 function ez._add(self)
     table.insert(ez.list, self)
+    return self
 end
 
 function ez._linearCubic(timeRatio)

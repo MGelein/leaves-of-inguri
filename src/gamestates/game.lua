@@ -65,7 +65,7 @@ function game.popMenu()
     table.remove(game.menuStack, #game.menuStack)
     if #game.menuStack < 1 then 
         game.paused = false
-        if gui.header then gui.header.waitTime = 0 end
+        if gui.header then gui.header.ease.delay = 0 end
         if game.menu then game.menu:destroy() end
         game.menuStack = {}
         gui.hideOverlay()
