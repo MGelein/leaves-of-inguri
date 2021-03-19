@@ -312,6 +312,7 @@ function gui.draw()
     if gui.overlay.visible then
         love.graphics.setColor(0, 0, 0, gui.overlay.alpha)
         love.graphics.rectangle('fill', 0, 0, config.width, config.height)
+        love.graphics.setColor(1, 1, 1)
     end
     for i, el in ipairs(gui.list.all) do
         if el.visible then el:draw() end
@@ -424,12 +425,6 @@ function gui.showDialogue(data)
     if not data then return end
     game.paused = true
     game.menu = gui.dialogue(data)
-end
-
-function gui.showMinimap()
-    gui.showOverlay()
-    soundfx.play('ui_open')
-    gui.showImage(assets.minimap)
 end
 
 function gui.showImage(img)
