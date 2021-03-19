@@ -5,6 +5,7 @@
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
+- Refactor the gamestate overlay when gamestates change, really hard to test right now
 
 # Done
 - Porting code from the Galleons game
