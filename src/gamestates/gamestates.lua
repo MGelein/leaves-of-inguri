@@ -13,6 +13,7 @@ function gamestates.setNext(state)
         gamestates.next = state
         gamestates.active.stop()
         gamestates.next.load()
+        ez.easeInOut(gamestates.overlay, {alpha = 1}):complete(function() gamestates.switchPoint() end)
     else
         gamestates.active = state
         gamestates.active.load()
@@ -22,7 +23,6 @@ end
 
 function gamestates.update(dt)
     gamestates.active.update(dt)
-    gamestates.updateOverlay(gamestates.overlay)
 end
 
 function gamestates.draw()
@@ -37,19 +37,9 @@ function gamestates.drawOverlay(overlay)
     love.graphics.setColor(1, 1, 1, 1)
 end
 
-function gamestates.updateOverlay(overlay)
-    if gamestates.next ~= nil and overlay.alpha < 1 then
-        overlay.alpha = overlay.alpha + overlay.deltaAlpha
-        if overlay.alpha >= 1 then
-            overlay.alpha = 1
-            gamestates.active = gamestates.next
-            gamestates.active.start()
-            gamestates.next = nil
-        end
-    elseif gamestates.next == nil and overlay.alpha > 0 then
-        overlay.alpha = overlay.alpha - overlay.deltaAlpha
-        if overlay.alpha <= 0 then
-            overlay.alpha = 0
-        end
-    end
+function gamestates.switchPoint()
+    gamestates.active = gamestates.next
+    gamestates.active.start()
+    gamestates.next = nil
+    ez.easeInOut(gamestates.overlay, {alpha = 0})
 end

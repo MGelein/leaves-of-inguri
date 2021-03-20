@@ -9,8 +9,6 @@ tilemap = {
 
 function tilemap.load(name)
     tilemap.unload()
-    triggers.clear()
-    npcs.clear()
     tilemap.data = require('assets.maps.' .. name)
 
     tilemap.name = name
@@ -119,6 +117,8 @@ end
 
 function tilemap.unload()
     entities.removeAll()
+    triggers.clear()
+    npcs.clear()
     if not tilemap.colliders then return end
     for i, collider in ipairs(tilemap.colliders) do
         hc.remove(collider)

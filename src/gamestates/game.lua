@@ -71,8 +71,9 @@ function game.popMenu()
 end
 
 function game.stop()
-    entities.removeAll()
+    tilemap.unload()
     pxparticles.removeAll()
+    gui.clear()
 end
 
 function game.openMenu()
@@ -81,7 +82,7 @@ function game.openMenu()
         {Return = function() game.popMenu() end},
         {Quests = function() end},
         {Controls = function() end},
-        {Main_Menu = function() end},
+        {Main_Menu = function() gamestates.setNext(mainmenu) end},
         {Quit = function() love.event.quit() end},
     }
     return gui.buttongroup(menu, (config.width - 300) / 2, 150, 300, 70)

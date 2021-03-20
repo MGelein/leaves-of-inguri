@@ -348,6 +348,8 @@ function gui.hideOverlay()
 end
 
 function gui.clear()
+    gui.hideOverlay()
+    if game.menu and game.menu.destroy then game.menu:destroy() end
     gui.list = managedlist.create()
 end
 

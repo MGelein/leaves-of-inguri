@@ -49,6 +49,11 @@ function screen.setBounds(x, y)
     end
 end
 
+function screen.resetPosition()
+    screen.offX = 0
+    screen.offY = 0
+end
+
 function screen.follow(x, y, dt)
     x = x - screen.w2
     y = y - screen.h2

@@ -31,3 +31,4 @@ require("controls.input")
 
 require("gamestates.gamestates")
 require("gamestates.game")
+require("gamestates.mainmenu")
