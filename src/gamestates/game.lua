@@ -73,7 +73,6 @@ end
 function game.stop()
     tilemap.unload()
     pxparticles.removeAll()
-    gui.clear()
 end
 
 function game.openMenu()

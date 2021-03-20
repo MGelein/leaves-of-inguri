@@ -13,6 +13,7 @@ function gamestates.setNext(state)
         gamestates.next = state
         gamestates.active.stop()
         gamestates.next.load()
+        gui.clear()
         ez.easeInOut(gamestates.overlay, {alpha = 1}):complete(function() gamestates.switchPoint() end)
     else
         gamestates.active = state
