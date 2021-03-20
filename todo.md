@@ -1,10 +1,11 @@
 # TODO
+- Creating trigger types that work on 'attack' and 'update'
+- Allow triggers to change the entity tile they are a part of
 - Making the minimap work properly
 - Designing a controller and controls explanation/overlay
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
-- Refactor the gamestate overlay when gamestates change, really hard to test right now
 
 # Done
 - Porting code from the Galleons game
@@ -50,3 +51,5 @@
 - All cooldowns of weapons are now measured in seconds insteads of frames
 - Well working menu system for the actual game.
 - Saving and loading of actual files in slots
+- Refactor the gamestate overlay when gamestates change
+- Adding a placeholder main menu
