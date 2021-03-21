@@ -1,6 +1,5 @@
 # TODO
 - Creating trigger types that work on 'attack' and 'update'
-- Allow triggers to change the entity tile they are a part of
 - Making the minimap work properly
 - Make the settings menu work like it should
 - Designing a controller and controls explanation/overlay
@@ -54,3 +53,4 @@
 - Saving and loading of actual files in slots
 - Refactor the gamestate overlay when gamestates change
 - Adding a placeholder main menu
+- Allow triggers to change the entity tile they are a part of

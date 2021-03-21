@@ -83,7 +83,7 @@ function game.openMenu()
         {Save = function() game.showMenu('save') end},
         {Return = function() game.popMenu() end},
         {Quests = function() end},
-        {Controls = function() end},
+        {Controls = function() game.showMenu('controls') end},
         {Main_Menu = function() gamestates.setNext(mainmenu) end},
         {Quit = function() love.event.quit() end},
     }
@@ -103,4 +103,9 @@ function game.openSave()
     savefile.save(savefile.currentSlot)
     local text = "Saving done!"
     return gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, config.height - 10, config.gui.textboxWidth)
+end
+
+function game.openControls()
+    local text = "[Keyboard]\nWalk = Arrow keys"
+    return gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, 200, config.gui.textboxWidth)
 end
