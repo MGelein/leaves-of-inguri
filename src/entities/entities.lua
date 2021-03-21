@@ -201,6 +201,12 @@ function entities.remove(entity)
     hc.remove(entity.collider)
     entity.removed = true
     if entity == hero.entity.target then hero.entity.target = nil end
+    if entity.collider and entity.collider.class == 'monster' then
+        monsters.count = decrease(monsters.count)
+        if monsters.count == 0 then 
+            triggers.monstersGone()
+        end
+    end
 end
 
 function entities.removeAll()

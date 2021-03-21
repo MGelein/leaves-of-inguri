@@ -78,6 +78,31 @@ function triggers.activate(self)
     else print('unrecognized trigger type', self.type) end
 end
 
+function triggers.changeEntity(self)
+    if not self.properties.tile then return end
+    local tile = tonumber(self.properties.tile)
+    local x = self.x * tilemap.scale + 16
+    local y = self.y * tilemap.scale + 16
+    for i, ent in ipairs(entities.list.all) do
+        if x == ent.x and y == ent.y then
+            entities.remove(ent)
+            entityparser.parse(ent.id, tile, x - 16, y - 16)
+            break
+        end
+    end
+end
+
+function triggers.removeEntity(self)
+    local x = self.x * tilemap.scale + 16
+    local y = self.y * tilemap.scale + 16
+    for i, ent in ipairs(entities.list.all) do
+        if x == ent.x and y == ent.y then
+            entities.remove(ent)
+            break
+        end
+    end
+end
+
 function triggers.parseDestination(dest)
     local mapName, coord = unpack(splitstring(dest, '@'))
     if not coord then
@@ -98,4 +123,14 @@ function triggers.parseDestination(dest)
         x = (tileX + 0.5) * tilemap.tileWidth * tilemap.scale,
         y = (tileY + 0.5) * tilemap.tileHeight * tilemap.scale,
     }
+end
+
+function triggers.monstersGone()
+    for i, trigger in ipairs(triggers.list.all) do
+        if trigger.method == 'monstersGone' then
+            trigger:activate()
+            soundfx.play('triumph')
+            break
+        end
+    end
 end

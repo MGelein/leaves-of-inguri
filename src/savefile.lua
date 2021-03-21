@@ -14,7 +14,7 @@ function savefile.save(slot)
 end
 
 function savefile.load(slot)
-    savefile.data = savefile.read(savefile.url .. tostring(slot))
+    savefile.data = savefile.read(savefile.url .. tostring(slot)) or {}
     hero.load()
 end
 
