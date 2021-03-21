@@ -56,8 +56,11 @@ function game.popMenu()
     if #game.menuStack < 1 then 
         game.paused = false
         if gui.header and gui.header.ease then 
-            if gui.header.ease.onCompletion then gui.header.ease:onCompletion() end
-            gui.header.ease.delay = 0
+            if gui.header.ease.delay > 0 then gui.header.ease.delay = 0
+            else 
+                gui.header.ease:remove()
+                ez.easeIn(gui.header, {y = -1000}):complete(function() gui.header:destroy() end)
+            end
         end
         if game.menu then game.menu:destroy() end
         game.menuStack = {}

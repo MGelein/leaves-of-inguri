@@ -414,7 +414,7 @@ function gui.showHeader(name, duration)
         self.panel:destroy()
         self.label:destroy()
         gui.list:remove(self)
-        gui.header = nil
+        if gui.header == self then gui.header = nil end
     end
     header.update = function(self, dt)
         self.panel.y = self.y

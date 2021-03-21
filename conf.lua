@@ -1,6 +1,6 @@
 config = {
     window = {
-        title = 'RPG Project',
+        title = 'Leaves of Inguri',
         width = 1280,
         height = 720,
         fullscreen = false,
@@ -29,7 +29,7 @@ config = {
     audio = {
         masterVolume = 0.5,
         fxVolume = 0.5,
-        bgmVolume = 0.5,
+        bgmVolume = 0.0,
     }
 }
 
