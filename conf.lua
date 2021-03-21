@@ -29,7 +29,7 @@ config = {
     audio = {
         masterVolume = 0.5,
         fxVolume = 0.5,
-        bgmVolume = 0.0,
+        bgmVolume = 0.5,
     }
 }
 
