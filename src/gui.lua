@@ -320,11 +320,6 @@ function gui.controlpanel(lines, x, y, w)
     control.lineHeight = assets.fonts.normal:getHeight()
     for i = 1, #lines do control['col' .. tostring(i)] = control.inc * (i - 1) end
 
-    control.destroy = function(self)
-        self.panel:destroy()
-        gui.list:remove(self)
-    end
-
     control.draw = function(self)
         love.graphics.setFont(assets.fonts.normal)
         love.graphics.push()
