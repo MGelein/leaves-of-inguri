@@ -6,9 +6,10 @@ config = {
         fullscreen = false,
     },
     debug = false,
+    forceSettingsOverwrite = true,
+    
     width = 1280,
     height = 720,
-
     interactDist = 48,
 
     combat = {

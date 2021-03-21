@@ -43,7 +43,7 @@ end
 
 function savefile.read(url)
     local data = {}
-    if not love.filesystem.getInfo(url) then return data end
+    if not love.filesystem.getInfo(url) then return nil end
     for line in love.filesystem.lines(url) do
         local parts = splitstring(line, '=')
         if #parts == 2 then
