@@ -12,7 +12,7 @@ function tilemap.load(name)
     tilemap.x = 0
     tilemap.y = 0
     tilemap.data = require('assets.maps.' .. name)
-
+    
     tilemap.name = name
     tilemap.cols = tilemap.data.width
     tilemap.rows = tilemap.data.height
@@ -43,14 +43,16 @@ function tilemap.createTriggers(objects)
     for i, triggerDef in ipairs(objects) do
         local trigger = triggers.create(triggerDef)
     end
+    entities.processDead()
 end
 
 function tilemap.createEntities(tiles)
     for i, tile in ipairs(tiles) do
-        if tile > 0 and tilemap.isAlive(i) then
+        if tile > 0 then
             local x = (i - 1) % tilemap.cols
             local y = math.floor((i - 1) / tilemap.cols)
-            entityparser.parse(i, tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
+            local ent = entityparser.parse(i, tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
+            if not tilemap.isAlive(i) then entities.markAsDead(ent) end
         end
     end
 end

@@ -129,8 +129,7 @@ function triggers.monstersGone()
     for i, trigger in ipairs(triggers.list.all) do
         if trigger.method == 'monstersGone' then
             trigger:activate()
-            soundfx.play('triumph')
-            break
+            if #entities.dead == 0 then soundfx.play('triumph') end
         end
     end
 end

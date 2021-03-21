@@ -5,6 +5,7 @@ entities = {
     white = {1, 1, 1},
 }
 entities.list = managedlist.create()
+entities.dead = {}
 
 function entities.create(identity, spriteNumber, xPos, yPos)
     local entity = {
@@ -203,12 +204,25 @@ function entities.remove(entity)
     if entity == hero.entity.target then hero.entity.target = nil end
     if entity.collider and entity.collider.class == 'monster' then
         monsters.count = decrease(monsters.count)
-        if monsters.count == 0 then 
+        if monsters.count == 0 and not entities.clearing then 
             triggers.monstersGone()
         end
     end
 end
 
+function entities.markAsDead(entity)
+    table.insert(entities.dead, entity)
+end
+
+function entities.processDead(entity)
+    for i, ent in ipairs(entities.dead) do
+        entities.remove(ent)
+    end
+    entities.dead = {}
+end
+
 function entities.removeAll()
+    entities.clearing = true
     for i, entity in ipairs(entities.list.all) do entities.remove(entity) end
+    entities.clearing = nil
 end

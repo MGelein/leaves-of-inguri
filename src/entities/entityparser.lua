@@ -186,18 +186,18 @@ function entityparser.parse(i, tile, x, y)
     x = x + 16
     y = y + 16
     if entityparser.isHero(tile) then 
-        if tilemap.nextHeroPos then hero.create(tilemap.nextHeroPos.x, tilemap.nextHeroPos.y)
-        else hero.create(x, y) end
+        if tilemap.nextHeroPos then return hero.create(tilemap.nextHeroPos.x, tilemap.nextHeroPos.y)
+        else return hero.create(x, y) end
     elseif entityparser.getMonsterTemplate(tile) then 
         local template = entityparser.getMonsterTemplate(tile)
-        monsters.create(i, x, y, template)
+        return monsters.create(i, x, y, template)
     elseif entityparser.getObjectTemplate(tile) then
         local template = entityparser.getObjectTemplate(tile)
-        objects.create(i, x, y, template)
+        return objects.create(i, x, y, template)
     elseif entityparser.isNPC(tile) then
-        npcs.create(i, tile, x, y)
+        return npcs.create(i, tile, x, y)
     else
-        entities.create(i, tile, x, y) 
+        return entities.create(i, tile, x, y) 
     end
 end
 
