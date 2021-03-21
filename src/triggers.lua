@@ -86,7 +86,7 @@ function triggers.changeEntity(self)
     for i, ent in ipairs(entities.list.all) do
         if x == ent.x and y == ent.y then
             entities.remove(ent)
-            entityparser.parse(ent.id, tile, x - 16, y - 16)
+            if tilemap.isAlive(ent.id) then entityparser.parse(ent.id, tile, x - 16, y - 16) end
             break
         end
     end
