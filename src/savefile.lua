@@ -45,7 +45,7 @@ function savefile.read(url)
     local data = {}
     if not love.filesystem.getInfo(url) then return data end
     for line in love.filesystem.lines(url) do
-        local parts = splitstring(line, ' = ')
+        local parts = splitstring(line, '=')
         if #parts == 2 then
             local name, value = unpack(parts)
             local nameParts = splitstring(name, '.')
@@ -68,6 +68,8 @@ function savefile.read(url)
 end
 
 function savefile.createTableEntry(data, key, value)
+    value = trimstring(value)
+    key = trimstring(key)
     if key:sub(1, 1) == 'n' then value = tonumber(value)
     elseif key:sub(1, 1) == 'b' then value = value:lower() == 'true' end
     
