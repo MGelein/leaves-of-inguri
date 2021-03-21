@@ -106,6 +106,18 @@ function game.openSave()
 end
 
 function game.openControls()
-    local text = "[Keyboard]\nWalk = Arrow keys"
-    return gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, 200, config.gui.textboxWidth)
+    local x = (config.width - config.gui.textboxWidth - 100) / 2
+    local controldesc = {
+        {"","[Keyboard]", "[Controller]"},
+        {"Walk", "Arrow keys", "Left Stick/DPad"},
+        {"Interact", "Enter/Return", "A"},
+        {"Attack", "Space", "X"},
+        {"Block", "LShift", "B"},
+        {"Cast Spell", "S", "Y"},
+        {"Next Spell", "D", "RT/RB"},
+        {"Previous Spell", "A", "LT/LB"},
+        {"Menu", "Tab/Escape", "Menu"},
+        {"Map", "M", "Map/View"},
+    }
+    return gui.controlpanel(controldesc, x, 200, config.gui.textboxWidth + 100)
 end

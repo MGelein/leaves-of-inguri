@@ -309,6 +309,46 @@ function gui.imgbox(img, scale)
     return imgbox
 end
 
+function gui.controlpanel(lines, x, y, w)
+    local h = #lines * assets.fonts.normal:getHeight()
+    local control = gui.element(x, y)
+    control.lines = lines
+    control.inc = w / #lines[1]
+    control.w = w
+    control.h = h
+    control.padding = 10
+    control.lineHeight = assets.fonts.normal:getHeight()
+    for i = 1, #lines do control['col' .. tostring(i)] = control.inc * (i - 1) end
+
+    control.destroy = function(self)
+        self.panel:destroy()
+        gui.list:remove(self)
+    end
+
+    control.draw = function(self)
+        love.graphics.setFont(assets.fonts.normal)
+        love.graphics.push()
+        love.graphics.translate(self.x, self.y)
+
+        love.graphics.setColor(0, 0, 0, 0.6)
+        love.graphics.rectangle('fill', -self.padding, -self.padding, self.w + self.padding * 2, self.h + self.padding * 2)
+        love.graphics.setLineWidth(tilemap.scale)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.rectangle('line', -self.padding, -self.padding, self.w + self.padding * 2, self.h + self.padding * 2)
+        love.graphics.setLineWidth(1)
+        for row, line in ipairs(self.lines) do
+            for col, cell in ipairs(line) do
+                local x = control['col' .. col]
+                local y = (row - 1) * self.lineHeight
+                love.graphics.print(cell, x, y)
+            end
+        end
+        love.graphics.pop()
+    end
+
+    return control
+end
+
 function gui.title(text, y)
     local title = gui.element(0, -200)
     title.text = text
