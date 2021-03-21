@@ -12,10 +12,18 @@ function randomFromTable(list)
 end
 
 function splitstring(str, delim)
-    if not delim then delim = '%s' end
+    delim = delim or '%s'
     local parts = {}
     for part in str:gmatch('([^' .. delim .. ']+)') do table.insert(parts, part) end
     return parts
+end
+
+function trimstring(str)
+    local index = 1
+    while str:sub(index, index) == ' ' do index = index + 1 end
+    local endIndex = #str
+    while str:sub(endIndex, endIndex) == ' ' do endIndex = endIndex - 1 end
+    return str:sub(index, endIndex)
 end
 
 function capitalize(str)
@@ -37,7 +45,7 @@ function printtable(toprint, indent)
             print(table.concat({indent, name, ' = ', tostring(value)}, ''))
         end
     end
-end
+end 
 
 function HSV(h, s, v)
     if s <= 0 then return v, v, v end
