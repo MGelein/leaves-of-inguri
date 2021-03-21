@@ -8,11 +8,12 @@ game = {
 
 function game.load(slot)
     savefile.load(savefile.currentSlot)
-    tilemap.load(savefile.data.currentMap or 'testingcity')
 end
 
 function game.start()
+    tilemap.load(savefile.data.currentMap or 'testingcity')
     gui.createHealthWidget(0, config.height - 96)
+    game.paused = false
 end
 
 function game.draw()
@@ -39,12 +40,12 @@ end
 function game.showMenu(menuName)
     gui.showOverlay()
     table.insert(game.menuStack, menuName)
+    game.paused = true
     if game.menu then 
         game.menu:destroy()
     else
         gui.showHeader(config.window.title, 1000)
         soundfx.play('ui_open')
-        game.paused = true
     end
     game.menu = game['open' .. capitalize(menuName)]()
 end
@@ -71,7 +72,6 @@ function game.popMenu()
 end
 
 function game.stop()
-    tilemap.unload()
     pxparticles.removeAll()
 end
 

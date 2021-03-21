@@ -88,6 +88,7 @@ function ez.update(dt)
 end
 
 function ez.setShape(shape)
+    shape = shape or 'cubic'
     shape = shape:lower()
     ez.shape = shape:sub(1, 1):upper() .. shape:sub(2)
 end

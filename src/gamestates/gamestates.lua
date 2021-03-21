@@ -3,22 +3,20 @@ gamestates = {
     next = nil,
 
     overlay = {
-        alpha = 0,
+        alpha = 1,
         deltaAlpha = 0.01,
     }
 }
 
 function gamestates.setNext(state)
+    gamestates.next = state
+    gamestates.next.load()
+    gamestates.transitioning = true
     if gamestates.active ~= nil then
-        gamestates.next = state
         gamestates.active.stop()
-        gamestates.next.load()
-        gui.clear()
         ez.easeInOut(gamestates.overlay, {alpha = 1}):complete(function() gamestates.switchPoint() end)
     else
-        gamestates.active = state
-        gamestates.active.load()
-        gamestates.active.start()
+        gamestates.switchPoint()
     end
 end
 
@@ -28,19 +26,22 @@ end
 
 function gamestates.draw()
     gamestates.active.draw()
-    gamestates.drawOverlay(gamestates.overlay)
 end
 
 function gamestates.drawOverlay(overlay)
     if overlay.alpha < 0.01 then return end
     love.graphics.setColor(0, 0, 0, overlay.alpha)
-    love.graphics.rectangle('fill', 0, 0, config.width, config.height)
+    love.graphics.rectangle('fill', -100, -100, config.width + 200, config.height + 200)
     love.graphics.setColor(1, 1, 1, 1)
 end
 
 function gamestates.switchPoint()
+    gui.clear()
+    if gamestates.active then gamestates.active.stop() end
     gamestates.active = gamestates.next
     gamestates.active.start()
     gamestates.next = nil
-    ez.easeInOut(gamestates.overlay, {alpha = 0})
+    ez.easeInOut(gamestates.overlay, {alpha = 0}):complete(function() 
+        gamestates.transitioning = false
+    end)
 end

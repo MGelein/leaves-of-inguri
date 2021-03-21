@@ -114,20 +114,21 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color)
     return bar
 end
 
-function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, noEase)
-    local easeTime = noEase and 0 or 1
+function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, easeProps)
+    local easeTime = easeProps and easeProps.time or 1
+    local easeDelay = easeProps and easeProps.delay or 0
     local buttonGroup = gui.element(xPos, yPos)
     buttonGroup.buttons = {}
     buttonGroup.selectedIndex = 1
     buttonGroup.panel = gui.panel(xPos, -500, width, #definitions * verticalSpacing + 20)
-    ez.easeOut(buttonGroup.panel, {y = yPos}, {time = easeTime})
+    ez.easeOut(buttonGroup.panel, {y = yPos}, {time = easeTime, delay = easeDelay})
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
             local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
-            ez.easeOut(button, {y = yPos}, {time = easeTime})
+            ez.easeOut(button, {y = yPos}, {time = easeTime, delay = easeDelay})
             table.insert(buttonGroup.buttons, button)
             yPos = yPos + verticalSpacing
         end
@@ -227,7 +228,7 @@ function gui.dialogue(data)
             table.insert(buttonDefs, def)
         end
         
-        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y + 10, self.w, 70, assets.fonts.normal, true)
+        self.buttons = gui.buttongroup(buttonDefs, self.x, self.y + 10, self.w, 70, assets.fonts.normal, {time = 0, delay = 0})
     end
     dialogue:showEntry('greeting')
     return dialogue
@@ -308,6 +309,16 @@ function gui.imgbox(img, scale)
     return imgbox
 end
 
+function gui.title(text, y)
+    local title = gui.element(0, -200)
+    title.text = text
+    title.draw = function(self)
+        love.graphics.setFont(assets.fonts.title)
+        love.graphics.printf(self.text, 0, self.y, config.width, 'center')
+    end
+    return title
+end
+
 function gui.draw()
     if gui.overlay.visible then
         love.graphics.setColor(0, 0, 0, gui.overlay.alpha)
@@ -326,13 +337,14 @@ function gui.update(dt)
     end
 end
 
-function gui.showOverlay()
+function gui.showOverlay(fadeTime)
+    fadeTime = fadeTime or 1
     if gui.overlay.ease then 
         gui.overlay.ease:remove() 
         gui.overlay.ease = nil
     end
     gui.overlay.visible = true
-    gui.overlay.ease = ez.easeInOut(gui.overlay, {alpha = 0.8})
+    gui.overlay.ease = ez.easeInOut(gui.overlay, {alpha = 0.8}, {time = fadeTime})
 end
 
 function gui.hideOverlay()
@@ -402,12 +414,13 @@ function gui.showHeader(name, duration)
         self.panel:destroy()
         self.label:destroy()
         gui.list:remove(self)
+        gui.header = nil
     end
     header.update = function(self, dt)
         self.panel.y = self.y
         self.label.y = self.panel.y + 16
     end
-
+    
     if gui.header then gui.header:destroy() end
     gui.header = header
     header.ease = ez.easeOut(header, {y = -4}):complete(function() 

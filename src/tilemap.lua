@@ -9,6 +9,8 @@ tilemap = {
 
 function tilemap.load(name)
     tilemap.unload()
+    tilemap.x = 0
+    tilemap.y = 0
     tilemap.data = require('assets.maps.' .. name)
 
     tilemap.name = name
@@ -31,7 +33,7 @@ function tilemap.load(name)
     local paddingX = config.width - tilemap.width * tilemap.scale
     local paddingY = config.height - tilemap.height * tilemap.scale
     screen.setBounds(paddingX, paddingY)
-    gui.showHeader(tilemap.data.properties.name)
+    if gamestates.active == game then gui.showHeader(tilemap.data.properties.name) end
     music.play(tilemap.data.properties.bgm)
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
