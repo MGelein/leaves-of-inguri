@@ -47,9 +47,11 @@ function ez.ease(object, tweenAbles, props, easeFn)
         timeRatio = 0,
         valueRatio = 0,
         onCompletion = props.complete,
+        onUpdate = props.update,
 
         remove = ez._remove,
-        complete = ez._complete
+        complete = ez._complete,
+        update = ez._update,
     }
     return ez._add(e)
 end
@@ -61,6 +63,7 @@ function ez.update(dt)
             e.elapsed = e.elapsed + dt
             e.timeRatio = e.elapsed / e.time
             e.valueRatio = e.fn(e.timeRatio)
+            if e.onUpdate then e.onUpdate(e.valueRatio) end
             if e.elapsed >= e.time then 
                 e.valueRatio = 1
                 if e.onCompletion then e.onCompletion() end
@@ -95,6 +98,11 @@ end
 
 function ez._complete(self, fn)
     self.onCompletion = fn
+    return self
+end
+
+function ez._update(self, fn)
+    self.onUpdate = fn
     return self
 end
 
