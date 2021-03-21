@@ -11,7 +11,7 @@ mainmenu.moveSpeed = 16
 mainmenu.movePos = {x = screen.w2, y = screen.h2}
 mainmenu.buttons = {
     {Play = function() gamestates.setNext(game) end},
-    {Settings = function() end},
+    {Settings = function() gamestates.setNext(settings) end},
     {Quit = function() love.event.quit() end},
 }
 mainmenu.buttonWidth = 300

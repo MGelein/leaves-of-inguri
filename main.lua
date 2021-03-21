@@ -2,7 +2,6 @@ require 'imports'
 
 function love.load()
     love.mouse.setVisible(false)
-
     assets.load()
     input.load()
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)
