@@ -6,13 +6,12 @@ end
 function settings.start()
     mapbackground.showMap('testmap')
     music.play()
-    gui.showOverlay()
+    gui.showOverlay(0)
     gui.showHeader('Settings', 100000)
 end
 
 function settings.draw()
-    tilemap.draw()
-    entities.draw()
+    mapbackground.draw()
 end
 
 function settings.update(dt)
