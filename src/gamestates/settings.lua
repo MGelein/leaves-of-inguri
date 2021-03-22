@@ -43,6 +43,7 @@ function settings.start()
         settings.cancelButton
     }
     settings.selectorLine = gui.line((config.width / 2) - 300, 0, (config.width / 2) + 300, 0, 2)
+    settings.current = settings.controls[settings.selectedRow]
 end
 
 function settings.draw()

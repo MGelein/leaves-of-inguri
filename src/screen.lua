@@ -96,8 +96,7 @@ function screen.endDraw()
     gui.draw()
     gamestates.drawOverlay(gamestates.overlay)
     love.graphics.setCanvas()
-    love.graphics.scale(screen.sx, screen.sy)
-    love.graphics.draw(screen.canvas, screen.x, screen.y, screen.r)
+    love.graphics.draw(screen.canvas, screen.x, screen.y, screen.r, screen.sx, screen.sy)
 end
 
 function screen.beginDraw()

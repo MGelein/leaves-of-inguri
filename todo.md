@@ -1,6 +1,5 @@
 # TODO
 - Creating trigger types that work on 'attack' and 'update'
-- Fixing the horrible bug with fullscreen tilemap displaying
 - Making the minimap work properly
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
@@ -55,3 +54,4 @@
 - Allow triggers to change the entity tile they are a part of
 - Designing a controller and controls explanation/overlay
 - Make the settings menu work like it should
+- Fixing the horrible bug with fullscreen and non-native resolution tilemap displaying
