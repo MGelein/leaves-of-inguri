@@ -105,6 +105,8 @@ function gui.progressbar(value, max, xPos, yPos, width, height, color)
     end
     bar.update = function(self, dt)
         if self.value ~= self.lastValue or self.maxValue ~= self.lastMax then
+            if self.value > self.maxValue then self.value = self.maxValue
+            elseif self.value < 0 then self.value = 0 end
             self.lastValue = self.value
             self.ratio = self.value / self.maxValue
             self.text  = tostring(math.floor(self.value)) .. '/' .. tostring(math.floor(self.maxValue))
@@ -190,6 +192,19 @@ function gui.button(text, xPos, yPos, width, onActivate, font)
     end
     button.activate = onActivate
     return button
+end
+
+function gui.line(x1, y1, x2, y2, thickness)
+    local line = gui.element(x1, y1)
+    line.thickness = thickness or 1
+    line.x2 = x2
+    line.y2 = y2
+    line.draw = function(self)
+        love.graphics.setLineWidth(self.thickness)
+        love.graphics.line(self.x, self.y, self.x2, self.y2)
+        love.graphics.setLineWidth(1)
+    end
+    return line
 end
 
 function gui.dialogue(data)

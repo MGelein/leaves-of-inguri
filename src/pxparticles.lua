@@ -5,7 +5,7 @@ pxparticles.list = managedlist.create()
 pxparticles.defaultQuad = nil
 
 function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint, shakeTime)
-    if shakeTime > 0 then screen.shakeTime = shakeTime end
+    if shakeTime > 0 then screen.shake(shakeTime) end
     local quad = assets.entities.getQuad(spriteNumber)
     local qx, qy, qw, qh = quad:getViewport()
     local s = pxparticles.scale

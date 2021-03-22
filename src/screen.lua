@@ -86,6 +86,7 @@ function screen.update(dt)
 end
 
 function screen.shake(time)
+    if gamestates.active ~= game then return end
     if time > screen.shakeTime then screen.shakeTime = time end
 end
 
