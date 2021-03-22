@@ -2,7 +2,6 @@
 - Creating trigger types that work on 'attack' and 'update'
 - Fixing the horrible bug with fullscreen tilemap displaying
 - Making the minimap work properly
-- Make the settings menu work like it should
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
@@ -55,3 +54,4 @@
 - Adding a placeholder main menu
 - Allow triggers to change the entity tile they are a part of
 - Designing a controller and controls explanation/overlay
+- Make the settings menu work like it should
