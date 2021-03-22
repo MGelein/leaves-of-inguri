@@ -78,6 +78,12 @@ function triggers.activate(self)
     else print('unrecognized trigger type', self.type) end
 end
 
+function triggers.questState(self)
+    if not self.properties.quest then print('Changing quest state requires a quest name to be specified') return end
+    if not self.properties.state then print('Changing quest state requires a quest state to be specified') return end
+    quests.setState(self.properties.quest, self.properties.state)
+end
+
 function triggers.changeEntity(self)
     if not self.properties.tile then return end
     local tile = tonumber(self.properties.tile)

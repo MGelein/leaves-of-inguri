@@ -1,5 +1,6 @@
 # TODO
-- Creating a working quest system
+- Adding more conditions to a response in the dialogue system, allowing for more complex conditions
+- Create a quests UI including GUI overlay
 - Making the minimap work properly
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
@@ -55,3 +56,4 @@
 - Designing a controller and controls explanation/overlay
 - Make the settings menu work like it should
 - Fixing the horrible bug with fullscreen and non-native resolution tilemap displaying
+- Creating a working quest system

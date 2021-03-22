@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 22,
+  nextobjectid = 23,
   properties = {
     ["bgm"] = "testbgm",
     ["name"] = "Testing City"
@@ -94,7 +94,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -335,20 +335,21 @@ return {
           }
         },
         {
-          id = 20,
+          id = 22,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 152,
-          y = 40,
+          x = 144,
+          y = 72,
           width = 8,
           height = 8,
           rotation = 0,
           visible = true,
           properties = {
             ["method"] = "monstersGone",
-            ["tile"] = "33",
-            ["type"] = "changeEntity"
+            ["quest"] = "ratkiller",
+            ["state"] = "reward",
+            ["type"] = "questState"
           }
         }
       }

@@ -9,7 +9,7 @@ My hero, so good to see you again. Is everything ok?
 {ratkiller == reward}
 :QUEST(ratkiller, end)
 Great! The rats are done, here is a better weapon as payment.
-- Thanks, that looks amazing, I can kill many more monsters with this. >exit
+- Thanks, that looks amazing, let's get to killing. >exit
 
 {ratkiller == start}
 How is the rat problem going? Have you made any progress?
