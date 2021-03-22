@@ -1,48 +1,27 @@
 @Susan Smith
 
 #greeting
-{talkWithPlants}
-Well hello young druid, you look like you have a pair of very green fingers!
-- Mind your own bussiness you old hag! >exit
-
-{health < 20}
-Hello my dear, you look hurt, but how is your day?
-- Really good, I'm enjoying killing all the vermin around! >goodjob
-- Rotten, there is so much evil surrounding us here... >poorhero
+{susanQuestExplained}
+Are you sure you can't help me with my rat problem?
+- Alright, I will help you! >accepted
+- Unfortunately I have more important things to do! >rejected
 
 {DEFAULT}
-Hello my dear, how is your day so far?
-- Really good, I'm enjoying killing all the vermin around! >goodjob
-- Rotten, there is so much evil surrounding us here... >poorhero
+Oh finally, someone who might be able to help me! Do you think you could be a hero?
+- Maybe, how about you tell me a bit about your problem first! >problem
+- Rotten, there is so much evil surrounding us here... >problem
 
-#goodjob
-{DEFAULT}
-You're doing a great job handling all those rats my dear. Can I help you somehow?
-- Now that you mention it, you could give me a better sword! >nosword
-- Come to think of it, can you heal me? >healhero
+#problem
+:SET(susanQuestExplained)
+You see that giant rat over there? It has been terrorizing these fields for a while now. Can you kill it for me?
+- Sure, that sounds doable, watch and learn m'lady! >accepted
+- Well, you are a strong and independent lady, surely you can solve this on your own! >rejected
 
-#poorhero
-{DEFAULT}
-Oh my poor dear, Is there any way I can help you?
-- Now that you mention it, you could give me a better sword! >nosword
-- Come to think of it, can you heal me? >healhero
+#accepted
+:QUEST(ratkiller, start)
+Wonderful, you're amazing! Please kill the rat for me, and I will reward you!
+- Sure thing, just wait here m'lady! >exit
 
-#healhero
-{health < 20}
-:HEAL(100)
-That is indeed something I would be able to do... Here you go, all topped up!
-- Amazing, thank you and goodbye! >exit
-
-{DEFAULT}
-Nope sorry, you are already fully healed!
-- Bitch! >exit
-
-#nosword
-{susanHasNoSword}
-I already told you I have no sword, so you might want to scurry off. Go and ask the blacksmith!
-- Sorry m'lady, I will do better next time! >exit
-
-{DEFAULT}
-:SET(susanHasNoSword)
-Unfortunately I do not have a sword, you should probably ask the blacksmith for that...
-- Understandable, have a good day! >exit
+#rejected
+Please do reconsider, if you ever come back around...
+- Bye bye lady... >exit

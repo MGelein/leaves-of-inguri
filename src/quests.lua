@@ -43,6 +43,12 @@ function quests.parseLine(line)
     end
 end
 
+function quests.restoreFromSave()
+    for name, state in pairs(savefile.data.quests) do
+        quests.setState(name, state)
+    end
+end
+
 function quests.get(name)
     return quests.cache[name] or quests.complete[name] or quests.load(name)
 end

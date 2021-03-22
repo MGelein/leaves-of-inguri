@@ -16,6 +16,7 @@ end
 function savefile.load(slot)
     savefile.data = savefile.read(savefile.url .. tostring(slot)) or {}
     hero.load()
+    quests.restoreFromSave()
 end
 
 function savefile.delete(slot)
