@@ -1,5 +1,6 @@
 # TODO
 - Creating trigger types that work on 'attack' and 'update'
+- Fixing the horrible bug with fullscreen tilemap displaying
 - Making the minimap work properly
 - Make the settings menu work like it should
 - Creating the maps for the necessary zones
