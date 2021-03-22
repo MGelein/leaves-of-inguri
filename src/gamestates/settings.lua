@@ -29,7 +29,7 @@ function settings.start()
         soundfx.play('ui_action')
         settings.apply() 
     end)
-    settings.cancelButton = gui.button('Cancel', (config.width / 2) + 20, 620, 180, function() 
+    settings.cancelButton = gui.button('Back', (config.width / 2) + 20, 620, 180, function() 
         soundfx.play('ui_close')
         gamestates.setNext(mainmenu) 
     end)
@@ -98,6 +98,7 @@ function settings.apply()
     config.audio.fxVolume = settings.fxVol.value / settings.fxVol.maxValue
     config.audio.bgmVolume = settings.fxVol.value / settings.fxVol.maxValue
     savefile.write('settings.ini', config)
+    gamestates.setNext(settings)
 end
 
 function settings.change(dir)
