@@ -1,5 +1,5 @@
 # TODO
-- Creating trigger types that work on 'attack' and 'update'
+- Creating a working quest system
 - Making the minimap work properly
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them

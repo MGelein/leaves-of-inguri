@@ -9,6 +9,9 @@ function love.load()
     input.load()
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)
     gamestates.setNext(mainmenu)
+
+    quests.setState('ratkiller', 'end')
+    savefile.save(1)
 end
 
 function love.draw()
