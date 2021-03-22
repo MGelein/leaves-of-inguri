@@ -1,6 +1,20 @@
 @Susan Smith
 
 #greeting
+{ratkiller == end}
+My hero, so good to see you again. Is everything ok?
+- My life is as fair as your skin on a bright winter's morn! >exit
+- Yes. >exit
+
+{ratkiller == reward}
+:QUEST(ratkiller, end)
+Great! The rats are done, here is a better weapon as payment.
+- Thanks, that looks amazing, I can kill many more monsters with this. >exit
+
+{ratkiller == start}
+How is the rat problem going? Have you made any progress?
+- I am working on it with all the might of my weapon. >exit
+
 {susanQuestExplained}
 Are you sure you can't help me with my rat problem?
 - Alright, I will help you! >accepted
@@ -9,19 +23,22 @@ Are you sure you can't help me with my rat problem?
 {DEFAULT}
 Oh finally, someone who might be able to help me! Do you think you could be a hero?
 - Maybe, how about you tell me a bit about your problem first! >problem
-- Rotten, there is so much evil surrounding us here... >problem
+- I'm not sure I would like that, maybe some other time... >rejected
 
 #problem
+{DEFAULT}
 :SET(susanQuestExplained)
 You see that giant rat over there? It has been terrorizing these fields for a while now. Can you kill it for me?
 - Sure, that sounds doable, watch and learn m'lady! >accepted
-- Well, you are a strong and independent lady, surely you can solve this on your own! >rejected
+- Can't you solve this on your own? >rejected
 
 #accepted
+{DEFAULT}
 :QUEST(ratkiller, start)
 Wonderful, you're amazing! Please kill the rat for me, and I will reward you!
 - Sure thing, just wait here m'lady! >exit
 
 #rejected
+{DEFAULT}
 Please do reconsider, if you ever come back around...
 - Bye bye lady... >exit

@@ -116,6 +116,7 @@ end
 function dialogues.resolveVariableName(name)
     if name == 'health' then return hero.health
     elseif hero.entity.effects[name] then return hero.entity.effects[name]
+    elseif savefile.data.quests and savefile.data.quests[name] then return savefile.data.quests[name]
     else return savefile.data[name] end
 end
 
@@ -124,6 +125,12 @@ function dialogues.executeCommand(command)
     local fn = dialogues[fnName]
     if not fn then print('Unimplemented command type: ' .. command.type) return end
     fn(command.args)
+end
+
+function dialogues.executeQuestCommand(args)
+    if #args ~= 2 then print("Wrong number of arguments for quest, expected 2, got " .. tostring(#args)) return end
+    local name, state = unpack(args)
+    quests.setState(name, state)
 end
 
 function dialogues.executeHealCommand(args)

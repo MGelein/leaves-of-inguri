@@ -17,6 +17,7 @@ function quests.load(name)
 end
 
 function quests.setState(name, state)
+    print(name, state)
     local quest = quests.get(name)
     if not savefile.data.quests then savefile.data.quests = {} end
     quest.state = state
@@ -44,6 +45,7 @@ function quests.parseLine(line)
 end
 
 function quests.restoreFromSave()
+    if not savefile.data.quests then return end
     for name, state in pairs(savefile.data.quests) do
         quests.setState(name, state)
     end
