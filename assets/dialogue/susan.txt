@@ -8,6 +8,8 @@ My hero, so good to see you again. Is everything ok?
 
 {ratkiller == reward}
 :QUEST(ratkiller, end)
+:WEAPON(sword)
+:ARMOR(leather)
 Great! The rats are done, here is a better weapon as payment.
 - Thanks, that looks amazing, let's get to killing. >exit
 

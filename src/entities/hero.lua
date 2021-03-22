@@ -25,6 +25,19 @@ function hero.save()
     data.heroArmor = hero.armor
 end
 
+function hero.setWeapon(weapon)
+    hero.weapon = weapon
+    local weaponTemplate = entityparser.weaponTemplates[hero.weapon] or entityparser.weaponTemplates.club
+    hero.entity.attack = weaponTemplate.attack
+end
+
+function hero.setArmor(armor)
+    hero.armor = armor
+    local armorTemplate = entityparser.armorTemplates[hero.armor] or entityparser.armorTemplates.cloth
+    hero.entity.defence = armorTemplate.defence
+    hero.entity.sprite = armorTemplate.tile
+end
+
 function hero.create(xPos, yPos)
     local weaponTemplate = entityparser.weaponTemplates[hero.weapon] or entityparser.weaponTemplates.club
     local armorTemplate = entityparser.armorTemplates[hero.armor] or entityparser.armorTemplates.cloth
@@ -35,7 +48,6 @@ function hero.create(xPos, yPos)
     entity.attack = weaponTemplate.attack
     entity.defence = armorTemplate.defence
     entity.target = nil
-    entity.weapon = hero.weapon
     entity.prevWalkAngle = entity.walkAngle
 
     entity.health = hero.health
@@ -118,11 +130,11 @@ function hero.handleInput(self)
 
     if input.isDownOnce('attack') and self.attackCooldown <= 0 then
         if self.target == nil then 
-            weapons.attackAt(self.x + self.vx, self.y + self.vy, self.x, self.y, self, self.weapon)
+            weapons.attackAt(self.x + self.vx, self.y + self.vy, self.x, self.y, self, hero.weapon)
         else
-            weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, self.weapon)
+            weapons.attackAt(self.target.x, self.target.y, self.x, self.y, self, hero.weapon)
         end
-        self.attackCooldown = entityparser.weaponTemplates[self.weapon].cooldown
+        self.attackCooldown = entityparser.weaponTemplates[hero.weapon].cooldown
     end
     if input.isDownOnce('interact') then
         local trigger = hero.findInteractTrigger(self)

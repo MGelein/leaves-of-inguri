@@ -17,7 +17,6 @@ function quests.load(name)
 end
 
 function quests.setState(name, state)
-    print(name, state)
     local quest = quests.get(name)
     if not savefile.data.quests then savefile.data.quests = {} end
     quest.state = state

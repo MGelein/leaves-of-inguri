@@ -127,6 +127,16 @@ function dialogues.executeCommand(command)
     fn(command.args)
 end
 
+function dialogues.executeWeaponCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for weapon, expected 1, got " .. tostring(#args)) return end
+    hero.setWeapon(args[1])
+end
+
+function dialogues.executeArmorCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for armor, expected 1, got " .. tostring(#args)) return end
+    hero.setArmor(args[1])
+end
+
 function dialogues.executeQuestCommand(args)
     if #args ~= 2 then print("Wrong number of arguments for quest, expected 2, got " .. tostring(#args)) return end
     local name, state = unpack(args)
