@@ -1,5 +1,6 @@
 # TODO
 - Adding more conditions to a response in the dialogue system, allowing for more complex conditions
+- Develop a pickup system for health, mana and keys
 - Create a quests UI including GUI overlay
 - Making the minimap work properly
 - Creating the maps for the necessary zones

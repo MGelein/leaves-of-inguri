@@ -13,6 +13,7 @@ end
 function game.start()
     tilemap.load(savefile.data.currentMap or 'testingcity')
     gui.createHealthWidget(0, config.height - 96)
+    gui.createQuestWidget(10, 10)
     game.paused = false
 end
 

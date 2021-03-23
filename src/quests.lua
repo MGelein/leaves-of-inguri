@@ -25,6 +25,13 @@ function quests.setState(name, state)
         quests.cache[name] = nil
         quests.complete[name] = quest
     end
+    if gui.questWidget then
+        if state == 'end' then
+            gui.questWidget:hide()
+        else
+            gui.questWidget:setState(quest.title, quest[state].summary)
+        end
+    end
 end
 
 function quests.parseLine(line)

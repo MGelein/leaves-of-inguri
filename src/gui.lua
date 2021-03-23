@@ -480,6 +480,51 @@ function gui.showHeader(name, duration)
     end)
 end
 
+function gui.createQuestWidget(x, y)
+    local widget = gui.element(x, y)
+    widget.homeX = x
+    widget.header = gui.label('', -400, y, config.width, 'left')
+    widget.label = gui.label('', -400, y + assets.fonts.normal:getHeight(), config.width / 4, 'left')
+    widget.label.font = assets.fonts.quest
+
+    widget.setState = function(self, state, questName)
+        self:hide(state, questName)
+    end
+
+    widget.show = function(self, delay)
+        ez.easeOut(self.header, {x = self.x})
+        ez.easeOut(self.label, {x = self.x})
+        self.visible = true
+        self.label.visible = true
+        self.header.visible = true
+    end
+
+    widget.hide = function(self, nextName, nextState)
+        if self.nextName == nextName and self.nextState == nextState then return end
+        self.hidden = true
+        ez.easeIn(self.header, {x = -400})
+        ez.easeIn(self.label, {x = -400}):complete(function()
+            self.nextState = nextState
+            self.nextName = nextName 
+            if nextState then self.header.text = trimstring(nextName) end
+            if nextState then self.label.text = '- ' .. trimstring(nextState) end
+            self.header.visible = false
+            self.label.visible = false
+            self.visible = false
+            if nextName and nextState then self:show() end
+        end)
+    end
+
+    widget.destroy = function(self)
+        widget.header:destroy()
+        widget.label:destroy()
+        gui.list:remove(self)
+    end
+    gui.questWidget = widget
+    widget:hide()
+    return widget
+end
+
 function gui.showText(text)
     text = text or '...'
     game.paused = true
@@ -496,4 +541,11 @@ function gui.showImage(img)
     if not img then return end
     game.paused = true
     game.menu = gui.imgbox(img, tilemap.scale)
+end
+
+function gui.showQuestStatus(status)
+    if not status then return end
+    gui.questLabel = gui.label(status, -300, 10, 100, 'left')
+    gui.questLabel.font = assets.fonts.quest
+    ez.easeOut(gui.questLabel, {x = 10})
 end

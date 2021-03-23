@@ -8,7 +8,7 @@ function love.load()
     assets.load()
     input.load()
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)
-    gamestates.setNext(mainmenu)
+    gamestates.setNext(game)
 end
 
 function love.draw()
