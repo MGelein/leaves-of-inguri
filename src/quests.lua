@@ -19,7 +19,7 @@ end
 function quests.setState(name, state)
     local quest = quests.get(name)
     if not savefile.data.quests then savefile.data.quests = {} end
-    quest.state = state
+    if not quest.state == 'end'  then quest.state = state end
     savefile.data.quests[name] = state
     if quest.state == 'end' then
         quests.cache[name] = nil
