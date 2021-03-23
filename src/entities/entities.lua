@@ -31,6 +31,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         invulnerableTime = 0,
         effects = {},
         highlightHue = 0, 
+        onDeath = nil,
 
         setEffect = function(self, effect, duration)
             self.effects[effect] = duration
@@ -68,6 +69,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
                 local shakeTime = 0.1
                 if self.collider.class == 'hero' then shakeTime = 0.5 end
                 pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, shakeTime)
+                if self.onDeath then self:onDeath() end
             else
                 if self.collider.class == 'hero' then soundfx.play('hurt')
                 else soundfx.play('hit') end

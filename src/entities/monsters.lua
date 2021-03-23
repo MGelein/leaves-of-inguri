@@ -6,6 +6,7 @@ function monsters.create(id, xPos, yPos, template)
     local monster = entities.createWalk(id, template.tile, xPos, yPos)
     monster.health = template.health
     monster.maxHealth = template.health
+    monster.onDeath = template.onDeath
     monster.attack = template.attack
     monster.defence = template.defence
     monster.weapon = template.weapon

@@ -179,6 +179,12 @@ entityparser.objectTemplates = {
         tile = 96,
         health = 50,
         description = {'A well filled with water.'},
+    },
+    vase = {
+        tile = 38,
+        health = 1,
+        description = {'A beautiful vase, maybe there is something in it...'},
+        onDeath = function(self) pickups.dropList({'health', 'mana'}, self.x, self.y) end
     }
 }
 

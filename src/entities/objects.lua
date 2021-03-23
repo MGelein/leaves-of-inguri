@@ -3,6 +3,8 @@ objects = {}
 function objects.create(id, xPos, yPos, template)
     local object = entities.create(id, template.tile, xPos, yPos)
     object.health = template.health or object.health
+    object.mass = template.mass or 0
+    object.onDeath = template.onDeath
     object.collider.class = 'object'
     object.index = i
     object.description = template.description

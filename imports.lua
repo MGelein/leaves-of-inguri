@@ -25,6 +25,7 @@ require("entities.monsters")
 require("entities.weapons")
 require("entities.objects")
 require("entities.npcs")
+require("entities.pickups")
 require("entities.entityparser")
 
 require("controls.controller")

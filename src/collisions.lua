@@ -46,8 +46,10 @@ function collisions.handleEntity(entA, collider)
         local classB = shape.class
         local entB = shape.parent
         if entB == nil or classB == 'trigger' then goto continue end
-
-        if classA ~= 'weapon' and classB ~= 'weapon' then
+        
+        if entA == hero.entity and classB == 'pickup' then
+            entB:pickup(entA)
+        elseif classA ~= 'weapon' and classB ~= 'weapon' then
             local totalMass = entA.mass + entB.mass
             if totalMass > 0 then
                 if entB.mass == 0 then
