@@ -56,4 +56,6 @@
 - Designing a controller and controls explanation/overlay
 - Make the settings menu work like it should
 - Fixing the horrible bug with fullscreen and non-native resolution tilemap displaying
-- Creating a working quest system
+- Creating a working quest system, complete with saving, states and short descriptions
+- Add QUEST, WEAPON and ARMOR commands to the dialogue system, to set quest state, hero weapon and armor respectively. 
+- Write documentation for the triggers, maps, quests, and dialogue systems. Otherwise we will forget!
