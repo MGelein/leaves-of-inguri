@@ -83,7 +83,7 @@ function game.openMenu()
     local menu = {
         {Save = function() game.showMenu('save') end},
         {Return = function() game.popMenu() end},
-        {Quests = function() end},
+        {Quests = function() game.showMenu('quests') end},
         {Controls = function() game.showMenu('controls') end},
         {Main_Menu = function() gamestates.setNext(mainmenu) end},
         {Quit = function() love.event.quit() end},
@@ -121,4 +121,8 @@ function game.openControls()
         {"Map", "M", "Map/View"},
     }
     return gui.controlpanel(controldesc, x, 200, config.gui.textboxWidth + 100)
+end
+
+function  game.openQuests()
+    
 end
