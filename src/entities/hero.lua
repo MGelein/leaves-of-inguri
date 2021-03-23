@@ -25,6 +25,16 @@ function hero.save()
     data.heroArmor = hero.armor
 end
 
+function hero.setStats(health, mana)
+    local objs = {hero, hero.entity}
+    for i, obj in ipairs(objs) do
+        obj.health = health
+        obj.maxHealth = health
+        obj.mana = mana
+        obj.maxMana = mana
+    end
+end
+
 function hero.setWeapon(weapon)
     hero.weapon = weapon
     local weaponTemplate = entityparser.weaponTemplates[hero.weapon] or entityparser.weaponTemplates.club

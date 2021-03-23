@@ -127,6 +127,16 @@ function dialogues.executeCommand(command)
     fn(command.args)
 end
 
+function dialogues.executeHealthCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for health, expected 1, got " .. tostring(#args)) return end
+    hero.setStats(tonumber(args[1], hero.maxMana))
+end
+
+function dialogues.executeManaCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for health, expected 1, got " .. tostring(#args)) return end
+    hero.setStats(hero.maxHealth, tonumber(args[1]))
+end
+
 function dialogues.executeWeaponCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for weapon, expected 1, got " .. tostring(#args)) return end
     hero.setWeapon(args[1])
