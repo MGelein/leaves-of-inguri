@@ -98,6 +98,17 @@ function triggers.changeEntity(self)
     end
 end
 
+function triggers.setVariable(self)
+    if not self.properties.var then print("To change a variable, you must set a var.") return end
+    if not self.properties.value then print("To change a variable, you must set a value.") return end
+    local value = self.properties.value
+    if value == 'true' then value = true
+    elseif value == 'false' then value = false
+    elseif value == tostring(tonumber(value)) then value = tonumber(value) end
+    
+    savefile.data[self.properties.var] = self.properties.value
+end
+
 function triggers.removeEntity(self)
     local x = self.x * tilemap.scale + 16
     local y = self.y * tilemap.scale + 16

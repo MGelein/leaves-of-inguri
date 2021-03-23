@@ -29,3 +29,7 @@ Besides various trigger methods we also have loads of different types. Some of t
 - __npc (id)__: denotes that this trigger is the position of an npc. Needs an `id` property that links it to an npc
 - __text (text)__: shows the specified text in a UI box, great for popups and exposition. The text property contains the text to show.
 - __warp (destination)__: warps the hero to another map, or another location on the same map. The location is formatted: `MAP_ID@COL,ROW`
+- __questState (quest, state)__: Sets the provided quest to the provided state. This is quite a simple trigger. Probably triggers quest updates
+- __setVariable(var, value)__: Sets the provided variable in the global registry to the provided value.
+- __changeEntity (tile)__: Changes the entity that is on the same tile as this trigger to another sprite, denoted by its tile-id.
+- __removeEntity ()__ Removes the entity that is on the same tile as this trigger.
