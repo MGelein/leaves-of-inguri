@@ -105,7 +105,7 @@ function dialogues.evaluateCondition(condition)
     
     local varname, operand, value = unpack(parts)
     local var = dialogues.resolveVariableName(varname)
-    if not var then print("Cannot resolve variable " .. varname) return false end
+    if not var then return false end
     if type(var) == 'number' then value = tonumber(value)
     elseif type(var) == 'boolean' then value = value:lower() == 'true' end
     local fn = dialogues.operands[operand]
