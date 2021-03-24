@@ -364,7 +364,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["contents"] = "health:2, mana:2",
+            ["contents"] = "health:2, mana:2, key:2, ring:2",
             ["method"] = "chest",
             ["type"] = "drop"
           }

@@ -8,7 +8,16 @@ pickups.templates = {
     mana = {
         tile = 2,
         onPickup = function(self, other) other.mana = (other.mana or 0) + 5 end
-    }
+    },
+    coin = {
+        tile = 79,
+    },
+    ring = {
+        tile = 80,
+    },
+    key = {
+        tile = 81,
+    },
 }
 
 function pickups.dropList(items, x, y)
@@ -29,7 +38,8 @@ function pickups.create(name, x, y)
     pickup.onPickup = template.onPickup
     pickup.pickup = function(self, other)
         entities.remove(self)
-        soundfx.play('pickup_' .. self.type)
+        local result = soundfx.play('pickup_' .. self.type)
+        if not result then soundfx.play('pickup') end
         if self.onPickup then self:onPickup(other) end
     end
     return pickup
