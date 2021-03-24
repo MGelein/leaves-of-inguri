@@ -10,6 +10,9 @@ entityparser.monsterTemplates = {
         bloodTint = {r = 1, g = 0.5, b = 0.5},
         weapon = 'firebolt',
         speedMult = 1,
+
+        dropTable = {'mana', 'mana', 'health'},
+        dropAmt = 15,
     },
     ghost = {
         tile = 24,
@@ -22,6 +25,9 @@ entityparser.monsterTemplates = {
         weapon = 'acid',
         walkAngleSpeed = 0.05,
         speedMult = 0.5,
+
+        dropTable = {'mana', 'mana', 'mana', 'mana', 'health'},
+        dropAmt = 10,
     },
     skeleton = {
         tile = 11,
@@ -33,6 +39,9 @@ entityparser.monsterTemplates = {
         bloodTint = {r = 1, g = 1, b = 1},
         weapon = 'arrow',
         speedMult = 0.8,
+        
+        dropTable = {'health', 'health', 'mana'},
+        dropAmt = 6,
     },
     zombie = {
         tile = 12,
@@ -42,7 +51,10 @@ entityparser.monsterTemplates = {
         detectRadius = 100,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
-        speedMult = 0.6
+        speedMult = 0.6,
+
+        dropTable = {'health', 'health', 'health', 'health', 'mana'},
+        dropAmt = 4,
     },
     shrubber = {
         tile = 27,
@@ -52,7 +64,10 @@ entityparser.monsterTemplates = {
         detectRadius = 60,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
-        speedMult = 0.9
+        speedMult = 0.9,
+
+        dropTable = {'health', 'mana'},
+        dropAmt = 6,
     },
     snake = {
         tile = 19,
@@ -62,7 +77,10 @@ entityparser.monsterTemplates = {
         detectRadius = 80,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 0.5, g = 1, b = 0.5},
-        speedMult = 0.9
+        speedMult = 0.9,
+
+        dropTable = {'health'},
+        dropAmt = 4,
     },
     dog = {
         tile = 20,
@@ -72,7 +90,10 @@ entityparser.monsterTemplates = {
         detectRadius = 120,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
-        speedMult = 1.1
+        speedMult = 1.1,
+
+        dropTable = {'health'},
+        dropAmt = 3,
     },
     rat = {
         tile = 21,
@@ -83,6 +104,9 @@ entityparser.monsterTemplates = {
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
         speedMult = 1,
+
+        dropTable = {'health'},
+        dropAmt = 2,
     },
 }
 
@@ -181,6 +205,9 @@ entityparser.objectTemplates = {
         tile = 108,
         health = 4,
         description = {'An ornate gravestone.'},
+        
+        dropTable = {'mana', 'coin'},
+        dropAmt = 1,
     },
     well = {
         tile = 96,
@@ -192,8 +219,8 @@ entityparser.objectTemplates = {
         health = 1,
         colliderScale = 0.7,
         description = {'A beautiful vase, maybe there is something in it...'},
-        
-        onDeath = function(self) pickups.dropList({'health', 'mana'}, self.x, self.y) end
+        dropTable = {'health', 'mana'},
+        dropAmt = 4,
     },
     chest = {
         tile = 52,

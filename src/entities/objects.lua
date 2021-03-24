@@ -9,6 +9,8 @@ function objects.create(id, xPos, yPos, template)
     object.collider:scale(template.colliderScale or 1)
     object.index = i
     object.description = template.description
+    object.dropTable = template.dropTable
+    object.dropAmt = template.dropAmt
     if template.update then object.update = template.update end
 
     if template.description then

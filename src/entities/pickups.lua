@@ -3,11 +3,11 @@ pickups = {}
 pickups.templates = {
     health = {
         tile = 1,
-        onPickup = function(self, other) other:heal(5) end
+        onPickup = function(self, other) other:heal(1) end
     },
     mana = {
         tile = 2,
-        onPickup = function(self, other) other.mana = (other.mana or 0) + 5 end
+        onPickup = function(self, other) other.mana = (other.mana or 0) + 1 end
     },
     coin = {
         tile = 79,
@@ -28,6 +28,7 @@ function pickups.dropList(items, x, y)
 end
 
 function pickups.create(name, x, y)
+    print('dropping ' .. name)
     local template = pickups.templates[name]
     if not template then return end
     local pickup = entities.createForce(-2, template.tile, x, y)

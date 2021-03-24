@@ -10,6 +10,8 @@ function monsters.create(id, xPos, yPos, template)
     monster.attack = template.attack
     monster.defence = template.defence
     monster.weapon = template.weapon
+    monster.dropTable = template.dropTable
+    monster.dropAmt = template.dropAmt
     monster.particleTint = template.bloodTint
     monster.collider.class = 'monster'
     monster.walkAngleSpeed = template.walkAngleSpeed or monster.walkAngleSpeed
