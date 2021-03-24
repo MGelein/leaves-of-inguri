@@ -33,6 +33,18 @@ function pickups.create(name, x, y)
     return pickup
 end
 
+function pickups.registerDrop(trigger)
+    local tx = trigger.x * tilemap.scale
+    local ty = trigger.y * tilemap.scale
+    for i, ent in ipairs(entities.list.all) do
+        if ent.home.x - 16 == tx and ent.home.y - 16 == ty then
+            ent.trigger = trigger
+            trigger.src = ent
+            break
+        end
+    end
+end
+
 function pickups.dropChest(chest)
-    print(chest)
+    chest.trigger:activate()
 end

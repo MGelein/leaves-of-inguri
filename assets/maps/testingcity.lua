@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 23,
+  nextobjectid = 25,
   properties = {
     ["bgm"] = "testbgm",
     ["name"] = "Testing City"
@@ -350,6 +350,23 @@ return {
             ["quest"] = "ratkiller",
             ["state"] = "reward",
             ["type"] = "questState"
+          }
+        },
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 64,
+          y = 8,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["contents"] = "health:2, mana:2",
+            ["method"] = "chest",
+            ["type"] = "drop"
           }
         }
       }

@@ -23,6 +23,7 @@ We have various ways of triggering a trigger:
 - __collide__: When the hero collider collides with the trigger collider this trigger will activate. It will only activate again if the hero has stopped colliding with the trigger at least once.
 - __interact__: When the player presses the `interact` button close enough to this collider it will activate.
 - __monstersGone__: This trigger will run everytime it detects that all monsters on the map have been slain.
+- __chest__: This trigger will run when the chest that is on its tile will be destroyed
 
 ### Trigger Types
 Besides various trigger methods we also have loads of different types. Some of these types might require additional properties (described in between the brackets):
@@ -32,4 +33,5 @@ Besides various trigger methods we also have loads of different types. Some of t
 - __questState (quest, state)__: Sets the provided quest to the provided state. This is quite a simple trigger. Probably triggers quest updates
 - __setVariable(var, value)__: Sets the provided variable in the global registry to the provided value.
 - __changeEntity (tile)__: Changes the entity that is on the same tile as this trigger to another sprite, denoted by its tile-id.
-- __removeEntity ()__ Removes the entity that is on the same tile as this trigger.
+- __removeEntity ()__: Removes the entity that is on the same tile as this trigger.
+- __drop(contents...)__: Drops the supplied list of contents (separated by a comma, with each entry detailing the drop type and drop amount separated with a colon). 

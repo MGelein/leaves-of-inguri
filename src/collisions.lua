@@ -48,6 +48,7 @@ function collisions.handleEntity(entA, collider)
     for shape, delta in pairs(hc.collisions(collider)) do
         local classB = shape.class
         local entB = shape.parent
+        if classA == classB and classA == 'pickup' then goto continue end
         if entB == nil or classB == 'trigger' or entB.ignoreCollision then goto continue end
         
         if entA == hero.entity and classB == 'pickup' then

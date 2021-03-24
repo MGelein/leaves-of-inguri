@@ -12,7 +12,9 @@ function triggers.create(def)
         properties = def.properties,
         activate = triggers.activate,
     }
-    if trigger.type == 'npc' then npcs.registerTrigger(trigger) end
+    if trigger.type == 'npc' then npcs.registerTrigger(trigger)
+    elseif trigger.type == 'drop' then pickups.registerDrop(trigger) end
+
     trigger.collider = tilemap.createCollider(def)
     trigger.collider.class = 'trigger'
     trigger.collider.parent = trigger
@@ -76,6 +78,18 @@ end
 function triggers.activate(self)
     if triggers[self.type] then triggers[self.type](self)
     else print('unrecognized trigger type', self.type) end
+end
+
+function triggers.drop(self)
+    local contents = self.properties.contents
+    local entries = splitstring(contents, ',')
+    local drops = {}
+    for i, entry in ipairs(entries) do
+        local type, amt = unpack(splitstring(trimstring(entry), ':'))
+        for j = 1, amt do table.insert(drops, type) end
+    end
+    pickups.dropList(drops, self.src.x, self.src.y)
+    triggers.list:remove(self)
 end
 
 function triggers.questState(self)
