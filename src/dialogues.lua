@@ -114,7 +114,7 @@ function dialogues.evaluateCondition(condition)
 end
 
 function dialogues.resolveVariableName(name)
-    if name == 'health' then return hero.health
+    if hero[name] then return hero[name]
     elseif hero.entity.effects[name] then return hero.entity.effects[name]
     elseif savefile.data.quests and savefile.data.quests[name] then return savefile.data.quests[name]
     else return savefile.data[name] end
@@ -129,12 +129,22 @@ end
 
 function dialogues.executeHealthCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for health, expected 1, got " .. tostring(#args)) return end
-    hero.setStats(tonumber(args[1], hero.maxMana))
+    local startChar = args[1]:sub(1, 1)
+    local amt = tonumber(args[1])
+    if startChar == '+' or startChar == '-' then 
+        amt = hero.maxHealth + tonumber(args[1])
+    end
+    hero.setStats(amt, hero.maxMana)
 end
 
 function dialogues.executeManaCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for health, expected 1, got " .. tostring(#args)) return end
-    hero.setStats(hero.maxHealth, tonumber(args[1]))
+    local startChar = args[1]:sub(1, 1)
+    local amt = tonumber(args[1])
+    if startChar == '+' or startChar == '-' then 
+        amt = hero.maxMana + tonumber(args[1])
+    end
+    hero.setStats(hero.maxHealth, amt)
 end
 
 function dialogues.executeWeaponCommand(args)
