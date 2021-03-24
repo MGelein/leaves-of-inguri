@@ -23,11 +23,13 @@ function pickups.create(name, x, y)
     pickup.collider = hc.circle(x, y, 3.5 * tilemap.scale)
     pickup.collider.class = 'pickup'
     pickup.collider.parent = pickup
+    pickup.type = name
     pickup.vx = love.math.random(-5, 5)
     pickup.vy = love.math.random(-5, 5)
     pickup.onPickup = template.onPickup
     pickup.pickup = function(self, other)
         entities.remove(self)
+        soundfx.play('pickup_' .. self.type)
         if self.onPickup then self:onPickup(other) end
     end
     return pickup

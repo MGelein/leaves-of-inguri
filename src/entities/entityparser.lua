@@ -168,6 +168,7 @@ entityparser.objectTemplates = {
         onInteract = function(self) 
             self.ignoreCollision = not self.ignoreCollision
             self.sx = self.sx > 0.5 and 0 or 1
+            soundfx.play('door')
         end
     },
     campfire = {
