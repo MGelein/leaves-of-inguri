@@ -17,4 +17,5 @@ function objects.create(id, xPos, yPos, template)
         end
         object.interact = template.onInteract or object.interact
     end
+    return object
 end
