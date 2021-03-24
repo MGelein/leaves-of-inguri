@@ -27,7 +27,9 @@ function pickups.dropList(items, x, y)
     for i, item in ipairs(items) do pickups.create(item, x, y) end
 end
 
-function pickups.create(name, x, y)
+function pickups.create(name, x, y, vx, vy)
+    vx = vx or 0
+    vy = vy or 0
     local template = pickups.templates[name]
     if not template then return end
     local pickup = entities.createForce(-2, template.tile, x, y)
@@ -38,8 +40,8 @@ function pickups.create(name, x, y)
     pickup.attack = 0
     pickup.defence = 0
     pickup.type = name
-    pickup.vx = love.math.random(-5, 5)
-    pickup.vy = love.math.random(-5, 5)
+    pickup.vx = love.math.random(-5, 5) + vx
+    pickup.vy = love.math.random(-5, 5) + vy
     pickup.onPickup = template.onPickup
     pickup.pickup = function(self, other)
         entities.remove(self)

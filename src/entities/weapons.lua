@@ -13,6 +13,8 @@ function weapons.create(x, y, dirX, dirY, owner, template)
     weapon.fromX = x
     weapon.fromY = y
     weapon.range = template.range
+    weapon.dirX = dirX
+    weapon.dirY = dirY
     weapon.vx = dirX * template.speed
     weapon.vy = dirY * template.speed
     weapon.r = math.atan2(dirY, dirX) + math.pi / 4

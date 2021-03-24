@@ -150,7 +150,9 @@ function hero.handleHealthRegen(self, dt)
 end
 
 function hero.explode()
+    pxparticles.setStartDir(-hero.entity.vx, -hero.entity.vy)
     pxparticles.fromSprite(hero.entity.sprite, hero.entity.x, hero.entity.y, hero.entity.particleTint, 0.3) 
+    pxparticles.setStartDir()
 end
 
 function hero.handleInput(self)

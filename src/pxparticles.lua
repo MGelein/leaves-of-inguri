@@ -3,6 +3,19 @@ pxparticles.scale = 4
 pxparticles.force = 3
 pxparticles.list = managedlist.create()
 pxparticles.defaultQuad = nil
+pxparticles.startDir = {x = 0, y = 0}
+
+function pxparticles.setStartDir(x, y)
+    if x and y then
+        local len = math.sqrt(x * x + y * y)
+        print(x, y, len)
+        pxparticles.startDir.x = x / len
+        pxparticles.startDir.y = y / len
+    else
+        pxparticles.startDir.x = 0
+        pxparticles.startDir.y = 0
+    end
+end
 
 function pxparticles.fromSprite(spriteNumber, xPos, yPos, particleTint, shakeTime)
     if shakeTime > 0 then screen.shake(shakeTime) end
@@ -23,8 +36,8 @@ function pxparticles.new(particleQuad, xPos, yPos, floorLevel, particleTint)
         quad = particleQuad or pxparticles.defaultQuad,
         x = xPos,
         y = yPos,
-        vx = 0,
-        vy = 0,
+        vx = pxparticles.startDir.x * pxparticles.force,
+        vy = pxparticles.startDir.y * pxparticles.force,
         s = 4,
         floor = floorLevel,
         alpha = 1,
@@ -33,8 +46,8 @@ function pxparticles.new(particleQuad, xPos, yPos, floorLevel, particleTint)
     }
 
     local angle = love.math.random() * math.pi * 2
-    p.vx = math.cos(angle) * pxparticles.force
-    p.vy = math.sin(angle) * pxparticles.force
+    p.vx = p.vx + math.cos(angle) * pxparticles.force
+    p.vy = p.vy + math.sin(angle) * pxparticles.force
     p.update = pxparticles.updateParticle
     pxparticles.list:add(p)
 end
@@ -54,8 +67,8 @@ function pxparticles.updateParticle(self)
 
     if self.y > self.floor then
         self.y = self.floor
-        self.vy = 0
-        self.vx = self.vx * 0.9
+        self.vy = self.vy * -0.6
+        self.vx = self.vx * 0.95
     end
 
     self.alpha = self.alpha * 0.95

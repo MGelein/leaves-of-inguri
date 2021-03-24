@@ -56,7 +56,9 @@ function entities.create(identity, spriteNumber, xPos, yPos)
             if self.health > self.maxHealth then self.health = self.maxHealth end
         end,
 
-        damage = function(self, amt)
+        damage = function(self, amt, vx, vy)
+            vx = vx or 0
+            vy = vy or 0
             if self.health == -100 or self.invulnerableTime > 0 then return end
             amt = amt - amt * self.defence
             if amt <= 0 then return end
@@ -71,10 +73,12 @@ function entities.create(identity, spriteNumber, xPos, yPos)
                 entities.remove(self)
                 local shakeTime = 0.1
                 if self.collider.class == 'hero' then shakeTime = 0.5 end
+                pxparticles.setStartDir(vx, vy)
                 pxparticles.fromSprite(self.sprite, self.x, self.y, self.particleTint, shakeTime)
+                pxparticles.setStartDir()
                 if self.onDeath then self:onDeath() end
                 if self.dropTable then
-                    for i = 1, self.dropAmt do pickups.create(randomFromTable(self.dropTable), self.x, self.y) end
+                    for i = 1, self.dropAmt do pickups.create(randomFromTable(self.dropTable), self.x, self.y, vx, vy) end
                 end
             else
                 if self.collider.class == 'hero' then soundfx.play('hurt')
