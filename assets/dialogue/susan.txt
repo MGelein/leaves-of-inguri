@@ -23,11 +23,6 @@ Are you sure you can't help me with my rat problem?
 - Unfortunately I have more important things to do! >rejected
 
 {DEFAULT}
-:HEALTH(+5)
-:MANA(+5)
-:COINS(+100)
-:KEYS(+98)
-:RINGS(+99)
 Oh finally, someone who might be able to help me! Do you think you could be a hero?
 - Maybe, how about you tell me a bit about your problem first! >problem
 - I'm not sure I would like that, maybe some other time... >rejected

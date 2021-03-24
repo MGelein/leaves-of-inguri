@@ -544,7 +544,12 @@ function gui.createQuestWidget(x, y)
         gui.list:remove(self)
     end
     gui.questWidget = widget
-    widget:hide()
+    local quest = quests.get(quests.active)
+    if quest then
+        widget:setState(quest.title, quest[quest.state].summary)
+    else
+        widget:hide()
+    end
     return widget
 end
 

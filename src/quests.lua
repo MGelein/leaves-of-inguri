@@ -6,10 +6,13 @@ quests.lineTypes = {
 }
 quests.cache = {}
 quests.complete = {}
+quests.active = 'none'
 
 function quests.load(name)
+    local url = 'assets/quests/' .. name .. '.txt'
+    if not love.filesystem.getInfo(url) then return end
     quests.current = {state = 'start'}
-    for line in love.filesystem.lines('assets/quests/' .. name .. '.txt') do
+    for line in love.filesystem.lines(url) do
         if #line > 0 then quests.parseLine(line) end
     end
     quests.cache[name] = quests.current
@@ -18,12 +21,15 @@ end
 
 function quests.setState(name, state)
     local quest = quests.get(name)
+    if quests.complete[name] then return end
     if not savefile.data.quests then savefile.data.quests = {} end
-    if not quest.state == 'end'  then quest.state = state end
     savefile.data.quests[name] = state
-    if quest.state == 'end' then
-        quests.cache[name] = nil
+    quest.state = state
+    quests.active = name
+    if state == 'end' then
         quests.complete[name] = quest
+        quests.cache[name] = nil
+        quests.active = ''
     end
     if gui.questWidget then
         if state == 'end' then
@@ -32,6 +38,10 @@ function quests.setState(name, state)
             gui.questWidget:setState(quest.title, quest[state].summary)
         end
     end
+end
+
+function quests.save()
+    savefile.data.activeQuest = quests.active
 end
 
 function quests.parseLine(line)
@@ -55,6 +65,7 @@ function quests.restoreFromSave()
     for name, state in pairs(savefile.data.quests) do
         quests.setState(name, state)
     end
+    quests.active = savefile.data.activeQuest
 end
 
 function quests.get(name)

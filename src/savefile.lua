@@ -10,6 +10,7 @@ end
 
 function savefile.save(slot)
     hero.save()
+    quests.save()
     savefile.write(savefile.url .. tostring(slot), savefile.data)
 end
 

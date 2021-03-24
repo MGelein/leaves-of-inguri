@@ -8,7 +8,6 @@ pxparticles.startDir = {x = 0, y = 0}
 function pxparticles.setStartDir(x, y)
     if x and y then
         local len = math.sqrt(x * x + y * y)
-        print(x, y, len)
         pxparticles.startDir.x = x / len
         pxparticles.startDir.y = y / len
     else
