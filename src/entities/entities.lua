@@ -15,6 +15,8 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         tint = {1, 1, 1},
         x = xPos,
         y = yPos,
+        ox = 4,
+        oy = 4,
         home = {x = xPos, y = yPos},
         r = 0,
         scale = tilemap.scale,
@@ -143,9 +145,9 @@ function entities.draw()
         if ent.invulnerableTime > 0 then love.graphics.setColor(1, 0.5, 0.5)
         else love.graphics.setColor(unpack(ent.tint)) end
         
-        assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
+        assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
         if ent.blocking then
-            assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, 4, 4)
+            assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
         end
         if config.debug then 
             ent.collider:draw('line') 
