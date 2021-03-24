@@ -105,6 +105,10 @@ function hero.update(self, dt)
     hero.handleInput(self)
     hero.health = self.health
     hero.mana = self.mana
+    if hero.mana > hero.maxMana then
+        hero.mana = hero.maxMana
+        self.mana = hero.maxMana
+    end
 
     if self.prevWalkAngle > self.walkAngle then soundfx.play('step') end
     self.prevWalkAngle = self.walkAngle

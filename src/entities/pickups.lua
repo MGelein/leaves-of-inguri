@@ -28,7 +28,6 @@ function pickups.dropList(items, x, y)
 end
 
 function pickups.create(name, x, y)
-    print('dropping ' .. name)
     local template = pickups.templates[name]
     if not template then return end
     local pickup = entities.createForce(-2, template.tile, x, y)

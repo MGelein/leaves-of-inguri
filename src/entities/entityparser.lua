@@ -191,7 +191,7 @@ entityparser.objectTemplates = {
         description = {'A simple wooden door'},
         onInteract = function(self) 
             self.ignoreCollision = not self.ignoreCollision
-            self.sx = self.sx > 0.5 and 1 or 0
+            self.sx = self.sx > 0.5 and 0 or 1
             soundfx.play('door')
         end
     },
