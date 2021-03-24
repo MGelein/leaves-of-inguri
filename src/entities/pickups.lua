@@ -35,6 +35,8 @@ function pickups.create(name, x, y)
     pickup.collider = hc.circle(x, y, 3.5 * tilemap.scale)
     pickup.collider.class = 'pickup'
     pickup.collider.parent = pickup
+    pickup.attack = 0
+    pickup.defence = 0
     pickup.type = name
     pickup.vx = love.math.random(-5, 5)
     pickup.vy = love.math.random(-5, 5)

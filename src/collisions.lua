@@ -53,6 +53,7 @@ function collisions.handleEntity(entA, collider)
         
         if entA == hero.entity and classB == 'pickup' then
             entB:pickup(entA)
+            goto continue
         elseif classA ~= 'weapon' and classB ~= 'weapon' then
             local totalMass = entA.mass + entB.mass
             if totalMass > 0 then

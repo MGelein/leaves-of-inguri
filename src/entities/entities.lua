@@ -59,7 +59,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         damage = function(self, amt)
             if self.health == -100 or self.invulnerableTime > 0 then return end
             amt = amt - amt * self.defence
-            if amt < 0 then return end
+            if amt <= 0 then return end
 
             self.invulnerableTime = config.combat.invulnerableTime
 
