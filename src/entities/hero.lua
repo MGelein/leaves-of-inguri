@@ -32,16 +32,19 @@ function hero.save()
 end
 
 function hero.setKeys(amt)
+    if amt < 0 then amt = 0 end
     hero.keys = amt
     gui.heroWidget.keyLabel.text = amt
 end
 
 function hero.setCoins(amt)
+    if amt < 0 then amt = 0 end
     hero.coins = amt
     gui.heroWidget.coinLabel.text = amt
 end
 
 function hero.setRings(amt)
+    if amt < 0 then amt = 0 end
     hero.rings = amt
     gui.heroWidget.ringLabel.text = amt
 end

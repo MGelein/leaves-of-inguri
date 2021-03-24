@@ -127,6 +127,36 @@ function dialogues.executeCommand(command)
     fn(command.args)
 end
 
+function dialogues.executeCoinsCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for coins, expected 1, got " .. tostring(#args)) return end
+    local startChar = args[1]:sub(1, 1)
+    local amt = tonumber(args[1])
+    if startChar == '+' or startChar == '-' then 
+        amt = hero.coins + tonumber(args[1])
+    end
+    hero.setCoins(amt)
+end
+
+function dialogues.executeRingsCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for rings, expected 1, got " .. tostring(#args)) return end
+    local startChar = args[1]:sub(1, 1)
+    local amt = tonumber(args[1])
+    if startChar == '+' or startChar == '-' then 
+        amt = hero.rings + tonumber(args[1])
+    end
+    hero.setRings(amt)
+end
+
+function dialogues.executeKeysCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for keys, expected 1, got " .. tostring(#args)) return end
+    local startChar = args[1]:sub(1, 1)
+    local amt = tonumber(args[1])
+    if startChar == '+' or startChar == '-' then 
+        amt = hero.keys + tonumber(args[1])
+    end
+    hero.setKeys(amt)
+end
+
 function dialogues.executeHealthCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for health, expected 1, got " .. tostring(#args)) return end
     local startChar = args[1]:sub(1, 1)
