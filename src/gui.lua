@@ -426,13 +426,13 @@ function gui.createHeroWidget(x, y)
     
     x = resetX + 32 + padding
     widget.keyIcon = gui.icon(gui.key, x + 32, y + 16)
-    widget.keyLabel = gui.label(0, x + 48 + padding, y + 4)
+    widget.keyLabel = gui.label(hero.keys, x + 48 + padding, y + 4)
     x = x + iconSpacing
     widget.ringIcon = gui.icon(gui.ring, x + 32, y + 16)
-    widget.ringLabel = gui.label(0, x + 48 + padding, y + 4)
+    widget.ringLabel = gui.label(hero.rings, x + 48 + padding, y + 4)
     x = x + iconSpacing
     widget.coinIcon = gui.icon(gui.coin, x + 32, y + 16)
-    widget.coinLabel = gui.label(0, x + 48 + padding, y + 4)
+    widget.coinLabel = gui.label(hero.coins, x + 48 + padding, y + 4)
 
     y = y + 32
     x = resetX + padding
@@ -454,9 +454,6 @@ function gui.createHeroWidget(x, y)
         self.manaBar.value = hero.entity.mana
         self.manaBar.maxValue = hero.entity.maxMana
         self.manaIcon.tile = spells.selectedIcon
-        self.keyLabel.text = hero.keys
-        self.coinLabel.text = hero.coins
-        self.ringLabel.text = hero.rings
     end
 
     widget.destroy = function(self)

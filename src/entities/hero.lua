@@ -33,14 +33,17 @@ end
 
 function hero.setKeys(amt)
     hero.keys = amt
+    gui.heroWidget.keyLabel.text = amt
 end
 
 function hero.setCoins(amt)
     hero.coins = amt
+    gui.heroWidget.coinLabel.text = amt
 end
 
 function hero.setRings(amt)
     hero.rings = amt
+    gui.heroWidget.ringLabel.text = amt
 end
 
 function hero.setStats(health, mana)
