@@ -11,12 +11,15 @@ pickups.templates = {
     },
     coin = {
         tile = 79,
+        onPickup = function(self, other) hero.setCoins(hero.coins + 1) end
     },
     ring = {
         tile = 80,
+        onPickup = function(self, other) hero.setRings(hero.rings + 1) end
     },
     key = {
         tile = 81,
+        onPickup = function(self, other) hero.setKeys(hero.keys + 1) end
     },
 }
 

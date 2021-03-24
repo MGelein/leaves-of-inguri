@@ -12,6 +12,9 @@ function hero.load()
     hero.maxMana = savefile.data.heroMaxMana or 10
     hero.weapon = savefile.data.heroWeapon or 'club'
     hero.armor = savefile.data.heroArmor or 'cloth'
+    hero.coins = savefile.data.heroCoins or 0
+    hero.rings = savefile.data.heroRings or 0
+    hero.keys = savefile.data.heroKeys or 0
 end
 
 function hero.save()
@@ -23,6 +26,21 @@ function hero.save()
     data.heroMaxMana = hero.maxMana
     data.heroWeapon = hero.weapon
     data.heroArmor = hero.armor
+    data.heroCoins = hero.coins
+    data.heroRings = hero.rings
+    data.heroKeys = hero.keys
+end
+
+function hero.setKeys(amt)
+    hero.keys = amt
+end
+
+function hero.setCoins(amt)
+    hero.coins = amt
+end
+
+function hero.setRings(amt)
+    hero.rings = amt
 end
 
 function hero.setStats(health, mana)

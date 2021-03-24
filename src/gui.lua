@@ -7,6 +7,9 @@ gui.emptyHeart = 89
 gui.halfHeart = 90
 gui.fullHeart = 91
 gui.manaCrystal = 99
+gui.key = 81
+gui.ring = 80
+gui.coin = 79
 gui.overlay = {
     alpha = 0,
     ease = nil,
@@ -415,11 +418,24 @@ function gui.clear()
     gui.list = managedlist.create()
 end
 
-function gui.createHealthWidget(x, y)
+function gui.createHeroWidget(x, y)
     local resetX = x
     local padding = 10
+    local iconSpacing = 80
     local widget = gui.element(x, y)
-    x = x + padding
+    
+    x = resetX + 32 + padding
+    widget.keyIcon = gui.icon(gui.key, x + 32, y + 16)
+    widget.keyLabel = gui.label(0, x + 48 + padding, y + 4)
+    x = x + iconSpacing
+    widget.ringIcon = gui.icon(gui.ring, x + 32, y + 16)
+    widget.ringLabel = gui.label(0, x + 48 + padding, y + 4)
+    x = x + iconSpacing
+    widget.coinIcon = gui.icon(gui.coin, x + 32, y + 16)
+    widget.coinLabel = gui.label(0, x + 48 + padding, y + 4)
+
+    y = y + 32
+    x = resetX + padding
     if #spells.known > 1 then
         widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
         x = x + padding + 32
@@ -438,15 +454,25 @@ function gui.createHealthWidget(x, y)
         self.manaBar.value = hero.entity.mana
         self.manaBar.maxValue = hero.entity.maxMana
         self.manaIcon.tile = spells.selectedIcon
+        self.keyLabel.text = hero.keys
+        self.coinLabel.text = hero.coins
+        self.ringLabel.text = hero.rings
     end
 
     widget.destroy = function(self)
         self.healthBar:destroy()
         self.healthIcon:destroy()
+        self.keyIcon:destroy()
+        self.keyLabel:destroy()
+        self.coinIcon:destroy()
+        self.coinLabel:destroy()
+        self.ringIcon:destroy()
+        self.rinLabel:destroy()
         if self.manaBar then self.manaBar:destroy() end
         if self.manaIcon then self.manaIcon:destroy() end
         gui.list:remove(self)
     end
+    gui.heroWidget = widget
     return widget
 end
 
