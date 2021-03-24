@@ -22,13 +22,14 @@ function tilemap.load(name)
     tilemap.height = tilemap.rows * tilemap.tileHeight
     tilemap.canvas = love.graphics.newCanvas(tilemap.width, tilemap.height)
 
-    for i, layer in ipairs(tilemap.data.layers) do
-        if layer.name == 'tiles' then tilemap.renderCanvas(layer.data)
-        elseif layer.name == 'collision' then tilemap.createCollisionShapes(layer.objects)
-        elseif layer.name == 'entities' then tilemap.createEntities(layer.data)
-        elseif layer.name == 'triggers' then tilemap.createTriggers(layer.objects)
-        end
-    end
+    local tileLayer = tilemap.getLayerByName('tiles')
+    tilemap.renderCanvas(tileLayer.data)
+    local collisionLayer = tilemap.getLayerByName('collision')
+    tilemap.createCollisionShapes(collisionLayer.objects)
+    local entityLayer = tilemap.getLayerByName('entities')
+    tilemap.createEntities(entityLayer.data)
+    local triggerLayer = tilemap.getLayerByName('triggers')
+    tilemap.createTriggers(triggerLayer.objects)
 
     local paddingX = config.width - tilemap.width * tilemap.scale
     local paddingY = config.height - tilemap.height * tilemap.scale
@@ -37,6 +38,12 @@ function tilemap.load(name)
     music.play(tilemap.data.properties.bgm)
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
+end
+
+function tilemap.getLayerByName(name)
+    for i, layer in ipairs(tilemap.data.layers) do
+        if layer.name == name then return layer end
+    end
 end
 
 function tilemap.createTriggers(objects)
