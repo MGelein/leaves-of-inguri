@@ -32,6 +32,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         effects = {},
         highlightHue = 0, 
         onDeath = nil,
+        ignoreCollision = false,
 
         setEffect = function(self, effect, duration)
             self.effects[effect] = duration

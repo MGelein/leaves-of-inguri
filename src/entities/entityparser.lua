@@ -163,11 +163,17 @@ entityparser.objectTemplates = {
     door = {
         tile = 33,
         health = 2,
+        colliderScale = 0.8,
         description = {'A simple wooden door'},
+        onInteract = function(self) 
+            self.ignoreCollision = not self.ignoreCollision
+            self.sx = self.sx > 0.5 and 0 or 1
+        end
     },
     campfire = {
         tile = 122,
         health = 1,
+        colliderScale = 0.8,
         description = {'A beautiful campfire with embers that softly glow, welcoming you closer with a familiar warmth and protection.'},
     },
     gravestone = {
@@ -183,8 +189,18 @@ entityparser.objectTemplates = {
     vase = {
         tile = 38,
         health = 1,
+        colliderScale = 0.7,
         description = {'A beautiful vase, maybe there is something in it...'},
+        
         onDeath = function(self) pickups.dropList({'health', 'mana'}, self.x, self.y) end
+    },
+    chest = {
+        tile = 52,
+        health = 100,
+        description = {'A strong wooden chest. It might contain some valuables.'},
+        
+        onDeath = function(self) pickups.dropChest(self) end,
+        onInteract = function(self) self:damage(101) end,
     }
 }
 

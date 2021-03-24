@@ -31,10 +31,12 @@ end
 
 function collisions.handleTrigger(trigger, collider)
     local activated = false
-    for shape, delta in pairs(hc.collisions(collider)) do
-        if shape.class == 'hero' then
-            if not trigger.activated and trigger.method == 'collide' then trigger:activate() end
-            activated = true
+    if trigger.method == 'collide' then 
+        for shape, delta in pairs(hc.collisions(collider)) do
+            if shape.class == 'hero' then
+                if not trigger.activated then trigger:activate() end
+                activated = true
+            end
         end
     end
     trigger.activated = activated
@@ -42,10 +44,11 @@ end
 
 function collisions.handleEntity(entA, collider)
     local classA = collider.class
+    if entA.ignoreCollision then return end
     for shape, delta in pairs(hc.collisions(collider)) do
         local classB = shape.class
         local entB = shape.parent
-        if entB == nil or classB == 'trigger' then goto continue end
+        if entB == nil or classB == 'trigger' or entB.ignoreCollision then goto continue end
         
         if entA == hero.entity and classB == 'pickup' then
             entB:pickup(entA)

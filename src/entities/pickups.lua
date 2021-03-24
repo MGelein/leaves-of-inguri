@@ -32,3 +32,7 @@ function pickups.create(name, x, y)
     end
     return pickup
 end
+
+function pickups.dropChest(chest)
+    print(chest)
+end

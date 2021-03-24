@@ -6,6 +6,7 @@ function objects.create(id, xPos, yPos, template)
     object.mass = template.mass or 0
     object.onDeath = template.onDeath
     object.collider.class = 'object'
+    object.collider:scale(template.colliderScale or 1)
     object.index = i
     object.description = template.description
     if template.update then object.update = template.update end
@@ -14,6 +15,6 @@ function objects.create(id, xPos, yPos, template)
         object.interact = function(self)
             gui.showText(randomFromTable(self.description))
         end
-        object.interact = template.interact or object.interact
+        object.interact = template.onInteract or object.interact
     end
 end
