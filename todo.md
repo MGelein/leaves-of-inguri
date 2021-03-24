@@ -1,6 +1,5 @@
 # TODO
 - Adding more conditions to a response in the dialogue system, allowing for more complex conditions
-- Develop a pickup system for health, mana and keys
 - Create a quests UI including GUI overlay
 - Making the minimap work properly
 - Creating the maps for the necessary zones
@@ -60,3 +59,4 @@
 - Creating a working quest system, complete with saving, states and short descriptions
 - Add QUEST, WEAPON and ARMOR commands to the dialogue system, to set quest state, hero weapon and armor respectively. 
 - Write documentation for the triggers, maps, quests, and dialogue systems. Otherwise we will forget!
+- Develop a pickup system for health, mana and keys
