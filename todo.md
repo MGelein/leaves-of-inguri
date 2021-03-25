@@ -1,6 +1,4 @@
 # TODO
-- Adding more conditions to a response in the dialogue system, allowing for more complex conditions
-- Create a quests UI including GUI overlay
 - Making the minimap work properly
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
@@ -60,3 +58,5 @@
 - Add QUEST, WEAPON and ARMOR commands to the dialogue system, to set quest state, hero weapon and armor respectively. 
 - Write documentation for the triggers, maps, quests, and dialogue systems. Otherwise we will forget!
 - Develop a pickup system for health, mana and keys
+- Adding more conditions to a response in the dialogue system, allowing for more complex conditions
+- Create a quests UI including GUI overlay

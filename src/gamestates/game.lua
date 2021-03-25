@@ -124,5 +124,5 @@ function game.openControls()
 end
 
 function  game.openQuests()
-    
+    return gui.questpanel()
 end

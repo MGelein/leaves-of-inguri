@@ -175,7 +175,7 @@ function gui.button(text, xPos, yPos, width, onActivate, font)
     local button = gui.element(xPos, yPos)
     button.text = text
     button.w = width
-    button.h = 48
+    button.h = (font or assets.fonts.button):getHeight()
     button.selected = false
     button.panel = gui.panel(xPos, yPos, width, button.h)
     button.label = gui.label(text, xPos, yPos, width, 'center')
@@ -416,6 +416,81 @@ function gui.clear()
     gui.hideOverlay()
     if game.menu and game.menu.destroy then game.menu:destroy() end
     gui.list = managedlist.create()
+end
+
+function gui.questpanel()
+    local pages = {}
+    local activePage = 1
+    for name, quest in pairs(quests.known()) do
+        table.insert(pages, {['name'] = name, ['quest'] = quest})
+        if name == quests.active then activePage = #pages end
+    end
+    local x = 200
+    local y = 150
+    local w = config.width - x * 2
+    local h = config.height - y * 2
+    local explanation = 'LEFT and RIGHT to navigate, ATTACK or INTERACT to set active, BLOCK to go back.'
+    local qpanel = gui.element(x, y)
+    qpanel.w = w
+    qpanel.h = h
+    qpanel.pages = pages
+    qpanel.panel = gui.panel(x, y, w, h)
+    qpanel.currentPage = 1
+    qpanel.pageHeader = gui.label(qpanel.currentPage .. '/' .. #pages, 0, y + 4, config.width, 'center')
+    qpanel.questHeader = gui.label('No Quests Available', x + 32, y + 48, config.width, 'left')
+    qpanel.questHeader.font = assets.fonts.button
+    qpanel.statusHeader = gui.label('status: --', config.width - x * 3 - 32, y + 64, x * 2, 'right')
+    qpanel.explanation = gui.label('Get some quests from people to fill your quest log!', x + 32, y + 112, qpanel.w - 64, 'left')
+    qpanel.controls = gui.label(explanation, 0, config.height - y - 32, config.width, 'center')
+    qpanel.controls.font = assets.fonts.quest
+    
+    qpanel.loadPage = function(self, num)
+        local page = self.pages[num]
+        if not page then 
+            soundfx.play('ui_error')
+            return 
+        end
+        soundfx.play('ui_select')
+        self.currentPage = num
+        self.pageHeader.text = self.currentPage .. '/' .. #self.pages
+        self.questHeader.text = page.quest.title
+        
+        local statusText = 'status: '
+        if page.name == quests.active then statusText = statusText .. 'ACTIVE'
+        elseif page.quest.state == 'end' then statusText = statusText .. 'COMPLETED'
+        else statusText = statusText .. 'WAITING' end
+        self.statusHeader.text = statusText
+        self.explanation.text = page.quest[page.quest.state].text
+    end
+
+    qpanel.update = function(self)
+        if input.isDownOnce('left') or input.isDownOnce('previous') then
+            self:loadPage(self.currentPage - 1)
+        elseif input.isDownOnce('right') or input.isDownOnce('next') then
+            self:loadPage(self.currentPage + 1)
+        elseif input.isDownOnce('interact') or input.isDownOnce('attack') then
+            local page = self.pages[self.currentPage]
+            local questState = page.quest.state
+            if questState == 'end' then
+                soundfx.play('ui_error')
+            else
+                soundfx.play('ui_action')
+                quests.setState(page.name, questState)
+            end
+        end
+    end
+
+    qpanel.destroy = function(self)
+        self.panel:destroy()
+        self.pageHeader:destroy()
+        self.questHeader:destroy()
+        self.statusHeader:destroy()
+        self.explanation:destroy()
+        self.controls:destroy()
+        gui.list:remove(self)
+    end
+    qpanel:loadPage(activePage)
+    return qpanel
 end
 
 function gui.createHeroWidget(x, y)

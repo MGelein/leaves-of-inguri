@@ -8,6 +8,13 @@ quests.cache = {}
 quests.complete = {}
 quests.active = 'none'
 
+function quests.known()
+    local known = {}
+    for name, quest in pairs(quests.cache) do known[name] = quest end
+    for name, quest in pairs(quests.complete) do known[name] = quest end
+    return known
+end
+
 function quests.load(name)
     local url = 'assets/quests/' .. name .. '.txt'
     if not love.filesystem.getInfo(url) then return end
