@@ -33,7 +33,7 @@ function game.update(dt)
         if input.isDownOnce('menu') then game.showMenu('menu') end
         if input.isDownOnce('map') then game.showMenu('minimap') end
     else
-        if input.isDownOnce('block') then game.popMenu() end
+        if input.isDownOnce('block') or input.isDownOnce('menu') then game.popMenu() end
         if game.menuUpdate then game.menuUpdate() end
     end
 end

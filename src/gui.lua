@@ -136,6 +136,7 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
             local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
             ez.easeOut(button, {y = yPos}, {time = easeTime, delay = easeDelay})
             table.insert(buttonGroup.buttons, button)
+            local verticalInc = verticalSpacing > button.h and verticalSpacing or button.h
             yPos = yPos + verticalSpacing
         end
     end
@@ -173,10 +174,11 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
 end
 
 function gui.button(text, xPos, yPos, width, onActivate, font)
+    local w, lines = (font or assets.fonts.button):getWrap(text, width)
     local button = gui.element(xPos, yPos)
     button.text = text
     button.w = width
-    button.h = (font or assets.fonts.button):getHeight()
+    button.h = (font or assets.fonts.button):getHeight() * #lines
     button.selected = false
     button.panel = gui.panel(xPos, yPos, width, button.h)
     button.label = gui.label(text, xPos, yPos, width, 'center')
