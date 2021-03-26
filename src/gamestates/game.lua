@@ -92,12 +92,7 @@ function game.openMenu()
 end
 
 function game.openMinimap()
-    game.menuUpdate = game.updateMinimap
-    return gui.imgbox(assets.minimap, tilemap.scale)
-end
-
-function game.updateMinimap()
-    if input.isDownOnce('map') then game.popMenu() end
+    return gui.minimap()
 end
 
 function game.openSave()

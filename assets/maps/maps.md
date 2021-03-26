@@ -5,6 +5,7 @@ This document briefly describes some of the more outlandish concepts that I have
 Every map has the option to set some custom variables. On the map level, it's just two options:
 - __bgm__: Sets the backgroundmusic track that plays when you are on this map. __Does not need an extension!__
 - __name__: The name of the map that will be shown in the UI, so make this one prettier!
+- __minimap__: The name of the minimap marker that will be active when you are in this area
 
 ## Map Layers
 Every map has 4 layers:

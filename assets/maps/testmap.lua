@@ -11,6 +11,8 @@ return {
   nextlayerid = 6,
   nextobjectid = 41,
   properties = {
+    ["bgm"] = "testbgm",
+    ["minimap"] = "fields",
     ["name"] = "Testing Fields"
   },
   tilesets = {

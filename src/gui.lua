@@ -10,6 +10,7 @@ gui.manaCrystal = 99
 gui.key = 81
 gui.ring = 80
 gui.coin = 79
+gui.minimapMarker = 'none'
 gui.overlay = {
     alpha = 0,
     ease = nil,
@@ -325,6 +326,114 @@ function gui.imgbox(img, scale)
         love.graphics.setLineWidth(1)
     end
     return imgbox
+end
+
+function gui.minimap()
+    local minimap = gui.element(0, 0)
+    minimap.img = gui.imgbox(assets.minimap, tilemap.scale)
+    minimap.labelText = ''
+    minimap.img.visible = false
+    minimap.drawOffset = 0
+    minimap.offDir = 1
+    minimap.markers = {
+        {town = {x = 416, y = 448, label = 'The Fringe'}},
+        {fields = {x = 352, y = 416, label = 'The Fields'}},
+        {abbey = {x = 320, y = 352, label = 'Abandoned Abbey'}},
+        {outskirts = {x = 320, y = 192, label = 'Lost City Outskirts'}},
+        {palace = {x = 288, y = 160, label = 'Lost City Palace'}},
+        {gardens = {x = 224, y = 160, label = 'Lost City Gardens'}},
+        {outersanctum = {x = 224, y = 64, label = 'Outer Sanctum'}},
+        {temple = {x = 128, y = 64, label = 'Inguri Temple'}},
+        {inguri = {x = 32, y = 32, label = 'Inguri'}},
+    }
+    for i, marker in ipairs(minimap.markers) do
+        for markerName, data in pairs(marker) do
+            if markerName == gui.minimapMarker then
+                minimap.cursorIndex = i
+                break
+            end
+        end
+    end
+
+    minimap.getMarker = function(self, name)
+        for i, marker in ipairs(self.markers) do
+            for markerName, markerData in pairs(marker) do
+                if name == markerName then return markerData end
+            end
+        end
+    end
+    minimap.setLocationMarker = function(self, name) self.locationMarker = self:getMarker(name) end
+    minimap.setCursorMarker = function(self, name) self.cursorMarker = self:getMarker(name) end
+    minimap.destroy = function(self)
+        self.img:destroy()
+        gui.list:remove(self)
+    end
+    minimap.draw = function(self)
+        love.graphics.push()
+        self.img:draw()
+        love.graphics.translate(self.img.x, self.img.y)
+        self:drawCursor(self.locationMarker, 2, {1, 0, 0})
+        self:drawCursor(self.cursorMarker, 4, {1, 0.65, 0}, true)
+        self:drawLabel()
+        love.graphics.pop()
+    end
+    minimap.drawLabel = function(self)
+        love.graphics.setFont(assets.fonts.normal)
+        love.graphics.setLineWidth(tilemap.scale)
+        love.graphics.setColor(0, 0, 0, 0.6)
+        love.graphics.rectangle('fill', self.labelX - 24, self.labelY - 32, self.labelW, 32)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.rectangle('line', self.labelX - 24, self.labelY - 32, self.labelW, 32)
+        love.graphics.print(self.labelText, self.labelX - 16, self.labelY - 32)
+        love.graphics.setLineWidth(1)
+    end
+    minimap.drawCursor = function(self, marker, lineWidth, color, useOffset)
+        if not marker then return end
+        local off = useOffset and self.drawOffset or -0.5 * self.drawOffset
+        love.graphics.setColor(unpack(color))
+        love.graphics.setLineWidth(lineWidth)
+        love.graphics.rectangle('line', marker.x - off, marker.y - off, 32 + off * 2, 32 + off * 2)
+        love.graphics.setLineWidth(1)
+        love.graphics.setColor(1, 1, 1)
+    end
+    minimap.update = function(self, dt)
+        self.drawOffset = self.drawOffset + dt * 4 * self.offDir
+        if self.drawOffset > 2 then 
+            self.offDir = -1
+            self.drawOffset = 2
+        elseif self.drawOffset < 0 then
+            self.offDir = 1
+            self.drawOffset = 0
+        end
+
+        if input.isDownOnce('map') then game.popMenu() end
+        if input.isDownOnce('previous') or input.isDownOnce('left') or input.isDownOnce('up') then
+            self:updateCursor(1)
+        elseif input.isDownOnce('next') or input.isDownOnce('right') or input.isDownOnce('down') then
+            self:updateCursor(-1)
+        end
+    end
+    minimap.updateCursor = function(self, dir)
+        self.cursorIndex = self.cursorIndex + dir
+        if self.cursorIndex > #self.markers then self.cursorIndex = #self.markers
+        elseif self.cursorIndex < 1 then self.cursorIndex = 1 end
+        for name, data in pairs(self.markers[self.cursorIndex]) do
+            if name then self:setCursorMarker(name) break end
+        end
+        self.labelText = self.cursorMarker.label
+        self.labelW = assets.fonts.normal:getWidth(self.labelText) + 16
+        self.labelX = self.cursorMarker.x
+        self.labelY = self.cursorMarker.y
+        if self.labelX + self.labelW > self.img.w - 8 then
+            self.labelX = self.img.w - 8 - self.labelW
+        elseif self.labelX < 8 then
+            self.labelX = 8
+        end
+    end
+    minimap:setLocationMarker(gui.minimapMarker)
+    minimap:setCursorMarker(gui.minimapMarker)
+    minimap:updateCursor(0)
+    return minimap
 end
 
 function gui.controlpanel(lines, x, y, w)

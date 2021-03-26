@@ -5,6 +5,7 @@ function love.load()
     config = savefile.read('settings.ini') or config
     
     love.mouse.setVisible(false)
+    love.graphics.setLineStyle('rough')
     assets.load()
     input.load()
     screen.setResolution(config.window.width, config.window.height, config.window.fullscreen)

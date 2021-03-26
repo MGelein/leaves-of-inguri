@@ -85,7 +85,7 @@ The third and final arc finishes of the story we started with our final spell (b
  - The Temple - The Tree Forge
  - The Temple - 
  - The Temple - 
-- The Inner Sanctum - The Junction _Sword_, _health +5_
- - The Junction - The Vault of Inguri
- - The Junction - The Walk
- - The Junction - The Heart of Inguri
+- The Inner Sanctum - Inguri _Sword_, _health +5_
+ - Inguri - The Vault of Inguri
+ - Inguri - The Walk
+ - Inguri - The Heart of Inguri

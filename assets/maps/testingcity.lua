@@ -12,6 +12,7 @@ return {
   nextobjectid = 25,
   properties = {
     ["bgm"] = "testbgm",
+    ["minimap"] = "town",
     ["name"] = "Testing City"
   },
   tilesets = {
