@@ -1,5 +1,4 @@
 # TODO
-- Making the minimap work properly
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
@@ -60,3 +59,4 @@
 - Develop a pickup system for health, mana and keys
 - Adding more conditions to a response in the dialogue system, allowing for more complex conditions
 - Create a quests UI including GUI overlay
+- Making the minimap work properly
