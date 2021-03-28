@@ -1,5 +1,4 @@
 entities = {
-    shield = 95,
     hero = 5,
     campfire = 122,
     white = {1, 1, 1},
@@ -30,6 +29,8 @@ function entities.create(identity, spriteNumber, xPos, yPos)
         colliderR = 0,
         mass = 0,
         blocking = false,
+        blockPct = 0.5,
+        shieldTile = -1,
         invulnerableTime = 0,
         effects = {},
         highlightHue = 0, 
@@ -60,6 +61,7 @@ function entities.create(identity, spriteNumber, xPos, yPos)
             vx = vx or 0
             vy = vy or 0
             if self.health == -100 or self.invulnerableTime > 0 then return end
+            if self.blocking then amt = amt * self.blockPct end
             amt = amt - amt * self.defence
             if amt <= 0 then return end
 
@@ -153,8 +155,8 @@ function entities.draw()
         else love.graphics.setColor(unpack(ent.tint)) end
         
         assets.entities.drawSprite(ent.sprite, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
-        if ent.blocking then
-            assets.entities.drawSprite(entities.shield, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
+        if ent.blocking and ent.shieldTile > 0 then
+            assets.entities.drawSprite(ent.shieldTile, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
         end
         if config.debug then 
             ent.collider:draw('line') 

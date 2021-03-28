@@ -183,6 +183,12 @@ entityparser.armorTemplates = {
     plate = {tile = 7, defence = 0.8},
 }
 
+entityparser.shieldTemplates = {
+    wood = {tile = 93, blockPct = 0.25},
+    reinforced = {tile = 95, blockPct = 0.5},
+    iron = {tile = 94, blockPct = 0.75},
+}
+
 entityparser.objectTemplates = {
     door = {
         tile = 33,

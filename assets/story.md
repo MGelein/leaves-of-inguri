@@ -30,6 +30,10 @@ Each area in the game can have multiple quests, which, depending on the difficul
  - Talk With Plants (given in the Lost City)
  - Blink (given in the Inner Sanctum)
  4. Stat rewards (normal): Over the course of the game the player can receive mana and health in +5 increments as quest rewards. Generally they are given in a 2:1 health:mana ratio.
+ 5. Control upgrades (major): gives more controlling options
+  - Wooden Shield (given in The Fringe). Only blocks a quarter of incoming damage
+  - Reinforced Shield (given in The Lost City). Blocks half of all incoming damage
+  - Iron Shield (given in The Lost City). Blocks 75% of incoming damage
 
 ## Story, in three arcs
 Our story will be told in three arcs. Each of these arcs should be a separate story that is able to stand on its own, and ideally they should form a cohesive narrative structure between eachother. Each arc corresponds to one of the three spells, which is obtained during this arc. During each arc we will have 3 distinct areas, each containing some quests (maybe three?). 
@@ -38,7 +42,7 @@ Our story will be told in three arcs. Each of these arcs should be a separate st
 The Fringe, a small village on the edge of the sacred woods, is the starting location for our hero. During their first adventures in and around town we discover the source of some of the problems the town has been facing, as well as our first spell.
 
 #### Areas
-- The Fringe - Town _Leather Armor_, _health +5_
+- The Fringe - Town __Wooden Shield__, _Leather Armor_, _health +5_
  - Town - Southern Road
  - Town - Public Square
  - Town - Inn
@@ -64,7 +68,7 @@ The second arc, located inside of the sacred woods, focuses on plants and our co
  - Outskirts - Inguri Forest
  - Outskirts - Gatehouse
  - Outskirts - Housing District
-- The Lost City - Palace _Chain armor_, _mana +5_
+- The Lost City - Palace _Chain armor_, _mana +5_, _Reinforced Shield_
  - Palace - Servant Quarters
  - Palace - Armory
  - Palace - Throne Room
@@ -77,7 +81,7 @@ The second arc, located inside of the sacred woods, focuses on plants and our co
 The third and final arc finishes of the story we started with our final spell (blink) and hopefully a boss fight against the great evil that caused all this. During this arc we learn to work with 'Blink' and should not learn much new knowledge, only maybe some twists.
 
 #### Areas
-- The Inner Sanctum - The Outer Sanctum __Blink__, _mana +5_
+- The Inner Sanctum - The Outer Sanctum __Blink__, _mana +5_, _Iron Shield_
  - The Outer Sanctum - Arcane Library
  - The Outer Sanctum - Guest Chambers
  - The Outer Sanctum - Courtyard

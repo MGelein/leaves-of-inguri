@@ -11,6 +11,7 @@ function hero.load()
     hero.mana = savefile.data.heroMana or 10
     hero.maxMana = savefile.data.heroMaxMana or 10
     hero.weapon = savefile.data.heroWeapon or 'club'
+    hero.shield = savefile.data.heroShield or 'none'
     hero.armor = savefile.data.heroArmor or 'cloth'
     hero.coins = savefile.data.heroCoins or 0
     hero.rings = savefile.data.heroRings or 0
@@ -25,6 +26,7 @@ function hero.save()
     data.heroMana = hero.mana
     data.heroMaxMana = hero.maxMana
     data.heroWeapon = hero.weapon
+    data.heroShield = hero.shield
     data.heroArmor = hero.armor
     data.heroCoins = hero.coins
     data.heroRings = hero.rings
@@ -57,6 +59,13 @@ function hero.setStats(health, mana)
         obj.mana = mana
         obj.maxMana = mana
     end
+end
+
+function hero.setShield(shield)
+    hero.shield = shield
+    local shieldTemplate = entityparser.shieldTemplates[hero.shield] or {tile = -1, blockPct = 0}
+    hero.entity.blockPct = shieldTemplate.blockPct
+    hero.entity.shieldTile = shieldTemplate.tile
 end
 
 function hero.setWeapon(weapon)
@@ -93,6 +102,9 @@ function hero.create(xPos, yPos)
     entity.detectCollider = hc.circle(xPos, yPos, 50)
     entity.detectCollider.class = 'detect'
     hero.entity = entity
+    hero.setShield(hero.shield)
+    hero.setWeapon(hero.weapon)
+    hero.setArmor(hero.armor)
 end
 
 function hero.moveTo(x, y)
@@ -165,7 +177,7 @@ function hero.handleInput(self)
     if input.isDownOnce('next') then spells.changeSpell(1) end
     if input.isDownOnce('previous') then spells.changeSpell(-1) end
      
-    if input.isDown('block') then self.blocking = true
+    if input.isDown('block') and hero.shield ~= 'none' then self.blocking = true
     else self.blocking = false end
 
     if input.isDownOnce('attack') and self.attackCooldown <= 0 then
