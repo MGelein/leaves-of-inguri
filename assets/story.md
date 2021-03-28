@@ -71,7 +71,7 @@ The second arc, located inside of the sacred woods, focuses on plants and our co
 - The Lost City - Gardens _Axe_, _health +5_
  - Gardens - Greenhouse / Laboratory
  - Gardens - Patio / Terrace
- - Gardens - 
+ - Gardens - Tree Garden
 
 ### The third arc: The Inner Sanctum (Blink)
 The third and final arc finishes of the story we started with our final spell (blink) and hopefully a boss fight against the great evil that caused all this. During this arc we learn to work with 'Blink' and should not learn much new knowledge, only maybe some twists.
@@ -79,12 +79,12 @@ The third and final arc finishes of the story we started with our final spell (b
 #### Areas
 - The Inner Sanctum - The Outer Sanctum __Blink__, _mana +5_
  - The Outer Sanctum - Arcane Library
- - The Outer Sanctum - 
- - The Outer Sanctum - 
+ - The Outer Sanctum - Guest Chambers
+ - The Outer Sanctum - Courtyard
 - The Inner Sanctum - The Temple _Plate armor_, _health +5_
  - The Temple - The Tree Forge
- - The Temple - 
- - The Temple - 
+ - The Temple - Altar of Inguri
+ - The Temple - Private Chambers
 - The Inner Sanctum - Inguri _Sword_, _health +5_
  - Inguri - The Vault of Inguri
  - Inguri - The Walk
