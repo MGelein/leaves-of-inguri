@@ -23,6 +23,7 @@ HEAL(amt) -- heals the hero for the specified amount of hitpoints
 DAMAGE(amt) -- damages the hero for the specified amount of hitpoints
 WEAPON(type) -- sets the weapon type that the hero uses
 ARMOR(type) -- sets the armor type that the hero uses
+SHIELD(type) -- sets the shield type that the hero uses
 QUEST(name, state) -- sets the state of the specified quest
 HEALTH(amt) -- sets the amount of maximum health of the hero, this can also be a relative amt: f.e: `+5`
 MANA(amt) -- sets the amount of maximum mana of the hero, this can also be a relative amt: f.e: `+5`

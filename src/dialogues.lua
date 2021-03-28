@@ -182,6 +182,11 @@ function dialogues.executeWeaponCommand(args)
     hero.setWeapon(args[1])
 end
 
+function dialogues.executeShieldCommand(args)
+    if #args ~= 1 then print("Wrong number of arguments for shield, expected 1, got " .. tostring(#args)) return end
+    hero.setShield(args[1])
+end
+
 function dialogues.executeArmorCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for armor, expected 1, got " .. tostring(#args)) return end
     hero.setArmor(args[1])
