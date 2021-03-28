@@ -57,7 +57,7 @@ The Fringe, a small village on the edge of the sacred woods, is the starting loc
 
 #### Quests
 - (Town - Center) Explore the town and find out what is troubling its inhabitants.
-- (Fields - Fringe Forest) Wolves are harassing the travellers along the road, take out their base.
+- (Fields - Forest) Wolves are harassing the travellers along the road, take out their base.
 - (Abbey - Graveyard) Put a ring of a long deceased ancestor on their grave to appease their spirit.
 
 ### The second arc: The Lost City (Talk With Plants)
