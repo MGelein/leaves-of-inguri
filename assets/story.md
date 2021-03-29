@@ -8,7 +8,6 @@ In this document I will layout any necessary groundwork and/or lore required for
  2. The second arc: The Lost City (Talk With Plants)
  3. The third arc: The Inner Sanctum (Blink)
 3. Lore and Worldbuilding
-4. Items and progression
 
 ## Quests
 Each area in the game can have multiple quests, which, depending on the difficulty and importance of the quest, will give the player some kind of reward. We have four kinds of rewards:
@@ -93,8 +92,8 @@ For every quest we have a short description that describes where a quest __ends_
 - (Palace - Armory) Find the three parts of the chain armor, maybe some ore __Chain Armor__
 - (Palace - Throne Room) Find more information about why the Lost City fell, uncover its faith __Story__
 - (Gardens - Greenhouse) Gather the various components for a brew that will fortify your body __Mana +5__
-- (Gardens - Patio) Help the old tree on the patio by defeating the rogue trees  __Axe__
-- (Gardens - Tree Garden) Defeat the second of the three cultists and gain their jewel __Story__
+- (Gardens - Patio) Help the old tree on the patio by defeating the rogue trees  __Story__
+- (Gardens - Tree Garden) Defeat the second of the three cultists and gain their jewel __Axe__
 
 ### The third arc: The Inner Sanctum (Blink)
 The third and final arc finishes of the story we started with our final spell (blink) and hopefully a boss fight against the great evil that caused all this. During this arc we learn to work with 'Blink' and should not learn much new knowledge, only maybe some twists.
@@ -124,3 +123,12 @@ For every quest we have a short description that describes where a quest __ends_
 - (Inguri - The Vault) Gain entry to the mighty vault of the temple by finding the three scattered keys in the temple. __Sword__
 - (Inguri - The Walk) Survive the long and dangerous journey that the cultists almost destroyed through their sacrilege __Health +5__
 - (Inguri - The Heart) Bring Inguri back to live by placing the three jewel parts back into her heart __Story__
+
+## Lore and Worldbuilding
+The gods are dead. The elves have not been seen for centuries. Magic is all but forgotten, and only remains in the legends of old and the fairytales of children. 
+
+Inguri was the godess of Nature, and was one of the first godesses to be killed in an event which was later dubbed the Godkilling or the cleansing.
+
+The home of Inguri was called Inguri Forest, a beautiful sacred forest where her most important guardians and wood elves lived close to her in harmony.
+
+The Fringe was a thriving business town at its height, but dropped into decline as the elves were never heard from again. Those that dared to venture into the forest and to the Lost City were either never heard from again, or they came back with horrific tales of the undead.
