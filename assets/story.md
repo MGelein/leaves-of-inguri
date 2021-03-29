@@ -56,9 +56,16 @@ The Fringe, a small village on the edge of the sacred woods, is the starting loc
  - Abbey - Interior
 
 #### Quests
-- (Town - Center) Explore the town and find out what is troubling its inhabitants.
-- (Fields - Forest) Wolves are harassing the travellers along the road, take out their base.
+For every quest we have a short description that describes where a quest __ends__.
+- (Town - Southern Road) To make your way into town you are subjected to the tutorial.
+- (Town - Inn) Help the inn-keeper with his stereotypical rat problem.
+- (Town - Public Square) Explore the town and find out what is troubling its inhabitants.
+- (Fields - Farmland) Wolves are roaming the farmland to the north of the city, please clear and see if everyone's okay.
+- (Fields - Forest) One of the herders knows where the wolves are coming from and points you to the small local forest.
+- (Fields - Abbey Road) Recover the stolen jewelery from a travelling merchant
 - (Abbey - Graveyard) Put a ring of a long deceased ancestor on their grave to appease their spirit.
+- (Abbey - Courtyard) Discover the nature of Inguri and learn the heal spell
+- (Abbey - Interior) Defeat the first of the three cultists and claim their jewel
 
 ### The second arc: The Lost City (Talk With Plants)
 The second arc, located inside of the sacred woods, focuses on plants and our connection with them. We can talk to some of the trees and fight some of their awakened brothers and sisters. We gain our second spell and lots more info on the lore.
@@ -77,6 +84,18 @@ The second arc, located inside of the sacred woods, focuses on plants and our co
  - Gardens - Patio / Terrace
  - Gardens - Tree Garden
 
+#### Quests
+For every quest we have a short description that describes where a quest __ends__.
+- (Outskirts - Inguri Forest) Help the old forester by finding the rogue tree
+- (Outskirts - Gatehouse) Bring the city crest from the Gatehouse back to the archeologist
+- (Outskirts - Housing District) Find and bring back a total of _n_ rings to town
+- (Palace - Servant Quarters) Kill the, now undead, servants to bring peace to their haunted existence
+- (Palace - Armory) Find the three parts of the chain armor, maybe some ore
+- (Palace - Throne Room) Find more information about why the Lost City fell, uncover its faith
+- (Gardens - Greenhouse) Gather the various components for a brew that will fortify your body
+- (Gardens - Patio) Help the old tree on the patio by defeating the rogue trees
+- (Gardens - Tree Garden) Defeat the second of the three cultists and gain their jewel
+
 ### The third arc: The Inner Sanctum (Blink)
 The third and final arc finishes of the story we started with our final spell (blink) and hopefully a boss fight against the great evil that caused all this. During this arc we learn to work with 'Blink' and should not learn much new knowledge, only maybe some twists.
 
@@ -93,3 +112,15 @@ The third and final arc finishes of the story we started with our final spell (b
  - Inguri - The Vault of Inguri
  - Inguri - The Walk
  - Inguri - The Heart of Inguri
+
+#### Quests
+For every quest we have a short description that describes where a quest __ends__.
+- (Outer Sanctum - Arcane Library) Explore the arcane library and bring back an exotic tome
+- (Outer Sanctum - Guest Chambers) Clear the remains of the undead guests from their former chambers
+- (Outer Sanctum - Courtyard) Reactivate the waterflow in the courtyard to enter the temple
+- (Temple - Tree Forge) Collect the leaves of Inguri to prepare for the creation of the best armor
+- (Temple - Altar of Inguri) Defeat the final of the three cultists and get the final jewel
+- (Temple - Private Chambers) Learn about the full details of the sacrilegious event in the highpriest's diary.
+- (Inguri - The Vault) Gain entry to the mighty vault of the temple by finding the three scattered keys in the temple.
+- (Inguri - The Walk) Survive the long and dangerous journey that the cultists almost destroyed through their sacrilege
+- (Inguri - The Heart) Bring Inguri back to live by placing the three jewel parts back into her heart
