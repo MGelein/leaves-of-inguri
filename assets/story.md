@@ -125,10 +125,28 @@ For every quest we have a short description that describes where a quest __ends_
 - (Inguri - The Heart) Bring Inguri back to live by placing the three jewel parts back into her heart __Story__
 
 ## Lore and Worldbuilding
+The land of Vir, in the kingdom of Lothar.
+
 The gods are dead. The elves have not been seen for centuries. Magic is all but forgotten, and only remains in the legends of old and the fairytales of children. 
 
 Inguri was the godess of Nature, and was one of the first godesses to be killed in an event which was later dubbed the Godkilling or the cleansing.
 
+Mortals tried to steal the power of magic from the gods. To steal the power of Inguri three cultists broke her heart and tried to escape the crime scene. None of them made it far away from the crime scene, all died and guard their piece of heart ever so closely.
+
 The home of Inguri was called Inguri Forest, a beautiful sacred forest where her most important guardians and wood elves lived close to her in harmony.
 
 The Fringe was a thriving business town at its height, but dropped into decline as the elves were never heard from again. Those that dared to venture into the forest and to the Lost City were either never heard from again, or they came back with horrific tales of the undead.
+
+As the hero you have heard of the magic tales of old, and you want to find any remnants of the magic. 
+
+## Characters
+- Hero
+- Archeologist
+- Farmer
+- Forester
+- Inn Keeper
+- Inguri
+- Highpriest Elthar
+- Cultist Marius
+- Cultist Pontius
+- Cultist Cerrus
