@@ -7,7 +7,7 @@ game = {
     menuUpdate = nil,
 }
 
-function game.load(slot)
+function game.load()
     savefile.load(savefile.currentSlot)
     game.timePlayed = savefile.data.timePlayed or 0
 end

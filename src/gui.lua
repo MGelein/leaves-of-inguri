@@ -495,19 +495,19 @@ function gui.saveslot(x, y, w, h, summary)
     slot.thumbH = (slot.thumbW / 16) * 9
     slot.time = summary.time
     slot.title = summary.mapName
-    slot.empty = summary.thumb == nil
+    slot.selected = false
     slot.draw = function(self)
         love.graphics.setLineWidth(tilemap.scale)
         love.graphics.setColor(0, 0, 0, 0.6)
         love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
-        if self.empty then love.graphics.setColor(0.5, 0.5, 0.5)
+        if not self.selected then love.graphics.setColor(0.5, 0.5, 0.5)
         else love.graphics.setColor(1, 1, 1) end
         love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
 
         love.graphics.setFont(assets.fonts.button)
         love.graphics.printf(self.title, self.x, self.y + 10, self.w, 'center')
         
-        if not self.empty then
+        if self.thumb then
             love.graphics.draw(self.thumb, self.thumbX + self.x, self.thumbY + self.y, 0, self.thumbS, self.thumbS)
         end
         love.graphics.setFont(assets.fonts.normal)
@@ -515,7 +515,9 @@ function gui.saveslot(x, y, w, h, summary)
         love.graphics.rectangle('line', self.thumbX + self.x, self.thumbY + self.y, self.thumbW, self.thumbH)
         love.graphics.setColor(1, 1, 1)
     end
-    ez.easeOut(slot, {y = y}, {delay = x / 5000})
+    ez.easeOut(slot, {y = y}, {delay = x / 5000}):complete(function()
+        if slot.selected then ez.easeInOut(slot, {y = y - 50}, {time = 0.5}) end
+    end)
     return slot
 end
 

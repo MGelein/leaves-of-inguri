@@ -43,8 +43,8 @@ function savefile.summary(slot)
     else
         summary.time = '--:--'
     end
-    summary.mapName = data.currentMapName or 'No Data'
-    if love.filesystem.getInfo('thumb' .. slot .. '.png') then 
+    summary.mapName = data.currentMapName or 'New Game'
+    if love.filesystem.getInfo('thumb' .. slot .. '.png') and data.timePlayed then 
         summary.thumb = love.graphics.newImage('thumb' .. slot .. '.png')
     end
     return summary
