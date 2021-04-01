@@ -60,3 +60,5 @@
 - Adding more conditions to a response in the dialogue system, allowing for more complex conditions
 - Create a quests UI including GUI overlay
 - Making the minimap work properly
+- Made save selection menu
+- Added thumbnails for the save selection
