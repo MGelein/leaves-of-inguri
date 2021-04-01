@@ -35,6 +35,7 @@ function tilemap.load(name)
     local paddingY = config.height - tilemap.height * tilemap.scale
     screen.setBounds(paddingX, paddingY)
     if gamestates.active == game then gui.showHeader(tilemap.data.properties.name) end
+    savefile.data.currentMapName = tilemap.data.properties.name
     music.play(tilemap.data.properties.bgm)
     gui.minimapMarker = tilemap.data.properties.minimap or 'none'
     tilemap.nextHeroPos = nil

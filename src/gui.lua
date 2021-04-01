@@ -483,6 +483,42 @@ function gui.title(text, y)
     return title
 end
 
+function gui.saveslot(x, y, w, h, summary)
+    local slot = gui.element(x, 2000)
+    slot.w = w
+    slot.h = h
+    slot.thumb = summary.thumb
+    slot.thumbS = (w / config.width) * 0.9
+    slot.thumbX = w * 0.05
+    slot.thumbY = 72
+    slot.thumbW = w * 0.9
+    slot.thumbH = (slot.thumbW / 16) * 9
+    slot.time = summary.time
+    slot.title = summary.mapName
+    slot.empty = summary.thumb == nil
+    slot.draw = function(self)
+        love.graphics.setLineWidth(tilemap.scale)
+        love.graphics.setColor(0, 0, 0, 0.6)
+        love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
+        if self.empty then love.graphics.setColor(0.5, 0.5, 0.5)
+        else love.graphics.setColor(1, 1, 1) end
+        love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+
+        love.graphics.setFont(assets.fonts.button)
+        love.graphics.printf(self.title, self.x, self.y + 10, self.w, 'center')
+        
+        if not self.empty then
+            love.graphics.draw(self.thumb, self.thumbX + self.x, self.thumbY + self.y, 0, self.thumbS, self.thumbS)
+        end
+        love.graphics.setFont(assets.fonts.normal)
+        love.graphics.printf('Time: ' .. slot.time, self.x, self.y + self.thumbY + self.thumbH + 16, self.w, 'center')
+        love.graphics.rectangle('line', self.thumbX + self.x, self.thumbY + self.y, self.thumbW, self.thumbH)
+        love.graphics.setColor(1, 1, 1)
+    end
+    ez.easeOut(slot, {y = y}, {delay = x / 5000})
+    return slot
+end
+
 function gui.draw()
     if gui.overlay.visible then
         love.graphics.setColor(0, 0, 0, gui.overlay.alpha)

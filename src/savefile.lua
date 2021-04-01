@@ -11,7 +11,12 @@ end
 function savefile.save(slot)
     hero.save()
     quests.save()
+    savefile.data.timePlayed = game.timePlayed
     savefile.write(savefile.url .. tostring(slot), savefile.data)
+end
+
+function savefile.updateThumb()
+    love.graphics.captureScreenshot('thumb' .. savefile.currentSlot .. '.png')
 end
 
 function savefile.load(slot)
@@ -20,9 +25,36 @@ function savefile.load(slot)
     quests.restoreFromSave()
 end
 
+function savefile.summaries()
+    local summaries = {}
+    for i = 1, 3 do
+        table.insert(summaries, savefile.summary(i))
+    end
+    return summaries
+end
+
+function savefile.summary(slot)
+    local data = savefile.read(savefile.url .. tostring(slot)) or {}
+    local summary = {}
+    if data.timePlayed then
+        local hours = math.floor(data.timePlayed / 3600)
+        local minutes = math.floor(data.timePlayed / 60) - hours * 60
+        summary.time = zeropad(hours) .. ':' .. zeropad(minutes)
+    else
+        summary.time = '--:--'
+    end
+    summary.mapName = data.currentMapName or 'No Data'
+    if love.filesystem.getInfo('thumb' .. slot .. '.png') then 
+        summary.thumb = love.graphics.newImage('thumb' .. slot .. '.png')
+    end
+    return summary
+end
+
 function savefile.delete(slot)
     love.filesystem.remove(savefile.url .. tostring(slot))
 end
+
+-- EVERYTHING BELOW THIS LINE IS JUST GENERIC SAVE IMPLEMENTATION AND CAN BE USED FOR ANY TABLE SAVING
 
 function savefile.write(url, data)
     love.filesystem.write(url, savefile.serialize(data))

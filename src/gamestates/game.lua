@@ -1,6 +1,7 @@
 game = {
     paused = false,
 
+    timePlayed = 0,
     menu = nil,
     menuStack = {},
     menuUpdate = nil,
@@ -8,6 +9,7 @@ game = {
 
 function game.load(slot)
     savefile.load(savefile.currentSlot)
+    game.timePlayed = savefile.data.timePlayed or 0
 end
 
 function game.start()
@@ -26,6 +28,7 @@ end
 
 function game.update(dt)
     if not game.paused then
+        game.timePlayed = game.timePlayed + dt
         entities.update(dt)
         triggers.update(dt)
         pxparticles.update(dt)
@@ -41,6 +44,7 @@ end
 function game.showMenu(menuName)
     gui.showOverlay()
     table.insert(game.menuStack, menuName)
+    if not game.paused then savefile.updateThumb() end
     game.paused = true
     if game.menu then 
         game.menu:destroy()

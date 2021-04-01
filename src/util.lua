@@ -3,6 +3,11 @@ function decrease(value)
     else return value - 1 end
 end
 
+function zeropad(num)
+    if num >= 10 or num < 0 then return tostring(num)
+    else return '0' .. tostring(num) end
+end
+
 function dist(x, y, x2, y2)
     return math.sqrt((x2 - x) ^ 2 + (y2 - y) ^ 2)
 end
