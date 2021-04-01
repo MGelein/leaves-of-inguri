@@ -1,6 +1,6 @@
 mainmenu = {}
 mainmenu.buttons = {
-    {Play = function() gamestates.setNext(game) end},
+    {Play = function() gamestates.setNext(saveselect) end},
     {Settings = function() gamestates.setNext(settings) end},
     {Quit = function() love.event.quit() end},
 }
