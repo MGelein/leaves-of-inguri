@@ -422,11 +422,17 @@ function gui.minimap()
             self:updateCursor(-1)
         elseif input.isDownOnce('interact') or input.isDownOnce('attack') then
             local destination = self.cursorMarker.destination
-            if destination then 
+            if destination then
+                local heroY = hero.entity.y
                 game.popMenu()
                 soundfx.play('travel')
-                ez.easeIn(hero.entity, {sy = 10, sx = 0.01, y = -100}, {time = 0.3}):complete(function() 
-                    tilemap.load(destination) 
+                ez.easeIn(hero.entity, {sy = 10, sx = 0.01, y = heroY - 500}, {time = 0.3}):complete(function() 
+                    tilemap.load(destination)
+                    heroY = hero.entity.y
+                    hero.entity.y = heroY - 500
+                    hero.entity.sy = 10
+                    hero.entity.sx = 0.01
+                    ez.easeOut(hero.entity, {sy = 1, sx = 1, y = heroY}, {time = 0.3})
                 end)
             end
         end

@@ -56,6 +56,17 @@ function tilemap.createTriggers(objects)
 end
 
 function tilemap.createEntities(tiles)
+    tilemap.altar = nil
+    local altarTile = entityparser.objectTemplates.altar.tile
+    for i, tile in ipairs(tiles) do
+        if tile == altarTile then
+            local x = (i - 1) % tilemap.cols
+            local y = math.floor((i - 1) / tilemap.cols)
+            local ent = entityparser.parse(i, tile, x * tilemap.tileWidth * tilemap.scale, y * tilemap.tileHeight * tilemap.scale)
+            tilemap.altar = ent
+            break
+        end
+    end
     for i, tile in ipairs(tiles) do
         if tile > 0 then
             local x = (i - 1) % tilemap.cols
