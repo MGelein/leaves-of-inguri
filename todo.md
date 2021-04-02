@@ -2,6 +2,7 @@
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
+- Add discoverable locations to limit fast traveling
 
 # Done
 - Porting code from the Galleons game
@@ -62,3 +63,4 @@
 - Making the minimap work properly
 - Made save selection menu
 - Added thumbnails for the save selection
+- Creating a simple fast travel system including animations and soundfx

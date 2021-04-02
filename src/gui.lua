@@ -422,7 +422,7 @@ function gui.minimap()
             self:updateCursor(-1)
         elseif input.isDownOnce('interact') or input.isDownOnce('attack') then
             local destination = self.cursorMarker.destination
-            if destination then
+            if destination and game.allowFastTravel then
                 local heroY = hero.entity.y
                 game.popMenu()
                 soundfx.play('travel')
