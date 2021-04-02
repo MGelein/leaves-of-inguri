@@ -5,6 +5,7 @@ game = {
     menu = nil,
     menuStack = {},
     menuUpdate = nil,
+    allowFastTravel = false,
 }
 
 function game.load()
@@ -58,6 +59,7 @@ end
 function game.popMenu()
     table.remove(game.menuStack, #game.menuStack)
     game.menuUpdate = nil
+    game.allowFastTravel = false
     if #game.menuStack < 1 then 
         game.paused = false
         if gui.header and gui.header.ease then 

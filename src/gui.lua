@@ -331,15 +331,17 @@ function gui.imgbox(img, scale)
 end
 
 function gui.minimap()
-    local minimap = gui.element(0, 0)
+    local minimap = gui.element(0, -1000)
     minimap.img = gui.imgbox(assets.minimap, tilemap.scale)
+    local targetY = minimap.img.y
+    minimap.img.y = config.height + minimap.img.h
     minimap.labelText = ''
     minimap.img.visible = false
     minimap.drawOffset = 0
     minimap.offDir = 1
     minimap.markers = {
-        {town = {x = 416, y = 448, label = 'The Fringe'}},
-        {fields = {x = 352, y = 416, label = 'The Fields'}},
+        {town = {x = 416, y = 448, label = 'The Fringe', destination = 'testingcity'}},
+        {fields = {x = 352, y = 416, label = 'The Fields', destination = 'testmap'}},
         {abbey = {x = 320, y = 352, label = 'Abandoned Abbey'}},
         {outskirts = {x = 320, y = 192, label = 'Lost City Outskirts'}},
         {palace = {x = 288, y = 160, label = 'Lost City Palace'}},
@@ -377,6 +379,11 @@ function gui.minimap()
         self:drawCursor(self.locationMarker, 2, {1, 0, 0})
         self:drawCursor(self.cursorMarker, 4, {1, 0.65, 0}, true)
         self:drawLabel()
+
+        if game.allowFastTravel then
+            love.graphics.setFont(assets.fonts.normal)
+            love.graphics.printf('Press ATTACK/INTERACT to fast travel to location.', 0, self.img.h + 10, self.img.w, 'center')
+        end
         love.graphics.pop()
     end
     minimap.drawLabel = function(self)
@@ -413,6 +420,15 @@ function gui.minimap()
             self:updateCursor(1)
         elseif input.isDownOnce('next') or input.isDownOnce('right') or input.isDownOnce('down') then
             self:updateCursor(-1)
+        elseif input.isDownOnce('interact') or input.isDownOnce('attack') then
+            local destination = self.cursorMarker.destination
+            if destination then 
+                game.popMenu()
+                soundfx.play('travel')
+                ez.easeIn(hero.entity, {sy = 10, sx = 0.01, y = -100}, {time = 0.3}):complete(function() 
+                    tilemap.load(destination) 
+                end)
+            end
         end
     end
     minimap.updateCursor = function(self, dir)
@@ -435,6 +451,7 @@ function gui.minimap()
     minimap:setLocationMarker(gui.minimapMarker)
     minimap:setCursorMarker(gui.minimapMarker)
     minimap:updateCursor(0)
+    ez.easeInOut(minimap.img, {y = targetY})
     return minimap
 end
 

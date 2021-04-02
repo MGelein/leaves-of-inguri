@@ -235,6 +235,15 @@ entityparser.objectTemplates = {
         
         onDeath = function(self) pickups.dropChest(self) end,
         onInteract = function(self) self:damage(101) end,
+    },
+    altar = {
+        tile = 28,
+        description = {'An altar of the gods, once used by their most faithful servants.'},
+
+        onInteract = function(self)
+            game.allowFastTravel = true
+            game.showMenu('minimap')
+        end,
     }
 }
 
