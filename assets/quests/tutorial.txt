@@ -1,0 +1,21 @@
+@Learning To Play
+
+#start
+> Move north with arrows/left stick
+Using the arrows on your keyboard, or the d-pad or the left analog stick on your controller you can move around in the world.
+
+#attack
+> Attack the rat by pressing space/X
+Using the spacebar on your keyboard, or the X button on your controller you can attack any object in the world.
+
+#interact
+> Take the shield by interacting with it using enter/A
+Using the enter key on your keyboard, or the A button on your controller you can interact with objects in the world.
+
+#block
+> Block incoming attacks by pressing left shift/B
+Using the left shiftkey on your keyboard, or the B button on your controller you can block a percentage of incoming damage.
+
+#end
+> You have learned the basics of how to play. 
+You have successfully finished the tutorial. At any time you can check your controls in the 'controls' menu.
