@@ -24,7 +24,7 @@ function tilemap.load(name)
 
     local tileLayer = tilemap.getLayerByName('tiles')
     tilemap.renderCanvas(tileLayer.data)
-    local collisionLayer = tilemap.getLayerByName('collision')
+    local collisionLayer = tilemap.getLayerByName('collisions') or tilemap.getLayerByName('collision')
     tilemap.createCollisionShapes(collisionLayer.objects)
     local entityLayer = tilemap.getLayerByName('entities')
     tilemap.createEntities(entityLayer.data)

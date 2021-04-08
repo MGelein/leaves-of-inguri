@@ -1,7 +1,7 @@
 savefile = {}
 savefile.data = {}
 savefile.url = 'savefile'
-savefile.currentSlot = 1
+savefile.currentSlot = -1
 
 function savefile.exists(slot)
     if love.filesystem.getInfo(savefile.url .. tostring(slot)) then return true

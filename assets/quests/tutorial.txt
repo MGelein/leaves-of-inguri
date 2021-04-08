@@ -9,7 +9,7 @@ Using the arrows on your keyboard, or the d-pad or the left analog stick on your
 Using the spacebar on your keyboard, or the X button on your controller you can attack any object in the world.
 
 #interact
-> Take the shield by interacting with it using enter/A
+> Interact with objects by pressing enter/A
 Using the enter key on your keyboard, or the A button on your controller you can interact with objects in the world.
 
 #block
