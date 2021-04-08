@@ -8,6 +8,14 @@ function savefile.exists(slot)
     else return false end
 end
 
+function savefile.isLocationDiscovered(name)
+    return savefile.data[name .. 'Discovered'] == true
+end
+
+function savefile.discover(name)
+    savefile.data[name .. 'Discovered'] = true
+end
+
 function savefile.save(slot)
     hero.save()
     quests.save()

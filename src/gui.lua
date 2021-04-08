@@ -340,15 +340,25 @@ function gui.minimap()
     minimap.drawOffset = 0
     minimap.offDir = 1
     minimap.markers = {
-        {town = {x = 416, y = 448, label = 'The Fringe', destination = 'testingcity'}},
-        {fields = {x = 352, y = 416, label = 'The Fields', destination = 'testmap'}},
-        {abbey = {x = 320, y = 352, label = 'Abandoned Abbey'}},
-        {outskirts = {x = 320, y = 192, label = 'Lost City Outskirts'}},
-        {palace = {x = 288, y = 160, label = 'Lost City Palace'}},
-        {gardens = {x = 224, y = 160, label = 'Lost City Gardens'}},
-        {outersanctum = {x = 224, y = 64, label = 'Outer Sanctum'}},
-        {temple = {x = 128, y = 64, label = 'Inguri Temple'}},
-        {inguri = {x = 32, y = 32, label = 'Inguri'}},
+        {
+            town = {x = 416, y = 448, label = 'The Fringe', destination = 'testingcity'},
+        },{
+            fields = {x = 352, y = 416, label = 'The Fields', destination = 'testmap'},
+        },{  
+            abbey = {x = 320, y = 352, label = 'Abandoned Abbey'},
+        },{
+            outskirts = {x = 320, y = 192, label = 'Lost City Outskirts'},
+        },{
+            palace = {x = 288, y = 160, label = 'Lost City Palace'},
+        },{
+            gardens = {x = 224, y = 160, label = 'Lost City Gardens'},
+        },{
+            outersanctum = {x = 224, y = 64, label = 'Outer Sanctum'},
+        },{
+            temple = {x = 128, y = 64, label = 'Inguri Temple'},
+        },{
+            inguri = {x = 32, y = 32, label = 'Inguri'},
+        },
     }
     for i, marker in ipairs(minimap.markers) do
         for markerName, data in pairs(marker) do
@@ -438,11 +448,21 @@ function gui.minimap()
         end
     end
     minimap.updateCursor = function(self, dir)
+        local cursorBackup = self.cursorIndex
         self.cursorIndex = self.cursorIndex + dir
         if self.cursorIndex > #self.markers then self.cursorIndex = #self.markers
         elseif self.cursorIndex < 1 then self.cursorIndex = 1 end
         for name, data in pairs(self.markers[self.cursorIndex]) do
-            if name then self:setCursorMarker(name) break end
+            if name then 
+                if savefile.isLocationDiscovered(name) then
+                    self:setCursorMarker(name) 
+                    if dir ~= 0 then soundfx.play('ui_select') end
+                else
+                    self.cursorIndex = cursorBackup
+                    if dir ~= 0 then soundfx.play('ui_error') end
+                end
+                break 
+            end
         end
         self.labelText = self.cursorMarker.label
         self.labelW = assets.fonts.normal:getWidth(self.labelText) + 16
