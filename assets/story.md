@@ -122,7 +122,7 @@ For every quest we have a short description that describes where a quest __ends_
 - (Temple - Private Chambers) Learn about the full details of the sacrilegious event in the highpriest's diary __Story__
 - (Inguri - The Vault) Gain entry to the mighty vault of the temple by finding the three scattered keys in the temple. __Sword__
 - (Inguri - The Walk) Survive the long and dangerous journey that the cultists almost destroyed through their sacrilege __Health +5__
-- (Inguri - The Heart) Bring Inguri back to live by placing the three jewel parts back into her heart __Story__
+- (Inguri - The Heart) Bring Inguri back to live by placing the three jewel parts back into her heart. Fight the ghosts of the three cultists. __Story__
 
 ## Lore and Worldbuilding
 The land of Vir, in the kingdom of Lothar.
