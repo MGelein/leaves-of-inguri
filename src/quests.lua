@@ -16,7 +16,7 @@ function quests.known()
 end
 
 function quests.load(name)
-    local url = 'assets/quests/' .. name .. '.txt'
+    local url = 'assets/quests/' .. name .. '.quest'
     if not love.filesystem.getInfo(url) then return end
     quests.current = {state = 'start'}
     for line in love.filesystem.lines(url) do

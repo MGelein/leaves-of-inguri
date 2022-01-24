@@ -21,7 +21,7 @@ dialogues.operands = {
 function dialogues.load(name)
     local dialogue = {entries = {}}
     dialogue.show = dialogues.show
-    for line in love.filesystem.lines('assets/dialogue/' .. name .. '.txt') do
+    for line in love.filesystem.lines('assets/dialogue/' .. name .. '.dialogue') do
         if #line > 0 then dialogues.parseLine(line, dialogue) end
     end
     dialogues.finishEntry(dialogue)
