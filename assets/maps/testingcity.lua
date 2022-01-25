@@ -1,7 +1,7 @@
 return {
-  version = "1.4",
+  version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.4.3",
+  tiledversion = "1.7.2",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 24,
@@ -17,31 +17,9 @@ return {
   },
   tilesets = {
     {
-      name = "colored_tilemap_packed",
+      name = "tiles",
       firstgid = 1,
-      filename = "../../../../Pictures/colored_tilemap_packed.tsx",
-      tilewidth = 8,
-      tileheight = 8,
-      spacing = 0,
-      margin = 0,
-      columns = 14,
-      image = "../../../../Pictures/Assets/Kenney Roguelike/kenney_microroguelike_1.2/Tilemap/colored_tilemap_packed.png",
-      imagewidth = 112,
-      imageheight = 80,
-      objectalignment = "unspecified",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 8,
-        height = 8
-      },
-      properties = {},
-      terrains = {},
-      tilecount = 140,
-      tiles = {}
+      filename = "../../../../Pictures/rpgtiles.tsx"
     }
   },
   layers = {
@@ -57,6 +35,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -87,6 +67,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -99,7 +81,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -114,6 +96,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -282,6 +266,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -366,7 +352,7 @@ return {
           visible = true,
           properties = {
             ["contents"] = "health:2, mana:2, key:2, ring:2",
-            ["method"] = "chest",
+            ["method"] = "collide",
             ["type"] = "drop"
           }
         }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="24" height="13" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="25">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="24" height="13" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="25">
  <editorsettings>
-  <export target="../../Documents/rpg/assets/maps/testingcity.lua" format="lua"/>
+  <export target="../testingcity.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="bgm" value="testbgm"/>
   <property name="minimap" value="town"/>
   <property name="name" value="Testing City"/>
  </properties>
- <tileset firstgid="1" source="../colored_tilemap_packed.tsx"/>
+ <tileset firstgid="1" source="../../../../../Pictures/rpgtiles.tsx"/>
  <layer id="1" name="tiles" width="24" height="13">
   <data encoding="csv">
 76,16,16,16,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,
@@ -37,13 +37,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="collision" visible="0">
+ <objectgroup id="3" name="collision">
   <object id="1" x="32" y="0" width="152" height="8"/>
   <object id="3" x="184" y="0" width="8" height="104"/>
   <object id="4" x="0" y="96" width="184" height="8"/>
