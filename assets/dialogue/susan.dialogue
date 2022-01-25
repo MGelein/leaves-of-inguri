@@ -22,10 +22,22 @@ Are you sure you can't help me with my rat problem?
 - Alright, I will help you! >accepted
 - Unfortunately I have more important things to do! >rejected
 
+{rings >= 1}
+Do you want to trade one of those rings for a wooden shield?
+- Sure! >shieldPurchase
+- No, thanks. >exit
+
 {DEFAULT}
 Oh finally, someone who might be able to help me! Do you think you could be a hero?
 - Maybe, how about you tell me a bit about your problem first! >problem
 - I'm not sure I would like that, maybe some other time... >rejected
+
+#shieldPurchase
+{DEFAULT}
+:SHIELD(wood)
+:RINGS(-1)
+Great! Here you go.
+- Thanks! That was a great deal! >exit
 
 #problem
 {DEFAULT}
