@@ -33,9 +33,14 @@ Oh finally, someone who might be able to help me! Do you think you could be a he
 - I'm not sure I would like that, maybe some other time... >rejected
 
 #shieldPurchase
+{susanShieldPurchased}
+Thanks again for the ring. Put your shield to good use.
+- I definitely will. >exit
+
 {DEFAULT}
 :SHIELD(wood)
 :RINGS(-1)
+:SET(susanShieldPurchased)
 Great! Here you go.
 - Thanks! That was a great deal! >exit
 
