@@ -33,12 +33,10 @@ RINGS(amt) -- sets the amount of coins of the hero, this can also be a relative 
 ```
 
 ## Conditions
-Anything between the conditional markers (`{}`) is parsed to a variable, operator and value. One exception is when checking for the existence of a global flag. In that case you could only provide the variable name, omitting the operand or value.
+Anything between the conditional markers (`{}`) is parsed to a variable, operator and value. One exception is when checking for the existence of a global flag. In that case you could only provide the variable name, omitting the operand or value. Multiple conditions can be separated by `and` and `or` operations, with `and` taking precedence.
 
 The most obfuscated part is the way variable names get resolved. In order, to resolve, we check:
 1. If it's a special reserved name such as `health`
 2. The hero's effects.
 3. The quest state database
 4. The global variable database
-
-Ideally we should be able to add multiple conditions in one line, which is a feature on the roadmap.
