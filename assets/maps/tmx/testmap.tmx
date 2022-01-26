@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="48" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="41">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="48" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="44">
  <editorsettings>
-  <export target="../../Documents/rpg/assets/maps/testmap.lua" format="lua"/>
+  <export target="../testmap.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="bgm" value="testbgm"/>
   <property name="minimap" value="fields"/>
   <property name="name" value="Testing Fields"/>
  </properties>
- <tileset firstgid="1" source="../colored_tilemap_packed.tsx"/>
+ <tileset firstgid="1" source="rpgtiles.tsx"/>
  <layer id="1" name="tiles" width="48" height="27">
   <data encoding="csv">
 76,75,76,76,76,76,76,76,75,76,76,75,76,76,76,76,76,76,75,76,76,76,76,75,76,76,76,76,76,76,76,76,76,76,75,76,76,76,76,76,76,75,76,76,75,76,76,76,
@@ -34,7 +34,7 @@
 76,76,16,16,16,16,15,16,16,16,16,16,16,16,16,61,16,16,16,16,16,16,16,16,16,76,76,75,76,76,76,76,76,76,16,16,16,16,16,16,16,16,61,16,16,16,16,75,
 76,76,76,16,16,16,15,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,76,76,76,76,76,76,76,76,76,76,76,16,16,16,16,16,16,16,16,16,16,16,16,76,
 76,76,76,76,16,16,15,16,16,16,18,16,16,16,16,16,16,16,62,16,16,16,16,16,76,76,76,76,76,76,76,75,76,76,76,76,16,16,16,16,16,16,16,16,16,16,16,76,
-76,75,76,76,16,16,29,2,2,2,32,16,62,16,16,16,16,16,16,16,16,16,16,76,76,76,76,75,76,76,75,76,76,76,76,76,76,16,16,16,62,16,16,16,76,16,16,76,
+76,75,76,76,16,16,29,2,2,2,32,16,62,16,16,16,16,16,16,16,16,16,16,76,76,76,76,75,76,76,75,76,76,76,76,76,76,16,16,16,62,16,16,16,61,16,16,76,
 76,76,76,76,76,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,76,76,76,76,76,76,75,76,76,76,76,76,75,76,76,76,16,16,16,16,16,16,16,16,16,76,
 75,76,76,75,76,76,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,76,76,76,76,75,76,76,76,76,76,76,76,76,76,76,76,76,76,16,16,16,16,16,16,16,75,76,
 76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,75,76,76,76,76,76,76,76,76,76,16,16,16,16,75,76,76
@@ -90,7 +90,6 @@
   <object id="18" x="144" y="120" width="8" height="8"/>
   <object id="20" x="208" y="104" width="8" height="8"/>
   <object id="21" x="320" y="128" width="8" height="8"/>
-  <object id="22" x="352" y="184" width="8" height="8"/>
   <object id="25" x="8" y="40">
    <polygon points="0,0 16,0 16,-8 24,-8 24,-24 32,-24 32,-32 0,-32"/>
   </object>
@@ -121,6 +120,11 @@
   <object id="37" x="328" y="212" width="32" height="4"/>
  </objectgroup>
  <objectgroup id="5" name="triggers">
+  <properties>
+   <property name="method" value="changeEntity"/>
+   <property name="tile" value="21"/>
+   <property name="type" value="interact"/>
+  </properties>
   <object id="34" x="328" y="208" width="32" height="8">
    <properties>
     <property name="destination" value="testingcity@3,3"/>
