@@ -1,7 +1,7 @@
 return {
-  version = "1.5",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.7.2",
+  tiledversion = "1.4.3",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 24,
@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 25,
+  nextobjectid = 26,
   properties = {
     ["bgm"] = "testbgm",
     ["minimap"] = "town",
@@ -17,9 +17,31 @@ return {
   },
   tilesets = {
     {
-      name = "tiles",
+      name = "rpgtiles",
       firstgid = 1,
-      filename = "../../../../Pictures/rpgtiles.tsx"
+      filename = "tmx/rpgtiles.tsx",
+      tilewidth = 8,
+      tileheight = 8,
+      spacing = 0,
+      margin = 0,
+      columns = 14,
+      image = "../graphics/tiles.png",
+      imagewidth = 112,
+      imageheight = 80,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 8,
+        height = 8
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 140,
+      tiles = {}
     }
   },
   layers = {
@@ -35,8 +57,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -67,8 +87,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -96,8 +114,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -266,8 +282,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -354,6 +368,23 @@ return {
             ["contents"] = "health:2, mana:2, key:2, ring:2",
             ["method"] = "collide",
             ["type"] = "drop"
+          }
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 16,
+          y = 16,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["method"] = "load",
+            ["text"] = "This dialogue is shown when the map loads",
+            ["type"] = "text"
           }
         }
       }

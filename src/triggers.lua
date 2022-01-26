@@ -164,3 +164,11 @@ function triggers.monstersGone()
         end
     end
 end
+
+function triggers.onLoad()
+    for i, trigger in ipairs(triggers.list.all) do
+        if trigger.method == 'load' then
+            trigger:activate()
+        end
+    end
+end

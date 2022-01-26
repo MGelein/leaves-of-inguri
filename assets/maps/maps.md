@@ -25,6 +25,7 @@ We have various ways of triggering a trigger:
 - __interact__: When the player presses the `interact` button close enough to this collider it will activate.
 - __monstersGone__: This trigger will run everytime it detects that all monsters on the map have been slain.
 - __chest__: This trigger will run when the chest that is on its tile will be destroyed
+- __load__: This trigger will run when the tilemap is done loading
 
 ### Trigger Types
 Besides various trigger methods we also have loads of different types. Some of these types might require additional properties (described in between the brackets):

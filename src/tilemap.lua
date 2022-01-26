@@ -41,6 +41,7 @@ function tilemap.load(name)
     gui.minimapMarker = tilemap.data.properties.minimap or 'none'
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
+    triggers.onLoad()
 end
 
 function tilemap.getLayerByName(name)
