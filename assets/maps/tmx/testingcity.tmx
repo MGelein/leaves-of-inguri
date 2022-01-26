@@ -98,12 +98,5 @@
     <property name="type" value="drop"/>
    </properties>
   </object>
-  <object id="25" x="16" y="16" width="8" height="8">
-   <properties>
-    <property name="method" value="load"/>
-    <property name="text" value="This dialogue is shown when the map loads"/>
-    <property name="type" value="text"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>

@@ -369,23 +369,6 @@ return {
             ["method"] = "collide",
             ["type"] = "drop"
           }
-        },
-        {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 16,
-          y = 16,
-          width = 8,
-          height = 8,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["method"] = "load",
-            ["text"] = "This dialogue is shown when the map loads",
-            ["type"] = "text"
-          }
         }
       }
     }
