@@ -64,3 +64,6 @@
 - Added thumbnails for the save selection
 - Creating a simple fast travel system including animations and soundfx
 - Add discoverable locations to limit fast traveling
+- Added tilesets and tilemaps to the repo for easier development
+- Created the 'load' trigger method for triggers that activate on tilemap load
+- Conditionals inside of the dialogue system now support multiple conditions with `and` and `or`
