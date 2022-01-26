@@ -230,7 +230,7 @@ function gui.dialogue(data)
         if not entry then game.popMenu() return end
 
         for i, option in ipairs(entry.options) do
-            if dialogues.evaluateCondition(option.condition) then
+            if dialogues.evaluateConditions(option.condition) then
                 entry = option
                 break
             end

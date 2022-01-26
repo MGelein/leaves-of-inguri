@@ -97,6 +97,23 @@ function dialogues.parseResponse(line)
     return res
 end
 
+function dialogues.evaluateConditions(conditions)
+    conditions = conditions:gsub(' and ', '&')
+    conditions = conditions:gsub(' or ', '|');
+    if conditions == 'DEFAULT' then return true end
+    local conditionals = splitstring(conditions, '&')
+    local evaluations = {}
+    for _, condition in ipairs(conditionals) do
+        local optionals = splitstring(trimstring(condition), '|')
+        local foundOption = false
+        for _, optional in ipairs(optionals) do
+            if dialogues.evaluateCondition(optional) then foundOption = true end
+        end
+        if not foundOption then return false end
+    end
+    return true
+end
+
 function dialogues.evaluateCondition(condition)
     if condition == 'DEFAULT' then return true end
     local parts = splitstring(condition, ' ')
