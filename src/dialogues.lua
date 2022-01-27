@@ -91,8 +91,8 @@ function dialogues.parseResponse(line)
     line = line:sub(3)
     local destIndex = line:find('>')
     local res = {
-        text = line:sub(1, line:find('>') - 1),
-        dest = line:sub(destIndex + 1)
+        text = trimstring(line:sub(1, line:find('>') - 1)),
+        dest = trimstring(line:sub(destIndex + 1))
     }
     return res
 end
