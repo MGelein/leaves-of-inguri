@@ -2,10 +2,8 @@
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
-- Add tile icons above head of npcs
 - Improve door interaction and collision handling
 - Make monsters actually lethal
-- Show names of dialogue entries in the UI
 
 # Done
 - Porting code from the Galleons game
@@ -74,3 +72,5 @@
 - Kill all monsters on map command (or specific)
 - Designed Fringe inn basement map
 - Designed quest states for ratproblem quest
+- Show names of dialogue entries in the UI
+- Add tile icons above head of npcs

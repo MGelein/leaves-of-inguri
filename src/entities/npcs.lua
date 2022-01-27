@@ -18,6 +18,17 @@ function npcs.registerTrigger(trigger)
             npc.name = trigger.properties.id
             npc.trigger = trigger
             npc.talk = npcs.talk
+            if(trigger.properties.marker) then
+                npc.marker = tonumber(trigger.properties.marker)
+                npc.markerOffset = 9 * tilemap.scale
+
+                function bobbing()
+                    if npc.removed then return end
+                    local mult = npc.markerOffset > 9.5 * tilemap.scale and 9 or 10
+                    ez.easeInOut(npc, {markerOffset = mult * tilemap.scale}, {time = 1.5}):complete(bobbing)
+                end
+                bobbing()
+            end
             trigger.npc = npc
             npcs.loadPersonalityData(npc)
             break

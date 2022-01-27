@@ -158,6 +158,11 @@ function entities.draw()
         if ent.blocking and ent.shieldTile > 0 then
             assets.entities.drawSprite(ent.shieldTile, ent.x, ent.y, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
         end
+
+        if ent.marker ~= nil then
+            assets.entities.drawSprite(ent.marker, ent.x, ent.y - ent.markerOffset, ent.r, ent.scale * ent.sx, ent.scale * ent.sy, ent.ox, ent.oy)
+        end
+
         if config.debug then 
             ent.collider:draw('line') 
             if ent.detectCollider then ent.detectCollider:draw('line') end

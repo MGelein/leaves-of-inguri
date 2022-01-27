@@ -29,7 +29,7 @@ We have various ways of triggering a trigger:
 
 ### Trigger Types
 Besides various trigger methods we also have loads of different types. Some of these types might require additional properties (described in between the brackets):
-- __npc (id)__: denotes that this trigger is the position of an npc. Needs an `id` property that links it to an npc
+- __npc (id, [marker])__: denotes that this trigger is the position of an npc. Needs an `id` property that links it to an npc. Optionally include a marker tile, this is shown above the head of the NPC (sprite-number 103 is '!')
 - __text (text)__: shows the specified text in a UI box, great for popups and exposition. The text property contains the text to show.
 - __warp (destination)__: warps the hero to another map, or another location on the same map. The location is formatted: `MAP_ID@COL,ROW`
 - __questState (quest, state)__: Sets the provided quest to the provided state. This is quite a simple trigger. Probably triggers quest updates
