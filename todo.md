@@ -3,6 +3,8 @@
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
 - Add tile icons above head of npcs
+- Improve door interaction and collision handling
+- Make monsters actually lethal
 
 # Done
 - Porting code from the Galleons game
