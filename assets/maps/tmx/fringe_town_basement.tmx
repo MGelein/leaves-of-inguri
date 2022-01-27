@@ -58,7 +58,7 @@
  <objectgroup id="3" name="triggers">
   <object id="22" x="72" y="8" width="8" height="8">
    <properties>
-    <property name="id" value="well_basement"/>
+    <property name="id" value="table_basement"/>
     <property name="method" value="interact"/>
     <property name="type" value="npc"/>
    </properties>

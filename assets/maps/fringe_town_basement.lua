@@ -281,7 +281,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "well_basement",
+            ["id"] = "table_basement",
             ["method"] = "interact",
             ["type"] = "npc"
           }
