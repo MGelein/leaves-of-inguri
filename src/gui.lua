@@ -214,17 +214,19 @@ function gui.line(x1, y1, x2, y2, thickness)
 end
 
 function gui.dialogue(data)
-    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height / 4)
+    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height / 3)
     dialogue.w = config.gui.dialogueWidth
     dialogue.entries = data.entries
     dialogue.destroy = function(self)
         if self.textbox then self.textbox:destroy() end
         if self.buttons then self.buttons:destroy() end
+        if self.header then self.header:destroy() end
         gui.list:remove(self)
     end
     dialogue.showEntry = function(self, name)
         if self.textbox then self.textbox:destroy() end
         if self.buttons then self.buttons:destroy() end
+        if self.header then self.header:destroy() end
         
         local entry = self.entries[name]
         if not entry then game.popMenu() return end
@@ -239,6 +241,15 @@ function gui.dialogue(data)
         for i, command in ipairs(entry.commands) do dialogues.executeCommand(command) end
         self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
         self.textbox.partOfDialogue = true
+
+        local header = ' -' .. data.name .. '- '
+        local offsetX = (assets.fonts.normal:getWidth(header) + 20) / 2
+        local offsetY = assets.fonts.normal:getHeight() + 30
+        local headerX = self.x + self.w / 2 - offsetX
+        local headerY = self.y - offsetY
+        self.header = gui.textbox(header, headerX, headerY, offsetX * 2)
+        self.header.partOfDialogue = true
+
         local buttonDefs = {}
         for i, response in ipairs(entry.responses) do
             local def = {}
