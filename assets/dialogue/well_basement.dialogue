@@ -3,7 +3,7 @@
 #greeting
 {DEFAULT}
 A well with cool, clear drinking water.
-- Take a sip. >restoreHealth 
+- Take a sip. >restoreHealth
 - Leave it be. >exit
 
 #restoreHealth
