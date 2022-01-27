@@ -1,0 +1,14 @@
+@Well
+
+#greeting
+{DEFAULT}
+A well with cool, clear drinking water.
+- Take a sip. >restoreHealth 
+- Leave it be. >exit
+
+#restoreHealth
+{DEFAULT}
+:HEAL(5)
+You feel refreshed.
+- Take another sip. >restoreHealth
+- Walk away. >exit
