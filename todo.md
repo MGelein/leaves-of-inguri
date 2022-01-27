@@ -2,6 +2,7 @@
 - Creating the maps for the necessary zones
 - Designing the actual zones and the missions within them
 - Creating the music for the different zones
+- Add tile icons above head of npcs
 
 # Done
 - Porting code from the Galleons game
