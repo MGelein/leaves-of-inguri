@@ -220,13 +220,21 @@ entityparser.objectTemplates = {
         health = 50,
         description = {'A well filled with water.'},
     },
-    vase = {
+    pot = {
         tile = 38,
         health = 1,
         colliderScale = 0.7,
-        description = {'A beautiful vase, maybe there is something in it...'},
+        description = {'A small ceramic pot, maybe there is something in it...'},
         dropTable = {'health', 'mana'},
-        dropAmt = 4,
+        dropAmt = 1,
+    },
+    urn = {
+        tile = 37,
+        health = 2,
+        colliderScale = 0.9,
+        description = {'A large earthen urn, this vessel can fit so much stuff...'},
+        dropTable = {'health', 'mana'},
+        dropAmt = 2,
     },
     chest = {
         tile = 52,

@@ -5,6 +5,7 @@
 - Add tile icons above head of npcs
 - Improve door interaction and collision handling
 - Make monsters actually lethal
+- Show names of dialogue entries in the UI
 
 # Done
 - Porting code from the Galleons game
