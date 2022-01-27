@@ -4,6 +4,7 @@
 - Creating the music for the different zones
 - Improve door interaction and collision handling
 - Make monsters actually lethal
+- Fix alignment with multiline dialog and header
 
 # Done
 - Porting code from the Galleons game
