@@ -1,0 +1,29 @@
+@A Rat Problem
+
+#start
+> Grab the key from the nearby chest.
+The innkeep told you about his rat problem that you could solve using either poison or brute force. To gain access to the basement, retrieve the key from the nearby chest.
+
+#enterBasement
+> Enter the basement of the inn.
+Use the key to unlock the trapdoor to the basement, where the rats roam freely...
+
+#choice
+> Grab the poison or attack the rats.
+You can either club the rats to death or use the poison if you insist on keeping the floors clean.
+
+#poisonGrabbed
+> Poison the well.
+Add the venomous mixture to the well to poison the rats' drinking water.
+
+#rewardPoison
+> Claim your reward.
+Well done! The innkeep will be glad you have managed to keep the mess to a minimum. Time to claim your reward.
+
+#rewardAttack
+> Claim your reward.
+Well done! The innkeep will be glad you have gotten rid of these monstrosities. Time to claim your reward.
+
+#end
+> You solved the rat problem.
+You have killed the rats threatening the inn and you have even gained a reward. This must be a great step on your heroic journey!
