@@ -290,3 +290,9 @@ function entityparser.getMonsterTemplate(tile)
         if template.tile == tile then return template end
     end
 end
+
+function entityparser.getMonsterName(tile)
+    for name, template in pairs(entityparser.monsterTemplates) do
+        if template.tile == tile then return name end
+    end
+end

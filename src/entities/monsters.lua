@@ -4,6 +4,7 @@ monsters.count = 0
 function monsters.create(id, xPos, yPos, template)
     monsters.count = monsters.count + 1
     local monster = entities.createWalk(id, template.tile, xPos, yPos)
+    monster.name = entityparser.getMonsterName(template.tile)
     monster.health = template.health
     monster.maxHealth = template.health
     monster.onDeath = template.onDeath

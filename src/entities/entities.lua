@@ -240,3 +240,11 @@ function entities.removeAll()
     for i, entity in ipairs(entities.list.all) do entities.remove(entity) end
     entities.clearing = nil
 end
+
+function entities.removeAllMonsters(type)
+    for i, entity in ipairs(entities.list.all) do
+        if entity.collider.class == 'monster' then
+            if type == 'all' or type == entity.name then entity:damage(999) end
+        end
+    end
+end

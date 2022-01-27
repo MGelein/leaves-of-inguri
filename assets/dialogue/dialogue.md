@@ -30,6 +30,7 @@ MANA(amt) -- sets the amount of maximum mana of the hero, this can also be a rel
 COINS(amt) -- sets the amount of coins of the hero, this can also be a relative amt: f.e: `+5`
 KEYS(amt) -- sets the amount of coins of the hero, this can also be a relative amt: f.e: `+5`
 RINGS(amt) -- sets the amount of coins of the hero, this can also be a relative amt: f.e: `+5`
+KILL(type) -- kills all enemies of a specific type on the current map. If no type is provided 'all' is presumed.
 ```
 
 ## Conditions

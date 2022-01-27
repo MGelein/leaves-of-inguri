@@ -235,3 +235,9 @@ function dialogues.executeSetCommand(args)
     local name = args[1]
     savefile.data[name] = value
 end
+
+function dialogues.executeKillCommand(args)
+    local type = 'all'
+    if #args == 1 then type = args[1] or 'all' end
+    entities.removeAllMonsters(type)
+end
