@@ -5,7 +5,7 @@ config = {
         height = 720,
         fullscreen = false,
     },
-    debug = true,
+    debug = false,
     forceSettingsOverwrite = true,
     
     width = 1280,

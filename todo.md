@@ -72,3 +72,5 @@
 - Created the 'load' trigger method for triggers that activate on tilemap load
 - Conditionals inside of the dialogue system now support multiple conditions with `and` and `or`
 - Kill all monsters on map command (or specific)
+- Designed Fringe inn basement map
+- Designed quest states for ratproblem quest
