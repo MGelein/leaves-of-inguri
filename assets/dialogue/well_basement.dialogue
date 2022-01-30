@@ -1,15 +1,15 @@
 @Well
 
 #greeting
-{ratProblemWellPoisoned}
-A well with vile, green water.
-- Take a sip. >damageHealth
-- Leave it be. >exit
-
-{ratProblemPoisonAcquired}
+{ratProblemPoison == acquired}
 A well with cool, clear drinking water.
 - Poison the well. >wellPoisoned
 - Take a sip. >restoreHealth
+- Leave it be. >exit
+
+{ratProblemPoison == used}
+A well with vile, green water.
+- Take a sip. >damageHealth
 - Leave it be. >exit
 
 {DEFAULT}
@@ -27,7 +27,7 @@ You feel refreshed.
 #wellPoisoned
 {DEFAULT}
 :KILL(rat)
-:SET(ratProblemWellPoisoned)
+:SET(ratProblemPoison, used)
 The clear drinking water turns a vile shade of green.
 - Take a sip. >damageHealth
 - Leave it be. >exit

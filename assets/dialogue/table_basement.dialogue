@@ -1,7 +1,7 @@
 @Office Table
 
 #greeting
-{ratProblemPoisonAcquired}
+{ratProblemPoison == acquired}
 A simple, wooden table.
 - Turn away. >exit
 
@@ -11,6 +11,6 @@ On this simple, wooden table you find a flask of rat poison.
 - Leave it be. >exit
 
 #flaskTaken
-:SET(ratProblemPoisonAcquired)
+:SET(ratProblemPoison, acquired)
 You pocket the flask of rat poison.
 - Turn away. >exit
