@@ -41,3 +41,11 @@ The most obfuscated part is the way variable names get resolved. In order, to re
 2. The hero's effects.
 3. The quest state database
 4. The global variable database
+
+This script supports the following conditional operators:
+1. `==` equality
+2. `>` greater than
+3. `<` smaller than
+4. `>=` greater than or equal
+5. `<=` smaller than or equal
+6. `!=` inequality (alternative: `~=`)
