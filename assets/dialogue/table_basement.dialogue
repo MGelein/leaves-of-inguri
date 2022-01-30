@@ -12,5 +12,6 @@ On this simple, wooden table you find a flask of rat poison.
 
 #flaskTaken
 :SET(ratProblemPoison, acquired)
+:QUEST(ratproblem, poisonAcquired)
 You pocket the flask of rat poison.
 - Turn away. >exit

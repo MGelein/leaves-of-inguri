@@ -28,6 +28,7 @@ You feel refreshed.
 {DEFAULT}
 :KILL(rat)
 :SET(ratProblemPoison, used)
+:QUEST(ratproblem, rewardPoison)
 The clear drinking water turns a vile shade of green.
 - Take a sip. >damageHealth
 - Leave it be. >exit
