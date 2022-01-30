@@ -1,1 +1,16 @@
 @Office Table
+
+#greeting
+{ratProblemPoisonAcquired}
+A simple, wooden table.
+- Turn away. >exit
+
+{DEFAULT}
+On this simple, wooden table you find a flask of rat poison.
+- Take the flask. >flaskTaken
+- Leave it be. >exit
+
+#flaskTaken
+:SET(ratProblemPoisonAcquired)
+You pocket the flask of rat poison.
+- Turn away. >exit
