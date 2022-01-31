@@ -1,7 +1,7 @@
 @Office Table
 
 #greeting
-{ratProblemPoison == acquired}
+{ratProblemPoison == acquired or ratProblemPoison == used}
 A simple, wooden table.
 - Turn away. >exit
 
