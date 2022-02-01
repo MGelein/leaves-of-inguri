@@ -58,7 +58,6 @@ end
 function triggers.command(self)
     self.properties.command = self.properties.command:gsub(':', '')
     local command = dialogues.parseCommand(self.properties.command or '')
-    printtable(command)
     dialogues.executeCommand(command)
 end
 

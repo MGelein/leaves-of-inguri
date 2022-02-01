@@ -7,9 +7,9 @@ hero = {
 
 function hero.load()
     hero.health = savefile.data.heroHealth or 1
-    hero.maxHealth = savefile.data.heroMaxHealth or 20
-    hero.mana = savefile.data.heroMana or 10
-    hero.maxMana = savefile.data.heroMaxMana or 10
+    hero.maxHealth = savefile.data.heroMaxHealth or 5
+    hero.mana = savefile.data.heroMana or 0
+    hero.maxMana = savefile.data.heroMaxMana or 0
     hero.weapon = savefile.data.heroWeapon or 'club'
     hero.shield = savefile.data.heroShield or 'none'
     hero.armor = savefile.data.heroArmor or 'cloth'

@@ -712,9 +712,9 @@ function gui.createHeroWidget(x, y)
     widget.coinIcon = gui.icon(gui.coin, x + 32, y + 16)
     widget.coinLabel = gui.label(hero.coins, x + 48 + padding, y + 4)
 
-    y = y + 32
-    x = resetX + padding
     if #spells.known > 1 then
+        y = y + 32
+        x = resetX + padding
         widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
         x = x + padding + 32
         widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
