@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="27">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="31">
  <editorsettings>
   <export target="../fringe_town_basement.lua" format="lua"/>
  </editorsettings>
@@ -66,7 +66,6 @@
   <object id="23" x="16" y="16" width="8" height="8">
    <properties>
     <property name="id" value="well_basement"/>
-    <property name="marker" value="103"/>
     <property name="method" value="interact"/>
     <property name="type" value="npc"/>
    </properties>
@@ -76,6 +75,14 @@
     <property name="destination" value="fringe_town@24,38"/>
     <property name="method" value="collide"/>
     <property name="type" value="warp"/>
+   </properties>
+  </object>
+  <object id="30" x="144" y="16" width="8" height="8">
+   <properties>
+    <property name="command" value="QUEST(ratproblem, rewardAttack)"/>
+    <property name="condition" value="ratProblemPoison != used"/>
+    <property name="method" value="monstersGone"/>
+    <property name="type" value="command"/>
    </properties>
   </object>
  </objectgroup>

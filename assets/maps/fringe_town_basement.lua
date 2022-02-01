@@ -1,7 +1,7 @@
 return {
-  version = "1.5",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.7.2",
+  tiledversion = "1.4.3",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 20,
@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 27,
+  nextobjectid = 31,
   properties = {
     ["bgm"] = "testbgm",
     ["minimap"] = "town",
@@ -19,7 +19,29 @@ return {
     {
       name = "rpgtiles",
       firstgid = 1,
-      filename = "tmx/rpgtiles.tsx"
+      filename = "tmx/rpgtiles.tsx",
+      tilewidth = 8,
+      tileheight = 8,
+      spacing = 0,
+      margin = 0,
+      columns = 14,
+      image = "../graphics/tiles.png",
+      imagewidth = 112,
+      imageheight = 80,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 8,
+        height = 8
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 140,
+      tiles = {}
     }
   },
   layers = {
@@ -35,8 +57,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -66,8 +86,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -94,8 +112,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -265,8 +281,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -299,7 +313,6 @@ return {
           visible = true,
           properties = {
             ["id"] = "well_basement",
-            ["marker"] = "103",
             ["method"] = "interact",
             ["type"] = "npc"
           }
@@ -319,6 +332,24 @@ return {
             ["destination"] = "fringe_town@24,38",
             ["method"] = "collide",
             ["type"] = "warp"
+          }
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 144,
+          y = 16,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["command"] = "QUEST(ratproblem, rewardAttack)",
+            ["condition"] = "ratProblemPoison != used",
+            ["method"] = "monstersGone",
+            ["type"] = "command"
           }
         }
       }
