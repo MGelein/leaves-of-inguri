@@ -47,7 +47,7 @@ function dialogues.parseLine(line, dialogue, entry)
     elseif lineType == 'response' then
         table.insert(entry.options[#entry.options].responses, dialogues.parseResponse(line))
     elseif lineType == 'command' then
-        local command = dialogues.parseCommand(line:sub(2))
+        local command = dialogues.parseCommand(line)
         if command then 
             table.insert(entry.options[#entry.options].commands, command)
         end
@@ -62,6 +62,7 @@ function dialogues.parseLine(line, dialogue, entry)
 end
 
 function dialogues.parseCommand(line)
+    if line:sub(1, 1) == ':' then line = line:sub(2) end
     line = line:gsub(' ', '')
     local argIndex = line:find('%(')
     if not argIndex then
@@ -98,9 +99,10 @@ function dialogues.parseResponse(line)
 end
 
 function dialogues.evaluateConditions(conditions)
+    if conditions == 'DEFAULT' or conditions == true then return true end
+
     conditions = conditions:gsub(' and ', '&')
     conditions = conditions:gsub(' or ', '|');
-    if conditions == 'DEFAULT' then return true end
     local conditionals = splitstring(conditions, '&')
     local evaluations = {}
     for _, condition in ipairs(conditionals) do
@@ -122,7 +124,6 @@ function dialogues.evaluateCondition(condition)
     
     local varname, operand, value = unpack(parts)
     local var = dialogues.resolveVariableName(varname)
-    if not var then return false end
     if type(var) == 'number' then value = tonumber(value)
     elseif type(var) == 'boolean' then value = value:lower() == 'true' end
     local fn = dialogues.operands[operand]

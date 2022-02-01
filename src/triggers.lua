@@ -8,6 +8,7 @@ function triggers.create(def)
         type = def.properties.type,
         method = def.properties.method,
         tag = def.properties.tag or '',
+        condition = def.properties.condition or '',
         activated = false,
         properties = def.properties,
         activate = triggers.activate,
@@ -54,6 +55,13 @@ function triggers.npc(self)
     else print('Could not find dialogue file for "' .. self.properties.id .. '"') end
 end
 
+function triggers.command(self)
+    self.properties.command = self.properties.command:gsub(':', '')
+    local command = dialogues.parseCommand(self.properties.command or '')
+    printtable(command)
+    dialogues.executeCommand(command)
+end
+
 function triggers.draw()
     if not config.debug then return end
     for i, trigger in ipairs(triggers.list.all) do
@@ -76,6 +84,8 @@ function triggers.clear()
 end
 
 function triggers.activate(self)
+    if not dialogues.evaluateConditions(self.condition or true) then return end
+
     if triggers[self.type] then triggers[self.type](self)
     else print('unrecognized trigger type', self.type) end
 end
@@ -92,12 +102,6 @@ function triggers.drop(self)
     triggers.list:remove(self)
 end
 
-function triggers.questState(self)
-    if not self.properties.quest then print('Changing quest state requires a quest name to be specified') return end
-    if not self.properties.state then print('Changing quest state requires a quest state to be specified') return end
-    quests.setState(self.properties.quest, self.properties.state)
-end
-
 function triggers.changeEntity(self)
     if not self.properties.tile then return end
     local tile = tonumber(self.properties.tile)
@@ -110,17 +114,6 @@ function triggers.changeEntity(self)
             break
         end
     end
-end
-
-function triggers.setVariable(self)
-    if not self.properties.var then print("To change a variable, you must set a var.") return end
-    if not self.properties.value then print("To change a variable, you must set a value.") return end
-    local value = self.properties.value
-    if value == 'true' then value = true
-    elseif value == 'false' then value = false
-    elseif value == tostring(tonumber(value)) then value = tonumber(value) end
-    
-    savefile.data[self.properties.var] = self.properties.value
 end
 
 function triggers.removeEntity(self)
