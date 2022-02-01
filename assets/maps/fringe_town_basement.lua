@@ -1,7 +1,7 @@
 return {
-  version = "1.4",
+  version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.4.3",
+  tiledversion = "1.7.2",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 20,
@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 5,
-  nextobjectid = 26,
+  nextobjectid = 27,
   properties = {
     ["bgm"] = "testbgm",
     ["minimap"] = "town",
@@ -19,29 +19,7 @@ return {
     {
       name = "rpgtiles",
       firstgid = 1,
-      filename = "tmx/rpgtiles.tsx",
-      tilewidth = 8,
-      tileheight = 8,
-      spacing = 0,
-      margin = 0,
-      columns = 14,
-      image = "../graphics/tiles.png",
-      imagewidth = 112,
-      imageheight = 80,
-      objectalignment = "unspecified",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 8,
-        height = 8
-      },
-      properties = {},
-      terrains = {},
-      tilecount = 140,
-      tiles = {}
+      filename = "tmx/rpgtiles.tsx"
     }
   },
   layers = {
@@ -57,6 +35,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -86,6 +66,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -112,6 +94,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -281,6 +265,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -319,18 +305,18 @@ return {
           }
         },
         {
-          id = 25,
+          id = 26,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 144,
-          y = 8,
+          x = 128,
+          y = 0,
           width = 8,
-          height = 16,
+          height = 8,
           rotation = 0,
           visible = true,
           properties = {
-            ["destination"] = "testingcity@3,3",
+            ["destination"] = "fringe_town@24,38",
             ["method"] = "collide",
             ["type"] = "warp"
           }
