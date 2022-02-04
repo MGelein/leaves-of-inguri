@@ -18,6 +18,7 @@ Every map has 4 layers:
 A trigger is a collider that can do something with the world of the game. Every trigger __must__ at least have the following two properties:
 - __type__: Sets the type of the trigger, this determines what it does when it gets triggered.
 - __method__: Sets the method by which this trigger can be activated, or triggered.
+- __condition__: (optional), add a condition that determines if a trigger activates
 
 ### Trigger Methods
 We have various ways of triggering a trigger:
