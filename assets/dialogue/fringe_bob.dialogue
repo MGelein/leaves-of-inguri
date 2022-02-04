@@ -1,0 +1,84 @@
+@Bob
+
+#greeting
+{ratproblem == rewardAttack}
+Thanks for your help, mate. I'll send someone downstairs to clean the mess.
+- You're welcome. >ratProblemRewardAttack
+- About my reward... >ratProblemRewardAttack
+
+{ratproblem == rewardPoison}
+Thanks for your help, mate. Glad you were able to keep the mess to a minimum.
+- You're welcome. >ratproblemRewardPoison
+- About my reward... >ratproblemRewardPoison
+
+{ratproblem == end}
+Welcome back to the Bladesong Inn, my friend! What can I do for you?
+- Tell me about the Bladesong Inn. >bladesongBackstory
+- Nothing, thank you. >exit
+
+{ratproblem}
+How is your adventure going, my friend?
+- Great, actually. >exit
+- Tell me, what are my options again? >ratProblemOptions
+
+{DEFAULT}
+Welcome to the famous Bladesong Inn. What can I do for you?
+- I'm looking for adventure. Got any leads? >lookingForAdventure
+- Tell me about the Bladesong Inn. >bladesongBackstory
+- Nothing, thank you. >exit
+
+#bladesongBackstory
+{DEFAULT}
+This is the backstory of the Bladesong Inn.
+- Ok. >exit
+
+#lookingForAdventure
+{DEFAULT}
+Now that you mention it... I just happen to have an adventure for you. Interested in killing some vermin?
+- Please tell me more. >ratProblemExplained
+- No, thank you. >exit
+
+#ratProblemExplained
+{DEFAULT}
+I have rats in my basement, who keep coming back to destroy my wares. Wanna help me?
+- Still interested... >ratProblemOptions
+- No. >exit
+
+#ratProblemOptions
+{ratproblem}
+Sure. You can use your club, but I would prefer keeping the floors clean. The other option is to use the poison that I store in my office in the basement.
+- Thanks. I'll get right on that. >exit
+
+{DEFAULT}
+Great. You can use your club, but I would prefer keeping the floors clean. The other option is to use the poison that I store in my office in the basement.
+- Sounds good. >ratProblemAccepted
+- I've changed my mind. Good luck with the rats. >exit
+
+#ratProblemAccepted
+{DEFAULT}
+:QUEST(ratproblem, start)
+Thanks. The key to the basement is in that chest over there. Good luck!
+- Thanks. >exit
+
+#ratProblemRewardAttack
+{DEFAULT}
+:KEYS(-1)
+:HEALTH(+2)
+Let me reward you by making my specialty cocktail: the Bladesong's Bloody Bob.
+- Carefully take a sip. >bobSpecialty
+- Bottom's up! >bobSpecialty
+
+#ratproblemRewardPoison
+{DEFAULT}
+:KEYS(-1)
+:HEALTH(+3)
+Let me reward you by making my specialty cocktail: the Bladesong's Bloody Bob.
+- Carefully take a sip. >bobSpecialty
+- Bottom's up! >bobSpecialty
+
+#bobSpecialty
+{DEFAULT}
+:QUEST(ratproblem, end)
+Quite the energy boost, aye? Hope you enjoyed it! I'll see you around.
+- My new favourite drink. 'Till next time. >exit
+- Turn away. >exit

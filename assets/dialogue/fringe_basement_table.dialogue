@@ -5,12 +5,17 @@
 A simple, wooden table.
 - Turn away. >exit
 
+{ratproblem and ratproblem != choice}
+On this simple, wooden table you find a flask of rat poison. You see no reason to take it with you.
+- Leave it be. >exit
+
 {DEFAULT}
 On this simple, wooden table you find a flask of rat poison.
 - Take the flask. >flaskTaken
 - Leave it be. >exit
 
 #flaskTaken
+{DEFAULT}
 :SET(ratProblemPoison, acquired)
 :QUEST(ratproblem, poisonAcquired)
 You pocket the flask of rat poison.

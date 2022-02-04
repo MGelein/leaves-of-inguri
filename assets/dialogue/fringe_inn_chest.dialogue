@@ -1,0 +1,22 @@
+@Inn Chest
+
+#greeting
+{ratproblem == start}
+In between Bob's dusty personal belongings lies the key to the basement.
+- Take the key. >ratproblemKeyTaken
+- Turn away. >exit
+
+{ratproblem}
+There's nothing interesting left in the chest.
+- Turn away. >exit
+
+{DEFAULT}
+As you approach the chest, you see that the innkeeper has his eyes on you. Best to leave this chest alone for now.
+- Turn away. >exit
+
+#ratproblemKeyTaken
+{DEFAULT}
+:KEYS(+1)
+:QUEST(ratproblem, enterBasement)
+This simple, bronze key fits the lock on the hatch to the basement.
+- Pocket it. >exit

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="26">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="27">
  <editorsettings>
   <export target="../fringe_town.lua" format="lua"/>
  </editorsettings>
@@ -106,7 +106,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,84,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -123,6 +123,11 @@
 </data>
  </layer>
  <objectgroup id="3" name="triggers">
+  <properties>
+   <property name="id" value="fringe_inn_chest"/>
+   <property name="method" value="interact"/>
+   <property name="type" value="npc"/>
+  </properties>
   <object id="18" x="208" y="288" width="8" height="8">
    <properties>
     <property name="method" value="interact"/>
@@ -132,7 +137,7 @@
   </object>
   <object id="19" x="128" y="328" width="8" height="8">
    <properties>
-    <property name="id" value="bob_fringe"/>
+    <property name="id" value="fringe_bob"/>
     <property name="method" value="interact"/>
     <property name="type" value="npc"/>
    </properties>
@@ -167,9 +172,17 @@
   </object>
   <object id="25" x="192" y="320" width="8" height="8">
    <properties>
+    <property name="condition" value="ratproblem and ratproblem != start and keys &gt;= 1"/>
     <property name="destination" value="fringe_town_basement@16,2"/>
-    <property name="method" value="collide"/>
+    <property name="method" value="interact"/>
     <property name="type" value="warp"/>
+   </properties>
+  </object>
+  <object id="26" x="152" y="288" width="8" height="8">
+   <properties>
+    <property name="id" value="fringe_inn_chest"/>
+    <property name="method" value="interact"/>
+    <property name="type" value="npc"/>
    </properties>
   </object>
  </objectgroup>
