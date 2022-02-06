@@ -1,7 +1,7 @@
 return {
-  version = "1.5",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.7.2",
+  tiledversion = "1.4.3",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 50,
@@ -12,14 +12,36 @@ return {
   nextobjectid = 27,
   properties = {
     ["bgm"] = "testbgm",
-    ["minimap"] = "fringe",
+    ["minimap"] = "town",
     ["name"] = "The Fringe"
   },
   tilesets = {
     {
       name = "rpgtiles",
       firstgid = 1,
-      filename = "tmx/rpgtiles.tsx"
+      filename = "tmx/rpgtiles.tsx",
+      tilewidth = 8,
+      tileheight = 8,
+      spacing = 0,
+      margin = 0,
+      columns = 14,
+      image = "../graphics/tiles.png",
+      imagewidth = 112,
+      imageheight = 80,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 8,
+        height = 8
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 140,
+      tiles = {}
     }
   },
   layers = {
@@ -35,8 +57,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {
         ["bgm"] = "testbgm",
         ["minimap"] = "fringe",
@@ -108,8 +128,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -174,8 +192,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {
         ["id"] = "fringe_inn_chest",
         ["method"] = "interact",
@@ -330,8 +346,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
