@@ -11,7 +11,7 @@ function mainmenu.load()
 end
 
 function mainmenu.start()
-    mapbackground.showMap('testmap')
+    mapbackground.showMap('mainmenu')
     music.play()
     local title = gui.title(config.window.title, -200)
     ez.easeOut(title, {y = 100}, {delay = 1})

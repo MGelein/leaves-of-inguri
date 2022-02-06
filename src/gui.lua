@@ -353,7 +353,7 @@ function gui.minimap()
     minimap.offDir = 1
     minimap.markers = {
         {
-            town = {x = 416, y = 448, label = 'The Fringe', destination = 'testingcity'},
+            town = {x = 416, y = 448, label = 'The Fringe', destination = 'fringe_town'},
         },{
             fields = {x = 352, y = 416, label = 'The Fields', destination = 'testmap'},
         },{  

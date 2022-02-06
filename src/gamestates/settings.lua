@@ -6,7 +6,7 @@ function settings.load()
 end
 
 function settings.start()
-    mapbackground.showMap('testmap')
+    mapbackground.showMap('mainmenu')
     music.play()
     gui.showOverlay(0)
     gui.showHeader('Settings', 100000)

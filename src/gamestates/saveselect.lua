@@ -12,7 +12,7 @@ function saveselect.load()
 end
 
 function saveselect.start()
-    mapbackground.showMap('testmap')
+    mapbackground.showMap('mainmenu')
     music.play()
     gui.showOverlay(0)
     gui.showHeader('Choose Save Slot', 100000)
