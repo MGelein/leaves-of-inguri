@@ -244,7 +244,7 @@ function gui.dialogue(data)
 
         local header = ' -' .. data.name .. '- '
         local offsetX = (assets.fonts.normal:getWidth(header) + 20) / 2
-        local offsetY = assets.fonts.normal:getHeight() + 30
+        local offsetY = assets.fonts.normal:getHeight() * self.textbox.lineAmount + 30
         local headerX = self.x + self.w / 2 - offsetX
         local headerY = self.y - offsetY
         self.header = gui.textbox(header, headerX, headerY, offsetX * 2)
@@ -271,6 +271,7 @@ function gui.textbox(text, xPos, yPos, w)
     local height = #lines * assets.fonts.normal:getHeight() + 20
     yPos = yPos - height
     local box = gui.element(xPos, yPos)
+    box.lineAmount = #lines
     box.text = text
     box.width = w
     box.height = height
