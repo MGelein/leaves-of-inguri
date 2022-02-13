@@ -12,7 +12,7 @@ return {
   nextobjectid = 27,
   properties = {
     ["bgm"] = "testbgm",
-    ["minimap"] = "fringe",
+    ["minimap"] = "town",
     ["name"] = "The Fringe"
   },
   tilesets = {

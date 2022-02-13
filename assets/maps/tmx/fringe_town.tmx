@@ -5,7 +5,7 @@
  </editorsettings>
  <properties>
   <property name="bgm" value="testbgm"/>
-  <property name="minimap" value="fringe"/>
+  <property name="minimap" value="town"/>
   <property name="name" value="The Fringe"/>
  </properties>
  <tileset firstgid="1" source="rpgtiles.tsx"/>
