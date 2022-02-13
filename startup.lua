@@ -1,13 +1,13 @@
 startup = {
-    map = 'fringe_town',
+    map = 'fringe_outskirts',
 
     hero = {
         health = 5,
         mana = 5,
-        spells = {'heal', 'talkWithPlants', 'blink'},
+        spells = {},
 
-        weapon = 'sword',
-        shield = 'wood',
+        weapon = 'club',
+        shield = 'none',
         armor = 'cloth',
     },
 
@@ -15,5 +15,11 @@ startup = {
     coins = 0,
     keys = 0,
 
-    quests = {}
+    quests = {
+        active = '',
+        completed = {},
+        states = {
+            
+        }
+    }
 }
