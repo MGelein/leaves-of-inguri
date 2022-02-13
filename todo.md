@@ -4,8 +4,8 @@
 - Creating the music for the different zones
 - Improve door interaction and collision handling
 - Make monsters actually lethal
-- Fix alignment with multiline dialog and header
 - Make tile layer responsive to quest state
+- Clean the hell that is the GUI system
 
 # Done
 - Porting code from the Galleons game
@@ -76,3 +76,4 @@
 - Designed quest states for ratproblem quest
 - Show names of dialogue entries in the UI
 - Add tile icons above head of npcs
+- Fix alignment with multiline dialog and header
