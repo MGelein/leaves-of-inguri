@@ -4,7 +4,7 @@
   <export target="../fringe_town_basement.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="bgm" value="testbgm"/>
+  <property name="bgm" value="testbgm2"/>
   <property name="minimap" value="town"/>
   <property name="name" value="Basement"/>
  </properties>

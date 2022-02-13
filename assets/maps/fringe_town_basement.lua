@@ -11,7 +11,7 @@ return {
   nextlayerid = 5,
   nextobjectid = 33,
   properties = {
-    ["bgm"] = "testbgm",
+    ["bgm"] = "testbgm2",
     ["minimap"] = "town",
     ["name"] = "Basement"
   },
