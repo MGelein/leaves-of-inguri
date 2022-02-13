@@ -1,6 +1,5 @@
 spells = {
     cooldown = 0,
-    -- known = {'heal', 'blink', 'talkWithPlants'},
     known = {},
     selectedIndex = 1,
     selected = 'heal',
@@ -25,6 +24,14 @@ spells.templates = {
         cost = 4,
     }
 }
+
+function spells.save()
+    savefile.data.spellsKnown = spells.known
+end
+
+function spells.load()
+    spells.known = savefile.data.spellsKnown or startup.hero.spells
+end
 
 function spells.castSelected()
     if spells.cooldown > 0 or #spells.known < 1 then return end 

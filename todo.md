@@ -5,6 +5,7 @@
 - Improve door interaction and collision handling
 - Make monsters actually lethal
 - Fix alignment with multiline dialog and header
+- Make tile layer responsive to quest state
 
 # Done
 - Porting code from the Galleons game

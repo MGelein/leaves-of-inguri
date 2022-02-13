@@ -6,16 +6,16 @@ hero = {
 }
 
 function hero.load()
-    hero.health = savefile.data.heroHealth or 1
-    hero.maxHealth = savefile.data.heroMaxHealth or 5
-    hero.mana = savefile.data.heroMana or 0
-    hero.maxMana = savefile.data.heroMaxMana or 0
-    hero.weapon = savefile.data.heroWeapon or 'club'
-    hero.shield = savefile.data.heroShield or 'none'
-    hero.armor = savefile.data.heroArmor or 'cloth'
-    hero.coins = savefile.data.heroCoins or 0
-    hero.rings = savefile.data.heroRings or 0
-    hero.keys = savefile.data.heroKeys or 0
+    hero.health = savefile.data.heroHealth or startup.hero.health
+    hero.maxHealth = savefile.data.heroMaxHealth or startup.hero.health
+    hero.mana = savefile.data.heroMana or startup.hero.mana
+    hero.maxMana = savefile.data.heroMaxMana or startup.hero.mana
+    hero.weapon = savefile.data.heroWeapon or startup.hero.weapon
+    hero.shield = savefile.data.heroShield or startup.hero.shield
+    hero.armor = savefile.data.heroArmor or startup.hero.armor
+    hero.coins = savefile.data.heroCoins or startup.coins
+    hero.rings = savefile.data.heroRings or startup.rings
+    hero.keys = savefile.data.heroKeys or startup.keys
 end
 
 function hero.save()

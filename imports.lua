@@ -18,6 +18,7 @@ require("spells")
 require("music")
 require("mapbackground")
 require("quests")
+require("startup")
 
 require("entities.entities")
 require("entities.hero")

@@ -14,7 +14,7 @@ function game.load()
 end
 
 function game.start()
-    tilemap.load(savefile.data.currentMap or 'fringe_town')
+    tilemap.load(savefile.data.currentMap or startup.map)
     gui.createHeroWidget(0, config.height - 128)
     gui.createQuestWidget(10, 10)
     game.paused = false

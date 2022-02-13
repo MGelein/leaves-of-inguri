@@ -19,6 +19,7 @@ end
 function savefile.save(slot)
     hero.save()
     quests.save()
+    spells.save()
     savefile.data.timePlayed = game.timePlayed
     savefile.write(savefile.url .. tostring(slot), savefile.data)
 end
@@ -30,6 +31,7 @@ end
 function savefile.load(slot)
     savefile.data = savefile.read(savefile.url .. tostring(slot)) or {}
     hero.load()
+    spells.load()
     quests.restoreFromSave()
 end
 
