@@ -68,8 +68,9 @@ function collisions.handleEntity(entA, collider)
                     entB:move(-delta.x * ratioA, -delta.y * ratioA)
 
                     if classA ~= 'npc' and classB ~= 'npc' then
-                        if not entA.weapon then entB:damage(entA.attack) end
-                        if not entB.weapon then entA:damage(entB.attack) end
+                        if classA == classB and entA.name == entB.name then goto continue end
+                        if classA ~= 'hero' then entB:damage(entA.attack) end
+                        if classB ~= 'hero' then entA:damage(entB.attack) end
                     end
                 end
             end

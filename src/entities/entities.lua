@@ -80,7 +80,15 @@ function entities.create(identity, spriteNumber, xPos, yPos)
                 pxparticles.setStartDir()
                 if self.onDeath then self:onDeath() end
                 if self.dropTable then
-                    for i = 1, self.dropAmt do pickups.create(randomFromTable(self.dropTable), self.x, self.y, vx, vy) end
+                    if self.dropAmt < 1 then
+                        if math.random() < self.dropAmt then 
+                            pickups.create(randomFromTable(self.dropTable), self.x, self.y, vx, vy)
+                        end
+                    else
+                        for i = 1, self.dropAmt do 
+                            pickups.create(randomFromTable(self.dropTable), self.x, self.y, vx, vy) 
+                        end
+                    end
                 end
             else
                 if self.collider.class == 'hero' then soundfx.play('hurt')

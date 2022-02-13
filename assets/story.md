@@ -1,6 +1,9 @@
 # Story Document
 In this document I will layout any necessary groundwork and/or lore required for the creation of the story of the game. This includes stuff like locations, sounds, music and fights. I will try to organize this game like a D&D campaign since that is what I'm familiar with.
 
+Our hero is summoned by Inguri by a vision (the introduction cinematic) to go and help her, slowly over  the 
+course of the arcs her story will be unfolded, as well as your involvement in it
+
 ## Contents
 1. Quests
 2. Story, in three arcs.

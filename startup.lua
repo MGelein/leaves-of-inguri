@@ -1,14 +1,14 @@
 startup = {
-    map = 'fringe_outskirts',
+    map = 'arena',
 
     hero = {
-        health = 5,
+        health = 15,
         mana = 5,
         spells = {},
 
-        weapon = 'club',
-        shield = 'none',
-        armor = 'cloth',
+        weapon = 'trident',
+        shield = 'wood',
+        armor = 'leather',
     },
 
     rings = 0,

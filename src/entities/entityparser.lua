@@ -85,28 +85,28 @@ entityparser.monsterTemplates = {
     dog = {
         tile = 20,
         health = 2,
-        attack = 1,
-        defence = 0.3,
+        attack = 2,
+        defence = 0.1,
         detectRadius = 120,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
         speedMult = 1.1,
 
         dropTable = {'health'},
-        dropAmt = 3,
+        dropAmt = 1,
     },
     rat = {
         tile = 21,
-        health = 1,
-        attack = 1,
-        defence = 0.0,
+        health = 2,
+        attack = 1.5,
+        defence = 0.1,
         detectRadius = 50,
         behaviour = monsters.zombieBehaviour,
         bloodTint = {r = 1, g = 0.5, b = 0.5},
-        speedMult = 1,
+        speedMult = 0.8,
 
         dropTable = {'health'},
-        dropAmt = 2,
+        dropAmt = 0.5,
     },
 }
 
@@ -116,7 +116,7 @@ entityparser.weaponTemplates = {
         speed = 3,
         range = 20,
         age = 10,
-        cooldown = 0.8,
+        cooldown = 1,
         projectile = false,
         attack = 1,
     },
@@ -152,7 +152,7 @@ entityparser.weaponTemplates = {
         speed = 5,
         range = 40,
         age = 10,
-        cooldown = 0.5,
+        cooldown = 0.8,
         projectile = false,
         attack = 2,
     },
@@ -177,16 +177,16 @@ entityparser.weaponTemplates = {
 }
 
 entityparser.armorTemplates = {
-    cloth = {tile = 4, defence = 0.1},
-    leather = {tile = 5, defence = 0.3},
-    chain = {tile = 6, defence = 0.6},
-    plate = {tile = 7, defence = 0.8},
+    cloth = {tile = 4, defence = 0},
+    leather = {tile = 5, defence = 0.1},
+    chain = {tile = 6, defence = 0.3},
+    plate = {tile = 7, defence = 0.5},
 }
 
 entityparser.shieldTemplates = {
-    wood = {tile = 93, blockPct = 0.25},
-    reinforced = {tile = 95, blockPct = 0.5},
-    iron = {tile = 94, blockPct = 0.75},
+    wood = {tile = 93, blockPct = 0.2},
+    reinforced = {tile = 95, blockPct = 0.4},
+    iron = {tile = 94, blockPct = 0.6},
 }
 
 entityparser.objectTemplates = {
