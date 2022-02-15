@@ -12,7 +12,7 @@ An old, wooden shield lies in this long forgotten outpost.
 
 #takeShield
 {DEFAULT}
-:SET(tutorialShieldForgotten, false)
+:SET(tutorialShieldAcquired)
 :SHIELD(wood)
 You are now in the possession of a sturdy shield. Time to put it to use.
 - Close the chest. >exit

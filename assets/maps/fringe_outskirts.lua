@@ -1,7 +1,7 @@
 return {
-  version = "1.5",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.7.2",
+  tiledversion = "1.4.3",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 25,
@@ -19,7 +19,29 @@ return {
     {
       name = "rpgtiles",
       firstgid = 1,
-      filename = "tmx/rpgtiles.tsx"
+      filename = "tmx/rpgtiles.tsx",
+      tilewidth = 8,
+      tileheight = 8,
+      spacing = 0,
+      margin = 0,
+      columns = 14,
+      image = "../graphics/tiles.png",
+      imagewidth = 112,
+      imageheight = 80,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 8,
+        height = 8
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 140,
+      tiles = {}
     }
   },
   layers = {
@@ -35,8 +57,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -104,8 +124,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       encoding = "lua",
       data = {
@@ -170,8 +188,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -238,7 +254,7 @@ return {
           visible = true,
           properties = {
             ["command"] = "QUEST(tutorial,start)",
-            ["condition"] = "tutorial != end",
+            ["condition"] = "!tutorial",
             ["method"] = "load",
             ["type"] = "command"
           }
@@ -291,7 +307,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["condition"] = "tutorialShieldForgotten == true",
+            ["condition"] = "!tutorialShieldAcquired",
             ["method"] = "collide",
             ["text"] = "You get the feeling you should explore the building behind you.",
             ["type"] = "text"
@@ -332,24 +348,6 @@ return {
             ["method"] = "collide",
             ["type"] = "command"
           }
-        },
-        {
-          id = 76,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 144,
-          y = 352,
-          width = 48,
-          height = 8,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["command"] = "SET:(tutorialShieldForgotten, true)",
-            ["condition"] = "tutorial == attack",
-            ["method"] = "load",
-            ["type"] = "command"
-          }
         }
       }
     },
@@ -362,8 +360,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
       properties = {},
       objects = {
         {

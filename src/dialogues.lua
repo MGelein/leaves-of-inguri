@@ -119,11 +119,11 @@ end
 function dialogues.evaluateCondition(condition)
     if condition == 'DEFAULT' then return true end
     local parts = splitstring(condition, ' ')
-    if #parts == 1 then return dialogues.resolveVariableName(condition) ~= nil end
+    if #parts == 1 then return dialogues.resolveVariable(condition) end
     if #parts ~= 3 then print("Malformed condition:", condition) return false end
     
     local varname, operand, value = unpack(parts)
-    local var = dialogues.resolveVariableName(varname)
+    local var = dialogues.resolveVariable(varname)
     if type(var) == 'number' then value = tonumber(value)
     elseif type(var) == 'boolean' then value = value:lower() == 'true' end
     local fn = dialogues.operands[operand]
@@ -131,11 +131,20 @@ function dialogues.evaluateCondition(condition)
     return fn(var, value)
 end
 
+function dialogues.resolveVariable(variable)
+    local startChar = variable:sub(1, 1)
+    local inverted = startChar == '!' or startChar == '~'
+    local value = dialogues.resolveVariableName(inverted and variable:sub(2) or variable)
+    if type(value) == 'boolean' and inverted then value = not value end
+    return value
+end
+
 function dialogues.resolveVariableName(name)
+    print('resolved name =', name)
     if hero[name] then return hero[name]
     elseif hero.entity.effects[name] then return hero.entity.effects[name]
     elseif savefile.data.quests and savefile.data.quests[name] then return savefile.data.quests[name]
-    else return savefile.data[name] end
+    else return savefile.data[name] or false end
 end
 
 function dialogues.executeCommand(command)
