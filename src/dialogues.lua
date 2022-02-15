@@ -140,7 +140,6 @@ function dialogues.resolveVariable(variable)
 end
 
 function dialogues.resolveVariableName(name)
-    print('resolved name =', name)
     if hero[name] then return hero[name]
     elseif hero.entity.effects[name] then return hero.entity.effects[name]
     elseif savefile.data.quests and savefile.data.quests[name] then return savefile.data.quests[name]
