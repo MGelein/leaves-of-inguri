@@ -1,0 +1,18 @@
+@Dusty Old Chest
+
+#greeting
+{tutorialShieldAcquired}
+This chest is empty.
+- Turn away. >exit
+
+{DEFAULT}
+An old, wooden shield lies in this long forgotten outpost.
+- Take the shield. >takeShield
+- Turn away >exit
+
+#takeShield
+{DEFAULT}
+:SET(tutorialShieldForgotten, false)
+:SHIELD(wood)
+You are now in the possession of a sturdy shield. Time to put it to use.
+- Close the chest. >exit
