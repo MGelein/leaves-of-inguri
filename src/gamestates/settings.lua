@@ -11,25 +11,25 @@ function settings.start()
     gui.showOverlay(0)
     gui.showHeader('Settings', 100000)
 
-    local header = gui.label('Graphics', 300, 150, config.width - 600, 'center')
+    local header = components.label('Graphics', 300, 150, config.width - 600, 'center')
     header.font = assets.fonts.button
-    gui.label('Fullscreen: ', 300, 220, 200, 'right')
-    settings.fullscreen = gui.label(config.window.fullscreen and 'Enabled' or 'Disabled', 520, 220, 256, 'center')
+    components.label('Fullscreen: ', 300, 220, 200, 'right')
+    settings.fullscreen = components.label(config.window.fullscreen and 'Enabled' or 'Disabled', 520, 220, 256, 'center')
 
-    header = gui.label('Audio', 300, 350, config.width - 600, 'center')
+    header = components.label('Audio', 300, 350, config.width - 600, 'center')
     header.font = assets.fonts.button
-    gui.label('Master: ', 300, 420, 200, 'right')
+    components.label('Master: ', 300, 420, 200, 'right')
     settings.masterVol = gui.progressbar(config.audio.masterVolume * 100, 100, 520, 420, 256, 36, {0.6, 0, 0.6})
-    gui.label('Music: ', 300, 470, 200, 'right')
+    components.label('Music: ', 300, 470, 200, 'right')
     settings.bgmVol = gui.progressbar(config.audio.bgmVolume * 100, 100, 520, 470, 256, 36, {0.6, 0, 0.6})
-    gui.label('FX: ', 300, 520, 200, 'right')
+    components.label('FX: ', 300, 520, 200, 'right')
     settings.fxVol = gui.progressbar(config.audio.fxVolume * 100, 100, 520, 520, 256, 36, {0.6, 0, 0.6})
 
-    settings.applyButton = gui.button('Apply', (config.width / 2) - 200, 620, 180, function() 
+    settings.applyButton = components.button('Apply', (config.width / 2) - 200, 620, 180, function() 
         soundfx.play('ui_action')
         settings.apply() 
     end)
-    settings.cancelButton = gui.button('Back', (config.width / 2) + 20, 620, 180, function() 
+    settings.cancelButton = components.button('Back', (config.width / 2) + 20, 620, 180, function() 
         soundfx.play('ui_close')
         gamestates.setNext(mainmenu) 
     end)
@@ -42,7 +42,7 @@ function settings.start()
         settings.applyButton,
         settings.cancelButton
     }
-    settings.selectorLine = gui.line((config.width / 2) - 300, 0, (config.width / 2) + 300, 0, 2)
+    settings.selectorLine = components.line((config.width / 2) - 300, 0, (config.width / 2) + 300, 0, 2)
     settings.current = settings.controls[settings.selectedRow]
 end
 

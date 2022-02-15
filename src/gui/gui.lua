@@ -10,69 +10,14 @@ gui.manaCrystal = 99
 gui.key = 81
 gui.ring = 80
 gui.coin = 79
-gui.minimapMarker = 'none'
 gui.overlay = {
     alpha = 0,
     ease = nil,
     visible = false,
 }
 
-function gui.element(xPos, yPos, rPos, scaleX, scaleY)
-    local el = {
-        x = xPos or 0,
-        y = yPos or 0,
-        r = rPos or 0,
-        sx = scaleX or 1,
-        sy = scaleY or scaleX or 1,
-        visible = true,
-        wasVisible = true,
-
-        draw = function(self) end,
-        update = function(self, dt) end,
-        destroy = function(self) gui.list:remove(self) end
-    }
-    gui.list:add(el)
-    return el
-end
-
-function gui.panel(xPos, yPos, w, h)
-    local panel = gui.element(xPos, yPos)
-    panel.w = w
-    panel.h = h
-    panel.backgroundColor = {0, 0, 0, 0.8}
-    panel.lineColor = {1, 1, 1, 1}
-    panel.lineWidth = 4
-    panel.draw = function(self)
-        love.graphics.setColor(unpack(self.backgroundColor))
-        love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
-        love.graphics.setColor(unpack(self.lineColor))
-        love.graphics.setLineWidth(self.lineWidth)
-        love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
-        love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.setLineWidth(1)
-    end
-    return panel
-end
-
-function gui.label(string, xPos, yPos, limit, align, rPos, sx, sy)
-    local label = gui.element(xPos, yPos, rPos, sx, sy)
-    label.text = string
-    label.limit = limit or 100000
-    label.align = align or 'left'
-    label.font = assets.fonts.normal
-    label.color = {1, 1, 1}
-    label.draw = function(self)
-        love.graphics.setFont(self.font)
-        love.graphics.setColor(0, 0, 0)
-        love.graphics.printf(self.text, self.x + 1, self.y + 1, self.limit + 1, self.align, self.r, self.sx, self.sy)
-        love.graphics.setColor(unpack(label.color))
-        love.graphics.printf(self.text, self.x, self.y, self.limit, self.align, self.r, self.sx, self.sy)
-    end
-    return label
-end
-
 function gui.progressbar(value, max, xPos, yPos, width, height, color)
-    local bar = gui.element(xPos, yPos)
+    local bar = components.element(xPos, yPos)
     bar.maxValue = max
     bar.lastMax = max
     bar.value = value
@@ -123,17 +68,17 @@ end
 function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, easeProps)
     local easeTime = easeProps and easeProps.time or 1
     local easeDelay = easeProps and easeProps.delay or 0
-    local buttonGroup = gui.element(xPos, yPos)
+    local buttonGroup = components.element(xPos, yPos)
     buttonGroup.buttons = {}
     buttonGroup.selectedIndex = 1
-    buttonGroup.panel = gui.panel(xPos, -500, width, #definitions * verticalSpacing + 20)
+    buttonGroup.panel = components.panel(xPos, -500, width, #definitions * verticalSpacing + 20)
     ez.easeOut(buttonGroup.panel, {y = yPos}, {time = easeTime, delay = easeDelay})
     yPos = yPos + 20
     xPos = xPos + 20
     for i, def in ipairs(definitions) do
         for text, onActivate in pairs(def) do
             text = text:gsub('_', ' ')
-            local button = gui.button(text, xPos, -500, width - 40, onActivate, font)
+            local button = components.button(text, xPos, -500, width - 40, onActivate, font)
             ez.easeOut(button, {y = yPos}, {time = easeTime, delay = easeDelay})
             table.insert(buttonGroup.buttons, button)
             local verticalInc = verticalSpacing > button.h and verticalSpacing or button.h
@@ -173,48 +118,8 @@ function gui.buttongroup(definitions, xPos, yPos, width, verticalSpacing, font, 
     return buttonGroup
 end
 
-function gui.button(text, xPos, yPos, width, onActivate, font)
-    local w, lines = (font or assets.fonts.button):getWrap(text, width)
-    local button = gui.element(xPos, yPos)
-    button.text = text
-    button.w = width
-    button.h = (font or assets.fonts.button):getHeight() * #lines
-    button.selected = false
-    button.panel = gui.panel(xPos, yPos, width, button.h)
-    button.label = gui.label(text, xPos, yPos, width, 'center')
-    button.label.font = font or assets.fonts.button
-    button.update = function(self, dt)
-        button.panel.visible = self.visible and button.selected
-        button.label.visible = self.visible
-        button.panel.x = self.x
-        button.panel.y = self.y
-        button.label.x = self.x
-        button.label.y = self.y
-    end
-    button.destroy = function(self)
-        self.panel:destroy()
-        self.label:destroy()
-        gui.list:remove(self)
-    end
-    button.activate = onActivate
-    return button
-end
-
-function gui.line(x1, y1, x2, y2, thickness)
-    local line = gui.element(x1, y1)
-    line.thickness = thickness or 1
-    line.x2 = x2
-    line.y2 = y2
-    line.draw = function(self)
-        love.graphics.setLineWidth(self.thickness)
-        love.graphics.line(self.x, self.y, self.x2, self.y2)
-        love.graphics.setLineWidth(1)
-    end
-    return line
-end
-
 function gui.dialogue(data)
-    local dialogue = gui.element((config.width - config.gui.dialogueWidth) / 2, config.height / 3)
+    local dialogue = components.element((config.width - config.gui.dialogueWidth) / 2, config.height / 3)
     dialogue.w = config.gui.dialogueWidth
     dialogue.entries = data.entries
     dialogue.destroy = function(self)
@@ -270,18 +175,18 @@ function gui.textbox(text, xPos, yPos, w)
     local width, lines = assets.fonts.normal:getWrap(text, w - 20)
     local height = #lines * assets.fonts.normal:getHeight() + 20
     yPos = yPos - height
-    local box = gui.element(xPos, yPos)
+    local box = components.element(xPos, yPos)
     box.lineAmount = #lines
     box.text = text
     box.width = w
     box.height = height
     box.font = assets.fonts.normal
-    box.panel = gui.panel(xPos, yPos, w, box.height)
+    box.panel = components.panel(xPos, yPos, w, box.height)
     box.char = 1
     box.partOfDialogue = false
     box.interactLetGo = false
     box.attackLetGo = false
-    box.label = gui.label(text:sub(1, 1), xPos + 10, yPos + 10, w - 20)
+    box.label = components.label(text:sub(1, 1), xPos + 10, yPos + 10, w - 20)
 
     box.update = function(self)
         if not input.isDown('interact') then self.interactLetGo = true end
@@ -315,187 +220,9 @@ function gui.textbox(text, xPos, yPos, w)
     return box
 end
 
-function gui.icon(tile, xPos, yPos, rPos, sx, sy)
-    local icon = gui.element(xPos, yPos, rPos, sx, sy)
-    icon.tile = tile
-    icon.ox = 4
-    icon.oy = 4
-    icon.draw = function(self)
-        assets.entities.drawSprite(self.tile, self.x, self.y, self.r, self.sx * 4, self.sy * 4, self.ox, self.oy)
-    end
-    return icon
-end
-
-function gui.imgbox(img, scale)
-    local imgbox = gui.element(0, 0, 0, scale, scale)
-    imgbox.w = img:getWidth() * scale
-    imgbox.h = img:getHeight() * scale
-    imgbox.x = (config.width - imgbox.w) / 2
-    imgbox.y = (config.height -imgbox.h) / 2
-    imgbox.img = img
-    imgbox.draw = function(self)
-        love.graphics.draw(self.img, self.x, self.y, self.r, self.sx, self.sy)
-        love.graphics.setLineWidth(tilemap.scale)
-        love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
-        love.graphics.setLineWidth(1)
-    end
-    return imgbox
-end
-
-function gui.minimap()
-    local minimap = gui.element(0, -1000)
-    minimap.img = gui.imgbox(assets.minimap, tilemap.scale)
-    local targetY = minimap.img.y
-    minimap.img.y = config.height + minimap.img.h
-    minimap.labelText = ''
-    minimap.img.visible = false
-    minimap.drawOffset = 0
-    minimap.offDir = 1
-    minimap.markers = {
-        {
-            town = {x = 416, y = 448, label = 'The Fringe', destination = 'fringe_town'},
-        },{
-            fields = {x = 352, y = 416, label = 'The Fields', destination = 'testmap'},
-        },{  
-            abbey = {x = 320, y = 352, label = 'Abandoned Abbey'},
-        },{
-            outskirts = {x = 320, y = 192, label = 'Lost City Outskirts'},
-        },{
-            palace = {x = 288, y = 160, label = 'Lost City Palace'},
-        },{
-            gardens = {x = 224, y = 160, label = 'Lost City Gardens'},
-        },{
-            outersanctum = {x = 224, y = 64, label = 'Outer Sanctum'},
-        },{
-            temple = {x = 128, y = 64, label = 'Inguri Temple'},
-        },{
-            inguri = {x = 32, y = 32, label = 'Inguri'},
-        },
-    }
-    for i, marker in ipairs(minimap.markers) do
-        for markerName, data in pairs(marker) do
-            if markerName == gui.minimapMarker then
-                minimap.cursorIndex = i
-                break
-            end
-        end
-    end
-
-    minimap.getMarker = function(self, name)
-        for i, marker in ipairs(self.markers) do
-            for markerName, markerData in pairs(marker) do
-                if name == markerName then return markerData end
-            end
-        end
-    end
-    minimap.setLocationMarker = function(self, name) self.locationMarker = self:getMarker(name) end
-    minimap.setCursorMarker = function(self, name) self.cursorMarker = self:getMarker(name) end
-    minimap.destroy = function(self)
-        self.img:destroy()
-        gui.list:remove(self)
-    end
-    minimap.draw = function(self)
-        love.graphics.push()
-        self.img:draw()
-        love.graphics.translate(self.img.x, self.img.y)
-        self:drawCursor(self.locationMarker, 2, {1, 0, 0})
-        self:drawCursor(self.cursorMarker, 4, {1, 0.65, 0}, true)
-        self:drawLabel()
-
-        if game.allowFastTravel then
-            love.graphics.setFont(assets.fonts.normal)
-            love.graphics.printf('Press ATTACK/INTERACT to fast travel to location.', 0, self.img.h + 10, self.img.w, 'center')
-        end
-        love.graphics.pop()
-    end
-    minimap.drawLabel = function(self)
-        love.graphics.setFont(assets.fonts.normal)
-        love.graphics.setLineWidth(tilemap.scale)
-        love.graphics.setColor(0, 0, 0, 0.6)
-        love.graphics.rectangle('fill', self.labelX - 24, self.labelY - 32, self.labelW, 32)
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.rectangle('line', self.labelX - 24, self.labelY - 32, self.labelW, 32)
-        love.graphics.print(self.labelText, self.labelX - 16, self.labelY - 32)
-        love.graphics.setLineWidth(1)
-    end
-    minimap.drawCursor = function(self, marker, lineWidth, color, useOffset)
-        if not marker then return end
-        local off = useOffset and self.drawOffset or -0.5 * self.drawOffset
-        love.graphics.setColor(unpack(color))
-        love.graphics.setLineWidth(lineWidth)
-        love.graphics.rectangle('line', marker.x - off, marker.y - off, 32 + off * 2, 32 + off * 2)
-        love.graphics.setLineWidth(1)
-        love.graphics.setColor(1, 1, 1)
-    end
-    minimap.update = function(self, dt)
-        self.drawOffset = self.drawOffset + dt * 4 * self.offDir
-        if self.drawOffset > 2 then 
-            self.offDir = -1
-            self.drawOffset = 2
-        elseif self.drawOffset < 0 then
-            self.offDir = 1
-            self.drawOffset = 0
-        end
-
-        if input.isDownOnce('map') then game.popMenu() end
-        if input.isDownOnce('previous') or input.isDownOnce('left') or input.isDownOnce('up') then
-            self:updateCursor(1)
-        elseif input.isDownOnce('next') or input.isDownOnce('right') or input.isDownOnce('down') then
-            self:updateCursor(-1)
-        elseif input.isDownOnce('interact') or input.isDownOnce('attack') then
-            local destination = self.cursorMarker.destination
-            if destination and game.allowFastTravel then
-                local heroY = hero.entity.y
-                game.popMenu()
-                soundfx.play('travel')
-                ez.easeIn(hero.entity, {sy = 10, sx = 0.01, y = heroY - 500}, {time = 0.3}):complete(function() 
-                    tilemap.load(destination)
-                    heroY = hero.entity.y
-                    hero.entity.y = heroY - 500
-                    hero.entity.sy = 10
-                    hero.entity.sx = 0.01
-                    ez.easeOut(hero.entity, {sy = 1, sx = 1, y = heroY}, {time = 0.3})
-                end)
-            end
-        end
-    end
-    minimap.updateCursor = function(self, dir)
-        local cursorBackup = self.cursorIndex
-        self.cursorIndex = self.cursorIndex + dir
-        if self.cursorIndex > #self.markers then self.cursorIndex = #self.markers
-        elseif self.cursorIndex < 1 then self.cursorIndex = 1 end
-        for name, data in pairs(self.markers[self.cursorIndex]) do
-            if name then 
-                if savefile.isLocationDiscovered(name) then
-                    self:setCursorMarker(name) 
-                    if dir ~= 0 then soundfx.play('ui_select') end
-                else
-                    self.cursorIndex = cursorBackup
-                    if dir ~= 0 then soundfx.play('ui_error') end
-                end
-                break 
-            end
-        end
-        self.labelText = self.cursorMarker.label
-        self.labelW = assets.fonts.normal:getWidth(self.labelText) + 16
-        self.labelX = self.cursorMarker.x
-        self.labelY = self.cursorMarker.y
-        if self.labelX + self.labelW > self.img.w - 8 then
-            self.labelX = self.img.w - 8 - self.labelW
-        elseif self.labelX < 8 then
-            self.labelX = 8
-        end
-    end
-    minimap:setLocationMarker(gui.minimapMarker)
-    minimap:setCursorMarker(gui.minimapMarker)
-    minimap:updateCursor(0)
-    ez.easeInOut(minimap.img, {y = targetY})
-    return minimap
-end
-
 function gui.controlpanel(lines, x, y, w)
     local h = #lines * assets.fonts.normal:getHeight()
-    local control = gui.element(x, y)
+    local control = components.element(x, y)
     control.lines = lines
     control.inc = w / #lines[1]
     control.w = w
@@ -528,18 +255,8 @@ function gui.controlpanel(lines, x, y, w)
     return control
 end
 
-function gui.title(text, y)
-    local title = gui.element(0, -200)
-    title.text = text
-    title.draw = function(self)
-        love.graphics.setFont(assets.fonts.title)
-        love.graphics.printf(self.text, 0, self.y, config.width, 'center')
-    end
-    return title
-end
-
 function gui.saveslot(x, y, w, h, summary)
-    local slot = gui.element(x, 2000)
+    local slot = components.element(x, 2000)
     slot.w = w
     slot.h = h
     slot.thumb = summary.thumb
@@ -634,18 +351,18 @@ function gui.questpanel()
     local w = config.width - x * 2
     local h = config.height - y * 2
     local explanation = 'LEFT and RIGHT to navigate, ATTACK or INTERACT to set active, BLOCK to go back.'
-    local qpanel = gui.element(x, y)
+    local qpanel = components.element(x, y)
     qpanel.w = w
     qpanel.h = h
     qpanel.pages = pages
-    qpanel.panel = gui.panel(x, y, w, h)
+    qpanel.panel = components.panel(x, y, w, h)
     qpanel.currentPage = 1
-    qpanel.pageHeader = gui.label(qpanel.currentPage .. '/' .. #pages, 0, y + 4, config.width, 'center')
-    qpanel.questHeader = gui.label('No Quests Available', x + 32, y + 48, config.width, 'left')
+    qpanel.pageHeader = components.label(qpanel.currentPage .. '/' .. #pages, 0, y + 4, config.width, 'center')
+    qpanel.questHeader = components.label('No Quests Available', x + 32, y + 48, config.width, 'left')
     qpanel.questHeader.font = assets.fonts.button
-    qpanel.statusHeader = gui.label('status: --', config.width - x * 3 - 32, y + 64, x * 2, 'right')
-    qpanel.explanation = gui.label('Get some quests from people to fill your quest log!', x + 32, y + 112, qpanel.w - 64, 'left')
-    qpanel.controls = gui.label(explanation, 0, config.height - y - 32, config.width, 'center')
+    qpanel.statusHeader = components.label('status: --', config.width - x * 3 - 32, y + 64, x * 2, 'right')
+    qpanel.explanation = components.label('Get some quests from people to fill your quest log!', x + 32, y + 112, qpanel.w - 64, 'left')
+    qpanel.controls = components.label(explanation, 0, config.height - y - 32, config.width, 'center')
     qpanel.controls.font = assets.fonts.quest
     
     qpanel.loadPage = function(self, num)
@@ -701,29 +418,29 @@ function gui.createHeroWidget(x, y)
     local resetX = x
     local padding = 10
     local iconSpacing = 80
-    local widget = gui.element(x, y)
+    local widget = components.element(x, y)
     
     x = resetX + 32 + padding
-    widget.keyIcon = gui.icon(gui.key, x + 32, y + 16)
-    widget.keyLabel = gui.label(hero.keys, x + 48 + padding, y + 4)
+    widget.keyIcon = components.icon(gui.key, x + 32, y + 16)
+    widget.keyLabel = components.label(hero.keys, x + 48 + padding, y + 4)
     x = x + iconSpacing
-    widget.ringIcon = gui.icon(gui.ring, x + 32, y + 16)
-    widget.ringLabel = gui.label(hero.rings, x + 48 + padding, y + 4)
+    widget.ringIcon = components.icon(gui.ring, x + 32, y + 16)
+    widget.ringLabel = components.label(hero.rings, x + 48 + padding, y + 4)
     x = x + iconSpacing
-    widget.coinIcon = gui.icon(gui.coin, x + 32, y + 16)
-    widget.coinLabel = gui.label(hero.coins, x + 48 + padding, y + 4)
+    widget.coinIcon = components.icon(gui.coin, x + 32, y + 16)
+    widget.coinLabel = components.label(hero.coins, x + 48 + padding, y + 4)
 
     if #spells.known > 1 then
         y = y + 32
         x = resetX + padding
-        widget.manaIcon = gui.icon(gui.manaCrystal, x + 16, y + padding + 16)
+        widget.manaIcon = components.icon(gui.manaCrystal, x + 16, y + padding + 16)
         x = x + padding + 32
         widget.manaBar = gui.progressbar(hero.mana, hero.maxMana, x, y + padding, 256, 32, {0.4, 0.48, 0.9})
     else x = x + padding + 32 end
     
     x = resetX + padding
     y = y + 32 + padding
-    widget.healthIcon = gui.icon(gui.fullHeart, x + 16, y + padding + 16)
+    widget.healthIcon = components.icon(gui.fullHeart, x + 16, y + padding + 16)
     x = x + padding + 32
     widget.healthBar = gui.progressbar(hero.entity.health, hero.entity.maxHealth, x, y + padding, 256, 32, {0.9, 0, 0})
     widget.update = function(self)
@@ -758,9 +475,9 @@ function gui.showHeader(name, duration)
     local headerWidth = assets.fonts.header:getWidth(name)
     local xPos = (config.width - (headerWidth + 40)) / 2
 
-    local header = gui.element(0, -1000)
-    header.panel = gui.panel(xPos, 0, headerWidth + 40, 100)
-    header.label = gui.label(name, xPos + 20, 16, headerWidth, 'center')
+    local header = components.element(0, -1000)
+    header.panel = components.panel(xPos, 0, headerWidth + 40, 100)
+    header.label = components.label(name, xPos + 20, 16, headerWidth, 'center')
     header.label.font = assets.fonts.header
     header.destroy = function(self)
         self.panel:destroy()
@@ -783,10 +500,10 @@ function gui.showHeader(name, duration)
 end
 
 function gui.createQuestWidget(x, y)
-    local widget = gui.element(x, y)
+    local widget = components.element(x, y)
     widget.homeX = x
-    widget.header = gui.label('', -400, y, config.width, 'left')
-    widget.label = gui.label('', -400, y + assets.fonts.normal:getHeight(), config.width / 4, 'left')
+    widget.header = components.label('', -400, y, config.width, 'left')
+    widget.label = components.label('', -400, y + assets.fonts.normal:getHeight(), config.width / 4, 'left')
     widget.label.font = assets.fonts.quest
 
     widget.setState = function(self, state, questName)
@@ -847,12 +564,12 @@ end
 function gui.showImage(img)
     if not img then return end
     game.paused = true
-    game.menu = gui.imgbox(img, tilemap.scale)
+    game.menu = components.image(img, tilemap.scale)
 end
 
 function gui.showQuestStatus(status)
     if not status then return end
-    gui.questLabel = gui.label(status, -300, 10, 100, 'left')
+    gui.questLabel = components.label(status, -300, 10, 100, 'left')
     gui.questLabel.font = assets.fonts.quest
     ez.easeOut(gui.questLabel, {x = 10})
 end

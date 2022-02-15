@@ -98,7 +98,7 @@ function game.openMenu()
 end
 
 function game.openMinimap()
-    return gui.minimap()
+    return minimap.open()
 end
 
 function game.openSave()

@@ -13,7 +13,7 @@ end
 function mainmenu.start()
     mapbackground.showMap('mainmenu')
     music.play()
-    local title = gui.title(config.window.title, -200)
+    local title = components.title(config.window.title, -200)
     ez.easeOut(title, {y = 100}, {delay = 1})
     gui.showOverlay(0)
     

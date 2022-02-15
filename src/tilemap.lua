@@ -38,7 +38,7 @@ function tilemap.load(name)
     savefile.data.currentMapName = tilemap.data.properties.name
     savefile.discover(name)
     music.play(tilemap.data.properties.bgm)
-    gui.minimapMarker = tilemap.data.properties.minimap or 'none'
+    minimap.activeMarker = tilemap.data.properties.minimap or 'none'
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
     triggers.onLoad()
