@@ -3,7 +3,7 @@ require 'imports'
 function love.load()
     if config.forceSettingsOverwrite then savefile.write('settings.ini', config) end
     config = savefile.read('settings.ini') or config
-    
+
     love.mouse.setVisible(false)
     love.graphics.setLineStyle('rough')
     assets.load()

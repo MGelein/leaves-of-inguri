@@ -1,3 +1,4 @@
+love = love
 hc = require("lib.hc")
 ez = require("ez")
 require("screen")

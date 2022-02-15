@@ -104,7 +104,6 @@ function dialogues.evaluateConditions(conditions)
     conditions = conditions:gsub(' and ', '&')
     conditions = conditions:gsub(' or ', '|');
     local conditionals = splitstring(conditions, '&')
-    local evaluations = {}
     for _, condition in ipairs(conditionals) do
         local optionals = splitstring(trimstring(condition), '|')
         local foundOption = false
