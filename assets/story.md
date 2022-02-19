@@ -138,16 +138,19 @@ Mortals tried to steal the power of magic from the gods. To steal the power of I
 
 The home of Inguri was called Inguri Forest, a beautiful sacred forest where her most important guardians and wood elves lived close to her in harmony.
 
-The Fringe was a thriving business town at its height, but dropped into decline as the elves were never heard from again. Those that dared to venture into the forest and to the Lost City were either never heard from again, or they came back with horrific tales of the undead.
+The Fringe was a thriving farming town at its height due to its fertile soil, but dropped into decline as the elves were never heard from again. Those that dared to venture into the forest and to the Lost City were either never heard from again, or they came back with horrific tales of the undead.
 
 As the hero you have heard of the magic tales of old, and you want to find any remnants of the magic. 
 
 ## Characters
 - Hero
-- Archeologist
+- Archeologist/Merchant
 - Farmer
+- Old man
+- Young girl
+- Concerned family member
 - Forester
-- Inn Keeper
+- Inn Keeper, Bob
 - Inguri
 - Highpriest Elthar
 - Cultist Marius
