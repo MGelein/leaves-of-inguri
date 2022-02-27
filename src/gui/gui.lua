@@ -143,7 +143,7 @@ function gui.dialogue(data)
             end
         end
 
-        for i, command in ipairs(entry.commands) do dialogues.executeCommand(command) end
+        dialogues.executeCommands(entry.commands)
         self.textbox = gui.textbox(entry.text, self.x, self.y, self.w)
         self.textbox.partOfDialogue = true
 

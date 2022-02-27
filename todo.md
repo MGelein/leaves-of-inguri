@@ -77,3 +77,4 @@
 - Show names of dialogue entries in the UI
 - Add tile icons above head of npcs
 - Fix alignment with multiline dialog and header
+- Make the game autosave instead of manual save

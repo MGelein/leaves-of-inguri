@@ -45,6 +45,7 @@ function quests.setState(name, state)
             gui.questWidget:setState(quest.title, quest[state].summary)
         end
     end
+    game.saveProgress()
 end
 
 function quests.save()

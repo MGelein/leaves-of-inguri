@@ -33,7 +33,5 @@ Besides various trigger methods we also have loads of different types. Some of t
 - __npc (id, [marker])__: denotes that this trigger is the position of an npc. Needs an `id` property that links it to an npc. Optionally include a marker tile, this is shown above the head of the NPC (sprite-number 103 is '!')
 - __text (text)__: shows the specified text in a UI box, great for popups and exposition. The text property contains the text to show.
 - __warp (destination)__: warps the hero to another map, or another location on the same map. The location is formatted: `MAP_ID@COL,ROW`
-- __changeEntity (tile)__: Changes the entity that is on the same tile as this trigger to another sprite, denoted by its tile-id.
-- __removeEntity ()__: Removes the entity that is on the same tile as this trigger.
 - __drop(contents...)__: Drops the supplied list of contents (separated by a comma, with each entry detailing the drop type and drop amount separated with a colon). 
 - __command(commandLine)__: Executes a given command line from the dialogue system

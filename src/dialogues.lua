@@ -1,4 +1,5 @@
 dialogues = {}
+dialogues.saveUpdateNecessary = false
 dialogues.cEntry = {}
 dialogues.lineTypes = {
     ['@'] = 'name',
@@ -145,6 +146,12 @@ function dialogues.resolveVariableName(name)
     else return savefile.data[name] or false end
 end
 
+function dialogues.executeCommands(commands)
+    dialogues.saveUpdateNecessary = false
+    for i, command in ipairs(commands) do dialogues.executeCommand(command) end
+    if dialogues.saveUpdateNecessary then game.saveProgress() end
+end
+
 function dialogues.executeCommand(command)
     local fnName = 'execute' .. capitalize(command.type) .. 'Command'
     local fn = dialogues[fnName]
@@ -160,6 +167,7 @@ function dialogues.executeCoinsCommand(args)
         amt = hero.coins + tonumber(args[1])
     end
     hero.setCoins(amt)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeRingsCommand(args)
@@ -170,6 +178,7 @@ function dialogues.executeRingsCommand(args)
         amt = hero.rings + tonumber(args[1])
     end
     hero.setRings(amt)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeKeysCommand(args)
@@ -180,6 +189,7 @@ function dialogues.executeKeysCommand(args)
         amt = hero.keys + tonumber(args[1])
     end
     hero.setKeys(amt)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeHealthCommand(args)
@@ -190,6 +200,7 @@ function dialogues.executeHealthCommand(args)
         amt = hero.maxHealth + tonumber(args[1])
     end
     hero.setStats(amt, hero.maxMana)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeManaCommand(args)
@@ -200,27 +211,32 @@ function dialogues.executeManaCommand(args)
         amt = hero.maxMana + tonumber(args[1])
     end
     hero.setStats(hero.maxHealth, amt)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeWeaponCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for weapon, expected 1, got " .. tostring(#args)) return end
     hero.setWeapon(args[1])
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeShieldCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for shield, expected 1, got " .. tostring(#args)) return end
     hero.setShield(args[1])
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeArmorCommand(args)
     if #args ~= 1 then print("Wrong number of arguments for armor, expected 1, got " .. tostring(#args)) return end
     hero.setArmor(args[1])
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeQuestCommand(args)
     if #args ~= 2 then print("Wrong number of arguments for quest, expected 2, got " .. tostring(#args)) return end
     local name, state = unpack(args)
     quests.setState(name, state)
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeHealCommand(args)
@@ -242,6 +258,7 @@ function dialogues.executeSetCommand(args)
     local value = args[2] or true
     local name = args[1]
     savefile.data[name] = value
+    dialogues.saveUpdateNecessary = true
 end
 
 function dialogues.executeKillCommand(args)

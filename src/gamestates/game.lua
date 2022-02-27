@@ -34,6 +34,7 @@ function game.update(dt)
         triggers.update(dt)
         pxparticles.update(dt)
         tilemap.update()
+        savefile.updateIfNeeded()
         if input.isDownOnce('menu') then game.showMenu('menu') end
         if input.isDownOnce('map') then game.showMenu('minimap') end
     else
@@ -87,7 +88,6 @@ end
 
 function game.openMenu()
     local menu = {
-        {Save = function() game.showMenu('save') end},
         {Return = function() game.popMenu() end},
         {Quests = function() game.showMenu('quests') end},
         {Controls = function() game.showMenu('controls') end},
@@ -101,10 +101,8 @@ function game.openMinimap()
     return minimap.open()
 end
 
-function game.openSave()
-    savefile.save(savefile.currentSlot)
-    local text = "Saving done!"
-    return gui.textbox(text, (config.width - config.gui.textboxWidth) / 2, config.height - 10, config.gui.textboxWidth)
+function game.saveProgress()
+    savefile.needsUpdate = true
 end
 
 function game.openControls()

@@ -42,6 +42,7 @@ function tilemap.load(name)
     tilemap.nextHeroPos = nil
     screen.snapToFollow = true
     triggers.onLoad()
+    game.saveProgress()
 end
 
 function tilemap.getLayerByName(name)
@@ -160,6 +161,7 @@ function tilemap.recordEntityDeath(entity)
     if entity.id < 1 then return end
     local key = tilemap.name .. 'Entity' .. entity.id .. 'Dead'
     savefile.data[key] = true
+    game.saveProgress()
 end
 
 function tilemap.isAlive(id)

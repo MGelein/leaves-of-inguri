@@ -2,11 +2,7 @@ savefile = {}
 savefile.data = {}
 savefile.url = 'savefile'
 savefile.currentSlot = -1
-
-function savefile.exists(slot)
-    if love.filesystem.getInfo(savefile.url .. tostring(slot)) then return true
-    else return false end
-end
+savefile.needsUpdate = false
 
 function savefile.isLocationDiscovered(name)
     return savefile.data[name .. 'Discovered'] == true
@@ -21,15 +17,24 @@ function savefile.save(slot)
     quests.save()
     spells.save()
     savefile.data.timePlayed = game.timePlayed
-    savefile.write(savefile.url .. tostring(slot), savefile.data)
+    savefile.needsUpdate = false
+    
+    if slot > -1 then 
+        savefile.write(savefile.url .. tostring(slot), savefile.data)
+    end
 end
 
 function savefile.updateThumb()
     love.graphics.captureScreenshot('thumb' .. savefile.currentSlot .. '.png')
 end
 
+function savefile.updateIfNeeded()
+    if savefile.needsUpdate then savefile.save(savefile.currentSlot) end
+end
+
 function savefile.load(slot)
-    savefile.data = savefile.read(savefile.url .. tostring(slot)) or {}
+    local data = savefile.read(savefile.url .. tostring(slot)) or {}
+    savefile.data = slot > -1 and data or {}
     hero.load()
     spells.load()
     quests.restoreFromSave()

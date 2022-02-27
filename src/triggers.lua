@@ -59,6 +59,7 @@ function triggers.command(self)
     self.properties.command = self.properties.command:gsub(':', '')
     local command = dialogues.parseCommand(self.properties.command or '')
     dialogues.executeCommand(command)
+    game.saveProgress()
 end
 
 function triggers.draw()
@@ -99,31 +100,6 @@ function triggers.drop(self)
     end
     pickups.dropList(drops, self.src.x, self.src.y)
     triggers.list:remove(self)
-end
-
-function triggers.changeEntity(self)
-    if not self.properties.tile then return end
-    local tile = tonumber(self.properties.tile)
-    local x = self.x * tilemap.scale + 16
-    local y = self.y * tilemap.scale + 16
-    for i, ent in ipairs(entities.list.all) do
-        if x == ent.x and y == ent.y then
-            entities.remove(ent)
-            if tilemap.isAlive(ent.id) then entityparser.parse(ent.id, tile, x - 16, y - 16) end
-            break
-        end
-    end
-end
-
-function triggers.removeEntity(self)
-    local x = self.x * tilemap.scale + 16
-    local y = self.y * tilemap.scale + 16
-    for i, ent in ipairs(entities.list.all) do
-        if x == ent.x and y == ent.y then
-            entities.remove(ent)
-            break
-        end
-    end
 end
 
 function triggers.parseDestination(dest)
