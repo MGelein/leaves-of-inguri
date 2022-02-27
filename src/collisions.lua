@@ -58,9 +58,9 @@ function collisions.handleEntity(entA, collider)
             local totalMass = entA.mass + entB.mass
             if totalMass > 0 then
                 if entB.mass == 0 then
-                    entA:move(delta.x, delta.y)
+                    collisions.handleObjectInteract(entA, entB, delta.x, delta.y)
                 elseif entA.mass == 0 then
-                    entB:move(-delta.x, -delta.y)
+                    collisions.handleObjectInteract(entB, entA, -delta.x, -delta.y)
                 else
                     local ratioB = entB.mass / totalMass
                     local ratioA = entA.mass / totalMass
@@ -89,5 +89,26 @@ function collisions.handleEntity(entA, collider)
             end
         end
         ::continue::
+    end
+end
+
+function collisions.handleObjectInteract(actor, object, dx, dy)
+    actor:move(dx, dy)
+    local actorVector = vector.create(actor.vx, actor.vy)
+    local actorSpeed = vector.length(actorVector)
+    if actorSpeed < 1 then return end
+    
+    if object.interact then
+        if not object.tryingToInteract then object.tryingToInteract = true
+        else
+            local actorDir = vector.normalize(actorVector)
+            local collisionDir = vector.normalize(vector.create(actor.x - object.x, actor.y - object.y))
+            local similarity = vector.dot(collisionDir, actorDir)
+            if similarity < 0 then
+                object:interact()
+                object.tryingToInteract = nil
+                actor:move(dx, dy)
+            end
+        end
     end
 end

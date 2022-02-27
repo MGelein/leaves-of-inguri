@@ -195,10 +195,20 @@ entityparser.objectTemplates = {
         health = 2,
         colliderScale = 0.8,
         description = {'A simple wooden door'},
-        onInteract = function(self) 
+        onInteract = function(self)
             self.ignoreCollision = not self.ignoreCollision
-            self.sx = self.sx > 0.5 and 0 or 1
+            self.sx = self.ignoreCollision and 0 or 1
+            self.waitTime = self.ignoreCollision and 2 or -1
+            self.timeOut = 1
             soundfx.play('door')
+        end,
+        update = function(self, dt)
+            if self.waitTime and self.waitTime > 0 then
+                self.waitTime = self.waitTime - dt
+                if self.waitTime < 0 then
+                    self:interact()
+                end
+            end
         end
     },
     campfire = {

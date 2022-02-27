@@ -19,6 +19,7 @@ require("music")
 require("mapbackground")
 require("quests")
 require("startup")
+require("vector")
 
 require("gui.gui")
 require("gui.components")

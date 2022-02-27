@@ -7,7 +7,7 @@ function objects.create(id, xPos, yPos, template)
     object.onDeath = template.onDeath
     object.collider.class = 'object'
     object.collider:scale(template.colliderScale or 1)
-    object.index = i
+    object.index = id
     object.description = template.description
     object.dropTable = template.dropTable
     object.dropAmt = template.dropAmt
